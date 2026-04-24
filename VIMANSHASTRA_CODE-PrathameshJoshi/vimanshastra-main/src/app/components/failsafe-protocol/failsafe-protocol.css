@@ -1,0 +1,349 @@
+.failsafe-section {
+  padding: var(--section-padding);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent, rgba(212, 164, 36, 0.02), transparent);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-header .section-label {
+  justify-content: center;
+}
+
+.section-header .section-subtitle {
+  margin: 0 auto;
+}
+
+/* Schematic Layout */
+.schematic-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+/* Control Panel */
+.control-panel {
+  padding: 24px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.panel-header {
+  margin-bottom: 20px;
+}
+
+.panel-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #4ade80;
+  margin-bottom: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.module-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--white-05);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  color: var(--white-80);
+  font-family: var(--font-body);
+}
+
+.module-item:hover {
+  background: var(--white-10);
+  border-color: var(--white-10);
+}
+
+.module-item.active {
+  background: rgba(212, 164, 36, 0.08);
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(212, 164, 36, 0.1);
+}
+
+.module-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.module-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.module-name {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--white-90);
+  margin-bottom: 2px;
+}
+
+.module-stats {
+  display: flex;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--white-40);
+}
+
+.module-divider {
+  opacity: 0.3;
+}
+
+.module-status {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.status-armed {
+  background: rgba(255, 107, 107, 0.15);
+  color: #ff6b6b;
+}
+
+.status-standby {
+  background: rgba(107, 207, 255, 0.15);
+  color: #6bcfff;
+}
+
+.panel-footer {
+  padding-top: 16px;
+  border-top: 1px solid var(--white-05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.total-mass, .impact-reduction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label, .reduction-label {
+  font-size: 0.75rem;
+  color: var(--white-40);
+}
+
+.total-value {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.reduction-value {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+/* Schematic Display */
+.schematic-display {
+  position: relative;
+}
+
+.schematic-frame {
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(6, 11, 24, 0.8);
+  margin-bottom: 20px;
+}
+
+.schematic-hud-top, .schematic-hud-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--white-30, rgba(255,255,255,0.3));
+  padding: 8px 4px;
+}
+
+.hud-version {
+  color: var(--gold-400);
+}
+
+.aircraft-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.module-glow {
+  filter: url(#glow);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.ejection-arrows {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.ejection-arrows.show-arrows {
+  opacity: 1;
+}
+
+.highlight {
+  fill: rgba(107, 207, 255, 0.15) !important;
+}
+
+.schematic-hud-bottom .hud-coord {
+  color: var(--white-20);
+}
+
+.hud-info {
+  color: var(--gold-500);
+  opacity: 0.6;
+}
+
+/* Legend */
+.schematic-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--white-60);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-circle-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-400);
+  border-style: dashed;
+}
+
+/* Protocol Steps */
+.protocol-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.step-card {
+  padding: 28px 24px;
+  border-radius: 16px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  text-align: center;
+}
+
+.step-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gold-300), var(--gold-600));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.step-desc {
+  font-size: 0.8rem;
+  color: var(--white-60);
+  line-height: 1.6;
+}
+
+.step-connector {
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .schematic-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .control-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .protocol-steps {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .step-connector {
+    transform: rotate(90deg);
+  }
+
+  .step-card {
+    max-width: 100%;
+  }
+}

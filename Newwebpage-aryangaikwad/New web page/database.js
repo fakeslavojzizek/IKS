@@ -1,0 +1,49 @@
+window.apiDatabase = {
+    "modules": [
+        {
+            "id": "yoga",
+            "src": "stitch_vibrant_holistic_yoga_guide/yoga_the_breath_of_life/screen.png",
+            "url": "stitch_vibrant_holistic_yoga_guide/yoga_the_breath_of_life/code.html",
+            "title": "Yoga: The Breath of Life",
+            "category": "Asana Practice",
+            "description": "Discover the profound synergy between physical movement and mindful breath control.",
+            "keywords": ["yoga", "breath", "asana", "vinyasa", "pranayama", "movement", "body", "stretch"]
+        },
+        {
+            "id": "mudras",
+            "src": "stitch_vibrant_holistic_yoga_guide/mudras_sacred_seals_of_energy/screen.png",
+            "url": "stitch_vibrant_holistic_yoga_guide/mudras_sacred_seals_of_energy/code.html",
+            "title": "Mudras: Sacred Seals of Energy",
+            "category": "Hand Gestures",
+            "description": "Explore the intricate geometry of ancient hand seals to channel your life force.",
+            "keywords": ["mudra", "hands", "seal", "energy", "focus", "anjali", "brain", "gesture"]
+        },
+        {
+            "id": "chakras",
+            "src": "stitch_vibrant_holistic_yoga_guide/chakra_alignment_the_full_spectrum_guide/screen.png",
+            "url": "stitch_vibrant_holistic_yoga_guide/chakra_alignment_the_full_spectrum_guide/code.html",
+            "title": "Chakra Alignment",
+            "category": "Energy Centers",
+            "description": "A comprehensive guide to analyzing, healing, and aligning your seven energy centers.",
+            "keywords": ["chakra", "energy", "root", "crown", "alignment", "spectrum", "healing", "aura"]
+        },
+        {
+            "id": "panchakarma",
+            "src": "stitch_vibrant_holistic_yoga_guide/panchakarma_deep_purification/screen.png",
+            "url": "stitch_vibrant_holistic_yoga_guide/panchakarma_deep_purification/code.html",
+            "title": "Panchakarma: Purification",
+            "category": "Detoxification",
+            "description": "The ultimate Ayurvedic deep tissue and digest detox system.",
+            "keywords": ["detox", "panchakarma", "purification", "cleanse", "ayurveda", "digestion", "health"]
+        },
+        {
+            "id": "sound",
+            "src": "stitch_vibrant_holistic_yoga_guide/sound_vibrational_alchemy/screen.png",
+            "url": "stitch_vibrant_holistic_yoga_guide/sound_vibrational_alchemy/code.html",
+            "title": "Sound: Vibrational Alchemy",
+            "category": "Healing Frequencies",
+            "description": "Engage your senses with healing vibrations and ancient chanting techniques.",
+            "keywords": ["sound", "frequency", "alchemy", "vibration", "music", "chaning", "mantra", "audio"]
+        }
+    ]
+};

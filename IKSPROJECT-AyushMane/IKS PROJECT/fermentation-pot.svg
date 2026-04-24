@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#4a3b2b"/>
+      <stop offset="100%" stop-color="#140f0a"/>
+    </radialGradient>
+    <radialGradient id="clayPot" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#c96d36"/>
+      <stop offset="60%" stop-color="#8a4116"/>
+      <stop offset="100%" stop-color="#4d2105"/>
+    </radialGradient>
+    <linearGradient id="liquid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#803310"/>
+      <stop offset="100%" stop-color="#3b1101"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Background stone texture suggestion -->
+  <circle cx="200" cy="150" r="100" fill="#2d2217" opacity="0.5"/>
+  <circle cx="600" cy="400" r="150" fill="#2d2217" opacity="0.5"/>
+
+  <!-- The large Sandhana Kalpana Pot -->
+  <g filter="url(#glow)">
+    <!-- Base shadow -->
+    <ellipse cx="400" cy="520" rx="180" ry="40" fill="#000000" opacity="0.6"/>
+    <!-- Pot body -->
+    <ellipse cx="400" cy="380" rx="180" ry="150" fill="url(#clayPot)"/>
+    <!-- Pot neck -->
+    <path d="M 330 250 L 470 250 L 480 180 L 320 180 Z" fill="#73320c"/>
+    <ellipse cx="400" cy="250" rx="70" ry="20" fill="url(#clayPot)"/>
+    <!-- Pot Rim -->
+    <ellipse cx="400" cy="180" rx="90" ry="25" fill="url(#clayPot)"/>
+    <!-- Hole opening -->
+    <ellipse cx="400" cy="180" rx="75" ry="15" fill="#140601"/>
+    
+    <!-- Fermentation Liquid Inside edge -->
+    <ellipse cx="400" cy="185" rx="65" ry="10" fill="url(#liquid)"/>
+  </g>
+
+  <!-- Bubbles representing active fermentation microbes -->
+  <circle cx="380" cy="175" r="4" fill="#edbb93" opacity="0.8"/>
+  <circle cx="410" cy="180" r="5" fill="#edbb93" opacity="0.8"/>
+  <circle cx="395" cy="165" r="3" fill="#edbb93" opacity="0.6"/>
+  <circle cx="425" cy="170" r="4" fill="#edbb93" opacity="0.7"/>
+  <circle cx="365" cy="182" r="3" fill="#edbb93" opacity="0.8"/>
+
+  <!-- Herbal/Leaf adornment beside it -->
+  <path d="M 230 450 Q 150 400 180 350 Q 220 380 230 450 Z" fill="#4d7023"/>
+  <path d="M 240 460 Q 200 520 130 500 Q 180 480 240 460 Z" fill="#314f11"/>
+  
+</svg>

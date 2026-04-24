@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <defs>
+        <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#8e44ad;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#3498db;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="fieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <!-- Sky -->
+    <rect width="800" height="400" fill="url(#skyGradient)" />
+    <!-- Sun -->
+    <circle cx="700" cy="80" r="40" fill="#f1c40f" opacity="0.8" />
+    <!-- Fields -->
+    <path d="M0,400 L800,400 L800,250 Q600,200 400,250 Q200,300 0,250 Z" fill="url(#fieldGradient)" />
+    <!-- Rows of crops -->
+    <g opacity="0.6">
+        <line x1="100" y1="260" x2="50" y2="400" stroke="#1b5e20" stroke-width="2" />
+        <line x1="200" y1="270" x2="150" y2="400" stroke="#1b5e20" stroke-width="2" />
+        <line x1="300" y1="275" x2="250" y2="400" stroke="#1b5e20" stroke-width="2" />
+        <line x1="400" y1="275" x2="350" y2="400" stroke="#1b5e20" stroke-width="2" />
+        <line x1="500" y1="270" x2="450" y2="400" stroke="#1b5e20" stroke-width="2" />
+        <line x1="600" y1="260" x2="550" y2="400" stroke="#1b5e20" stroke-width="2" />
+    </g>
+    <!-- Ancient Tree Silhouette -->
+    <path d="M600,260 Q620,200 650,220 Q680,180 710,220 Q740,200 760,260 L600,260 Z" fill="#145a32" />
+</svg>

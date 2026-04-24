@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#3d141e"/>
+      <stop offset="100%" stop-color="#140609"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b8c2cc"/>
+      <stop offset="50%" stop-color="#7a8794"/>
+      <stop offset="100%" stop-color="#3d464f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5832a" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#e3360b" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="3" dy="8" stdDeviation="5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Embers/Fire for heat sterilization -->
+  <circle cx="400" cy="450" r="100" fill="url(#glow)"/>
+  <circle cx="350" cy="480" r="50" fill="#f05411" opacity="0.6"/>
+  <circle cx="450" cy="460" r="60" fill="#f05411" opacity="0.6"/>
+  
+  <path d="M 320 480 Q 400 400 480 480" stroke="#f0aa11" stroke-width="4" fill="none"/>
+  
+  <!-- Fire sparks -->
+  <circle cx="380" cy="350" r="4" fill="#fae17a" opacity="0.8"/>
+  <circle cx="420" cy="370" r="6" fill="#fae17a" opacity="0.9"/>
+  <circle cx="450" cy="330" r="3" fill="#fae17a" opacity="0.7"/>
+
+  <!-- Ancient Surgical Instrument (Scalpel/Forceps style) -->
+  <g filter="url(#shadow)" transform="translate(100, -50)">
+    <!-- Handle -->
+    <rect x="250" y="250" width="20" height="200" fill="#4d3119"/>
+    <line x1="260" y1="250" x2="260" y2="450" stroke="#2b1a0d" stroke-width="4"/>
+    
+    <!-- Metal joint -->
+    <rect x="245" y="230" width="30" height="20" fill="url(#metal)"/>
+    
+    <!-- Curved Blade being heated -->
+    <path d="M 245 230 C 200 150, 300 100, 260 230" fill="url(#metal)"/>
+    
+    <!-- Heating glow on blade -->
+    <path d="M 245 230 C 200 150, 300 100, 260 230" fill="#f05411" opacity="0.4"/>
+  </g>
+
+  <!-- Second Instrument crossing over -->
+  <g filter="url(#shadow)" transform="translate(150, 100) rotate(45)">
+    <!-- Handle -->
+    <rect x="350" y="150" width="15" height="180" fill="#5c452e"/>
+    <line x1="357" y1="150" x2="357" y2="330" stroke="#332415" stroke-width="3"/>
+    
+    <!-- Metal probe tip -->
+    <path d="M 350 150 L 357 50 L 365 150 Z" fill="url(#metal)"/>
+  </g>
+</svg>

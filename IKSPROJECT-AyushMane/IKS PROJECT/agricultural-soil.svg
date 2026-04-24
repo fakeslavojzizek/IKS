@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+    <defs>
+        <radialGradient id="soilGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" style="stop-color:#795548;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#3e2723;stop-opacity:1" />
+        </radialGradient>
+    </defs>
+    <!-- Soil -->
+    <rect width="400" height="300" fill="url(#soilGlow)" rx="10" />
+    <!-- Texture/Microbes dots -->
+    <g fill="#8d6e63" opacity="0.4">
+        <circle cx="50" cy="50" r="2" />
+        <circle cx="120" cy="80" r="3" />
+        <circle cx="200" cy="40" r="2" />
+        <circle cx="280" cy="90" r="4" />
+        <circle cx="350" cy="60" r="2" />
+        <circle cx="80" cy="150" r="3" />
+        <circle cx="160" cy="180" r="2" />
+        <circle cx="240" cy="160" r="4" />
+        <circle cx="320" cy="200" r="3" />
+        <circle cx="60" cy="250" r="2" />
+        <circle cx="140" cy="230" r="3" />
+        <circle cx="220" cy="270" r="2" />
+        <circle cx="300" cy="240" r="4" />
+        <circle cx="370" cy="280" r="2" />
+    </g>
+    <!-- Plant Roots -->
+    <path d="M200,0 Q180,50 160,100 Q140,150 150,200" fill="none" stroke="#aed581" stroke-width="3" opacity="0.6" />
+    <path d="M200,0 Q220,60 240,110 Q260,160 250,220" fill="none" stroke="#aed581" stroke-width="3" opacity="0.6" />
+    <path d="M200,0 Q200,80 200,150 Q200,220 210,290" fill="none" stroke="#aed581" stroke-width="2" opacity="0.4" />
+</svg>

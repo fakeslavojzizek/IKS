@@ -1,0 +1,102 @@
+<section class="failsafe-section" id="failsafe">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <div class="section-label">Chapter II</div>
+      <h2 class="section-title">The Fail-Safe <span class="gold">Protocol</span></h2>
+      <p class="section-subtitle">
+        Inspired by principles found in ancient texts, Kinetic Mass Reduction (KMR) proposes a revolutionary
+        approach: eject non-essential mass during an emergency to dramatically reduce impact energy.
+      </p>
+    </div>
+
+    <!-- Main Schematic Area -->
+    <div class="schematic-layout">
+      <!-- Left: Module Control Panel -->
+      <div class="control-panel glass-card">
+        <div class="panel-header">
+          <div class="panel-status">
+            <span class="status-dot"></span>
+            <span>SYSTEM ARMED</span>
+          </div>
+          <div class="panel-title">Ejection Control Matrix</div>
+        </div>
+
+        <div class="module-list">
+          @for (module of modules; track module.id) {
+            <button
+              class="module-item"
+              [class.active]="activeModule === module.id"
+              (click)="setActive(module.id)"
+              [attr.id]="'module-btn-' + module.id"
+            >
+              <div class="module-indicator" [style.background]="module.color"></div>
+              <div class="module-info">
+                <span class="module-name">{{ module.name }}</span>
+                <div class="module-stats">
+                  <span class="module-mass">{{ module.mass }}</span>
+                  <span class="module-divider">|</span>
+                  <span class="module-force">{{ module.ejectionForce }}</span>
+                </div>
+              </div>
+              <div class="module-status" [class]="'status-' + module.status.toLowerCase()">
+                {{ module.status }}
+              </div>
+            </button>
+          }
+        </div>
+
+        <div class="panel-footer">
+          <div class="total-mass">
+            <span class="total-label">Total Ejectable Mass</span>
+            <span class="total-value">{{ getTotalEjectMass() }} kg</span>
+          </div>
+          <div class="impact-reduction">
+            <span class="reduction-label">Est. Impact Energy Reduction</span>
+            <span class="reduction-value gradient-text">~85%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Aircraft Schematic Image -->
+      <div class="schematic-display" style="display: flex; align-items: center; justify-content: center;">
+        <div class="schematic-frame glass-card" style="padding: 0; overflow: hidden; width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <img src="assets/aircraft-schematic.png" alt="Modular Aircraft Schematic" style="width: 100%; height: auto; display: block; object-fit: contain;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- How It Works Steps -->
+    <div class="protocol-steps">
+      <div class="step-card glass-card">
+        <div class="step-number">01</div>
+        <h4 class="step-title">Detection</h4>
+        <p class="step-desc">AI-powered sensors detect imminent crash conditions — altitude, velocity vector, terrain proximity — within 200ms.</p>
+      </div>
+      <div class="step-connector">
+        <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10 L35 10 M30 5 L35 10 L30 15" stroke="#d4a424" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="step-card glass-card">
+        <div class="step-number">02</div>
+        <h4 class="step-title">Computation</h4>
+        <p class="step-desc">Real-time KMR algorithm calculates optimal ejection sequence — maximizing mass shedding while maintaining cabin stability.</p>
+      </div>
+      <div class="step-connector">
+        <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10 L35 10 M30 5 L35 10 L30 15" stroke="#d4a424" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="step-card glass-card">
+        <div class="step-number">03</div>
+        <h4 class="step-title">Ejection</h4>
+        <p class="step-desc">Explosive bolts fire in sequence, modules separate — engines, gear, tail section jettisoned within 800ms total.</p>
+      </div>
+      <div class="step-connector">
+        <svg width="40" height="20" viewBox="0 0 40 20"><path d="M0 10 L35 10 M30 5 L35 10 L30 15" stroke="#d4a424" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="step-card glass-card">
+        <div class="step-number">04</div>
+        <h4 class="step-title">Protection</h4>
+        <p class="step-desc">Lightened cabin deploys parachute systems. Reduced mass = reduced KE. Impact forces drop by up to 85%.</p>
+      </div>
+    </div>
+  </div>
+</section>

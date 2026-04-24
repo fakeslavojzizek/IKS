@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0b0f0d;
+  color: white;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* HERO */
+.hero {
+  height: 90vh;
+  background: url('https://source.unsplash.com/1600x900/?temple,night') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.overlay h2 {
+  font-size: 40px;
+}
+
+/* BUTTON */
+.cta {
+  padding: 10px 20px;
+  background: #7cf29a;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* SECTION */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background: #111;
+  border-radius: 10px;
+  width: 250px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* TIMELINE */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.timeline-item {
+  background: #111;
+  padding: 15px;
+  border-left: 3px solid #7cf29a;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.box {
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* QUIZ */
+.quiz {
+  margin: 50px;
+  padding: 40px;
+  background: #111;
+  text-align: center;
+  border-radius: 10px;
+}

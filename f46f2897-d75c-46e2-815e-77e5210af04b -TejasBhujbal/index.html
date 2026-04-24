@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ancient War Equipment</title>
+<style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #141414;
+      --card:      #1a1a1a;
+      --border:    #2a2a2a;
+      --gold:      #e8a020;
+      --gold-light:#f5c842;
+      --text:      #d4d4d4;
+      --muted:     #888;
+      --glow:      rgba(232,160,32,.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d0d0d 0%, #1c1200 50%, #0d0d0d 100%);
+      border-bottom: 2px solid var(--gold);
+      text-align: center;
+      padding: 60px 20px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(232,160,32,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    header .subtitle {
+      font-size: .85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+    }
+
+    header p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      transition: all .3s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(232,160,32,.08);
+    }
+
+    /* ── Main ── */
+    main { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+    /* ── Section wrapper ── */
+    .weapon-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .weapon-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px var(--glow);
+    }
+
+    .weapon-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    /* ── Section badge ── */
+    .badge {
+      display: inline-block;
+      font-size: .7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      border-radius: 20px;
+      padding: 3px 14px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Section heading ── */
+    .weapon-section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    /* ── Flex layout ── */
+    .content-flex {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .content-flex.reverse { flex-direction: row-reverse; }
+
+    /* ── Image wrapper ── */
+    .img-wrap {
+      flex: 0 0 340px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      position: relative;
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s, filter .5s;
+      filter: brightness(.85) saturate(1.1);
+    }
+
+    .img-wrap:hover img {
+      transform: scale(1.06);
+      filter: brightness(1) saturate(1.3);
+    }
+
+    .img-caption {
+      background: rgba(0,0,0,.7);
+      color: var(--muted);
+      font-size: .75rem;
+      text-align: center;
+      padding: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── Sudarshana glow ring ── */
+    .chakra-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .chakra-ring {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 20px var(--gold), 0 0 60px rgba(232,160,32,.3), inset 0 0 30px rgba(232,160,32,.1);
+      animation: spin 12s linear infinite;
+    }
+
+    .chakra-ring-2 {
+      width: 290px;
+      height: 290px;
+      border: 1px dashed rgba(232,160,32,.5);
+      animation: spin 8s linear infinite reverse;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .chakra-wrap .img-wrap {
+      position: relative;
+      z-index: 2;
+      border-radius: 50%;
+      width: 240px;
+      height: 240px;
+      flex: 0 0 240px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 30px var(--gold), 0 0 80px rgba(232,160,32,.4);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    .chakra-wrap .img-wrap img {
+      height: 240px;
+      border-radius: 50%;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 30px var(--gold), 0 0 80px rgba(232,160,32,.4); }
+      50%       { box-shadow: 0 0 50px var(--gold), 0 0 120px rgba(232,160,32,.6); }
+    }
+
+    /* ── Info text ── */
+    .info { flex: 1; }
+
+    .info p { color: var(--text); margin-bottom: 16px; font-size: .97rem; }
+
+    /* ── Stat grid ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: border-color .3s, background .3s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--gold);
+      background: rgba(232,160,32,.05);
+    }
+
+    .stat-card .label {
+      font-size: .7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-card .value {
+      font-size: .9rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── Feature list ── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .93rem;
+    }
+
+    .feature-list li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: .6rem;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── Warriors row ── */
+    .warriors {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .warrior-tag {
+      background: rgba(232,160,32,.1);
+      border: 1px solid rgba(232,160,32,.4);
+      color: var(--gold-light);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: .85rem;
+      font-weight: 600;
+      transition: background .3s;
+    }
+
+    .warrior-tag:hover { background: rgba(232,160,32,.2); }
+
+    /* ── Quote block ── */
+    blockquote {
+      border-left: 3px solid var(--gold);
+      padding: 12px 20px;
+      margin: 20px 0;
+      background: rgba(232,160,32,.05);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    /* ── Machine cards ── */
+    .machine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .machine-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all .3s;
+    }
+
+    .machine-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(232,160,32,.15);
+    }
+
+    .machine-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .machine-card h4 { color: var(--gold); font-size: .95rem; margin-bottom: 6px; }
+    .machine-card p  { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    footer .footer-title {
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    footer p { color: var(--muted); font-size: .85rem; }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    footer .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .82rem;
+      transition: color .3s;
+    }
+
+    footer .footer-links a:hover { color: var(--gold); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .weapon-section { padding: 28px 20px; }
+
+      .content-flex,
+      .content-flex.reverse { flex-direction: column; }
+
+      .img-wrap { flex: none; width: 100%; }
+
+      .chakra-wrap { flex: none; width: 100%; }
+      .chakra-ring  { width: 240px; height: 240px; }
+      .chakra-ring-2{ width: 210px; height: 210px; }
+      .chakra-wrap .img-wrap { width: 180px; height: 180px; flex: 0 0 180px; }
+      .chakra-wrap .img-wrap img { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+<p class="subtitle">⚔ Mythology &amp; History ⚔</p>
+<h1>Ancient War Equipment</h1>
+<p>Explore the legendary weapons and war machines that shaped ancient civilizations and mythological epics.</p>
+</header>
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+<a href="#brahmastra">Brahmastra</a>
+<a href="#chakra">Sudarshana Chakra</a>
+<a href="#machines">War Machines</a>
+</nav>
+<!-- ══════════════ MAIN ══════════════ -->
+<main>
+<!-- ── 1. BRAHMASTRA ── -->
+<section class="weapon-section" id="brahmastra">
+<span class="badge">Divine Weapon · Hindu Mythology</span>
+<h2>🔱 Brahmastra</h2>
+<div class="divider"></div>
+<div class="content-flex">
+<div class="img-wrap">
+<img alt="Brahmastra – Divine Weapon" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=640&amp;q=80'" src="assets/5886bcbc2a364636c0dedad887f2469ff044b13392c273542cbcfa59a4768457.jpeg"/>
+<div class="img-caption">Brahmastra — The Weapon of Brahma</div>
+</div>
+<div class="info">
+<p>The <strong style="color:var(--gold-light)">Brahmastra</strong> is one of the most devastating divine weapons described in Hindu scriptures. Created and bestowed by Lord Brahma, the creator of the universe, it is said to be capable of destroying all creation if left unchecked.</p>
+<div class="stat-grid">
+<div class="stat-card"><div class="label">Origin</div><div class="value">Lord Brahma</div></div>
+<div class="stat-card"><div class="label">Type</div><div class="value">Astra (Missile)</div></div>
+<div class="stat-card"><div class="label">Era</div><div class="value">Treta &amp; Dvapara Yuga</div></div>
+<div class="stat-card"><div class="label">Texts</div><div class="value">Ramayana, Mahabharata</div></div>
+</div>
+<p style="color:var(--gold);font-size:.85rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Warriors Who Possessed It</p>
+<div class="warriors">
+<span class="warrior-tag">🏹 Rama</span>
+<span class="warrior-tag">🏹 Arjuna</span>
+<span class="warrior-tag">🏹 Ashwatthama</span>
+<span class="warrior-tag">🏹 Drona</span>
+<span class="warrior-tag">🏹 Parashurama</span>
+</div>
+<ul class="feature-list">
+<li><strong>Acquisition:</strong> Granted only to the most worthy warriors through intense penance and devotion to Brahma.</li>
+<li><strong>Usage in Wars:</strong> Ashwatthama unleashed it against the Pandava army in the Kurukshetra War; Arjuna countered it with his own Brahmastra.</li>
+<li><strong>Impact:</strong> Capable of scorching the earth, drying rivers, and causing mass destruction across multiple dimensions.</li>
+<li><strong>Recall Ability:</strong> Only Brahma himself or the invoker (if trained) could recall it — Ashwatthama lacked this knowledge.</li>
+<li><strong>Modern Relevance:</strong> Often compared to nuclear weapons — a weapon of last resort with catastrophic, indiscriminate consequences.</li>
+</ul>
+<blockquote>"The Brahmastra, once released, cannot be stopped — it will consume everything in its path until its purpose is fulfilled."</blockquote>
+</div>
+</div>
+</section>
+<!-- ── 2. SUDARSHANA CHAKRA ── -->
+<section class="weapon-section" id="chakra">
+<span class="badge">Divine Disc · Vaishnavism</span>
+<h2>☸ Sudarshana Chakra</h2>
+<div class="divider"></div>
+<div class="content-flex reverse">
+<div class="chakra-wrap">
+<div class="chakra-ring"></div>
+<div class="chakra-ring chakra-ring-2"></div>
+<div class="img-wrap">
+<img alt="Sudarshana Chakra" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=640&amp;q=80'" src="assets/94c98a5a668300846fda3e335548d8af73d0d4355157eeafbcde09d335e5ba2d.jpeg"/>
+</div>
+</div>
+<div class="info">
+<p>The <strong style="color:var(--gold-light)">Sudarshana Chakra</strong> is the spinning disc weapon of Lord Vishnu — a symbol of cosmic order, time, and the unstoppable force of dharma. It is the most iconic divine weapon in Vaishnavism.</p>
+<div class="stat-grid">
+<div class="stat-card"><div class="label">Edges</div><div class="value">108 Serrated</div></div>
+<div class="stat-card"><div class="label">Speed</div><div class="value">Speed of Thought</div></div>
+<div class="stat-card"><div class="label">Creator</div><div class="value">Vishvakarma / Shiva</div></div>
+<div class="stat-card"><div class="label">Wielder</div><div class="value">Lord Vishnu</div></div>
+</div>
+<ul class="feature-list">
+<li><strong>Design:</strong> A spinning disc with 108 serrated edges, blazing with fire and radiating blinding light.</li>
+<li><strong>Origin:</strong> Crafted by Vishvakarma from the rays of the Sun; in some accounts, gifted by Shiva to Vishnu after penance.</li>
+<li><strong>Powers:</strong> Travels at the speed of thought, returns to Vishnu after striking, and can cut through any material.</li>
+<li><strong>Symbolism:</strong> Represents the wheel of time (Kalachakra), cosmic order, and the enforcement of dharma.</li>
+<li><strong>Shishupala:</strong> Used to behead Shishupala after his 100th offense against Krishna in the Mahabharata.</li>
+<li><strong>Rahu &amp; Ketu:</strong> Severed the demon Svarbhānu who had drunk amrita, creating Rahu and Ketu.</li>
+</ul>
+<blockquote>"The Sudarshana Chakra does not merely destroy — it restores balance. It is the will of Vishnu made manifest."</blockquote>
+</div>
+</div>
+</section>
+<!-- ── 3. ANCIENT WAR MACHINES ── -->
+<section class="weapon-section" id="machines">
+<span class="badge">Historical · Siege Warfare</span>
+<h2>⚙ Ancient War Machines</h2>
+<div class="divider"></div>
+<div class="content-flex">
+<div class="img-wrap">
+<img alt="Trebuchet – Ancient War Machine" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=640&amp;q=80'" src="assets/e3610dd0e5d0fd00cd21b0cbd8e0a8ef6aae2e4ad778940bf669e9b0b20b68c3.jpeg"/>
+<div class="img-caption">Trebuchet — Medieval Siege Engine</div>
+</div>
+<div class="info">
+<p>Long before gunpowder, ancient civilizations engineered remarkable <strong style="color:var(--gold-light)">mechanical war machines</strong> that could hurl massive projectiles, breach fortifications, and terrorize enemy armies from a distance.</p>
+<p>These siege engines were the artillery of the ancient world — combining physics, engineering, and military strategy into devastating tools of war.</p>
+<div class="machine-grid">
+<div class="machine-card">
+<div class="icon">🪨</div>
+<h4>Catapult</h4>
+<p>Used torsion energy from twisted ropes to launch stones and fire pots up to 300 meters.</p>
+</div>
+<div class="machine-card">
+<div class="icon">⚖</div>
+<h4>Trebuchet</h4>
+<p>Counterweight-powered sling capable of hurling 100–150 kg projectiles with devastating accuracy.</p>
+</div>
+<div class="machine-card">
+<div class="icon">🏹</div>
+<h4>Ballista</h4>
+<p>Giant crossbow firing large bolts or stones; used by Romans and Greeks for precision strikes.</p>
+</div>
+<div class="machine-card">
+<div class="icon">🔥</div>
+<h4>Onager</h4>
+<p>Roman single-arm catapult named after the wild donkey for its powerful kick-like launch.</p>
+</div>
+</div>
+<ul class="feature-list" style="margin-top:20px">
+<li><strong>Working Principle:</strong> Leverage, torsion, and counterweight mechanics convert stored energy into projectile force.</li>
+<li><strong>Strategic Role:</strong> Enabled armies to attack fortified cities without direct combat, revolutionizing siege warfare.</li>
+<li><strong>Legacy:</strong> Principles of these machines directly influenced modern artillery, cranes, and mechanical engineering.</li>
+</ul>
+<blockquote>"The trebuchet could reduce a castle wall to rubble in days — the nuclear deterrent of the medieval age."</blockquote>
+</div>
+</div>
+</section>
+</main>
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+<div class="footer-title">⚔ Ancient War Equipment</div>
+<div class="footer-links">
+<a href="#brahmastra">Brahmastra</a>
+<a href="#chakra">Sudarshana Chakra</a>
+<a href="#machines">War Machines</a>
+</div>
+<p>Exploring the intersection of mythology, history, and ancient engineering.</p>
+<p style="margin-top:10px">© 2025 Ancient War Equipment. All rights reserved.</p>
+</footer>
+</body>
+</html>

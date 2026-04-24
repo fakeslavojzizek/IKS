@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>चतुर्विध विमान — Ancient Indian Aeronautics</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* ══════════════════════════════════════════
+   COSMIC THEME — deep space indigo + molten gold
+══════════════════════════════════════════ */
+:root{
+  --space:    #04020E;
+  --deep:     #080420;
+  --cosmos:   #0D0730;
+  --nebula1:  #1A0A4A;
+  --nebula2:  #2A0A1A;
+  --gold:     #E8B84B;
+  --gold-l:   #FFE566;
+  --gold-d:   #B8920A;
+  --gold-dim: rgba(232,184,75,0.18);
+  --amber:    #FF9500;
+  --crimson:  #8B1A1A;
+  --cyan:     #00E5FF;
+  --violet:   #7B31FF;
+  --cream:    #FFF8E8;
+  --text:     rgba(255,248,232,0.92);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--space);
+  color:var(--cream);
+  font-family:'Crimson Pro',Georgia,serif;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* Animated gradient background */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(26,10,74,0.7) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 70%, rgba(42,10,26,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 50% at 50% 100%, rgba(13,7,48,0.8) 0%, transparent 50%),
+    var(--space);
+  pointer-events:none;
+}
+
+/* 3D Canvas background */
+#bg3d{position:fixed;inset:0;z-index:1;pointer-events:none;}
+
+/* Grain texture */
+body::after{
+  content:'';position:fixed;inset:0;z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:0.6;
+}
+
+/* All page content sits above bg */
+nav,section,footer,.fullscreen-overlay{position:relative;z-index:10;}
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 40px;
+  background:linear-gradient(to bottom,rgba(4,2,14,0.98),rgba(4,2,14,0));
+  border-bottom:1px solid rgba(212,168,67,0.12);
+}
+.nav-brand{
+  font-family:'Cinzel Decorative',serif;
+  font-size:16px;
+  background:linear-gradient(135deg,#FFE566,#E8B84B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:2px;
+}
+.nav-links{display:flex;gap:24px;}
+.nav-links a{
+  font-family:'Cinzel',serif;font-size:13px;
+  letter-spacing:2px;color:rgba(255,248,232,0.7);
+  text-decoration:none;text-transform:uppercase;transition:color .25s;
+}
+.nav-links a:hover{color:var(--gold-l);}
+@media(max-width:640px){.nav-links{display:none;}}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:100px 20px 60px;
+  overflow:hidden;
+}
+.hero-glow{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(107,33,240,0.18) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-55%);
+  pointer-events:none;
+}
+.hero-ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(212,168,67,0.1);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:spin var(--sp,60s) linear infinite;
+}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-bottom:22px;padding:8px 26px;
+  border-radius:100px;
+  background:linear-gradient(135deg,rgba(107,33,240,0.2),rgba(232,184,75,0.1));
+  border:1px solid rgba(232,184,75,0.35);
+  font-family:'Cinzel',serif;font-size:12px;
+  letter-spacing:3px;color:var(--gold-l);text-transform:uppercase;
+  animation:fadeUp .8s ease both;
+}
+.hero-badge::before{content:'✦';color:var(--gold-l);}
+.hero-sanskrit{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(16px,2.5vw,26px);
+  color:rgba(232,184,75,0.85);letter-spacing:6px;
+  margin-bottom:12px;animation:fadeUp .8s .1s ease both;
+}
+.hero-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(44px,8.5vw,100px);
+  line-height:1.05;
+  background:linear-gradient(160deg,#FFFFFF 0%,#FFE566 40%,#E8B84B 70%,#FF9500 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 50px rgba(232,184,75,0.6));
+  margin-bottom:14px;animation:fadeUp .8s .2s ease both;
+}
+.hero-sub{
+  font-family:'Cinzel',serif;font-size:clamp(13px,2vw,18px);
+  letter-spacing:7px;color:rgba(255,229,102,0.9);
+  text-transform:uppercase;margin-bottom:24px;
+  animation:fadeUp .8s .3s ease both;
+}
+.hero-desc{
+  max-width:580px;font-size:clamp(17px,1.9vw,21px);
+  line-height:1.85;color:var(--cream);font-style:italic;
+  margin-bottom:16px;animation:fadeUp .8s .4s ease both;
+}
+.hero-quote{
+  font-family:'Cinzel',serif;font-size:14px;
+  color:rgba(232,184,75,0.7);letter-spacing:1px;
+  margin-bottom:44px;font-style:italic;
+  animation:fadeUp .8s .5s ease both;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 36px;border-radius:100px;
+  background:linear-gradient(135deg,rgba(107,33,240,0.3),rgba(232,184,75,0.15));
+  border:1px solid rgba(232,184,75,0.45);
+  color:var(--gold-l);font-family:'Cinzel',serif;
+  font-size:13px;letter-spacing:3px;text-decoration:none;
+  text-transform:uppercase;transition:all .3s;
+  animation:fadeUp .8s .6s ease both;
+}
+.hero-cta:hover{
+  background:linear-gradient(135deg,rgba(107,33,240,0.5),rgba(232,184,75,0.25));
+  border-color:rgba(232,184,75,0.7);
+  box-shadow:0 0 40px rgba(232,184,75,0.3);
+  transform:translateY(-2px);
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════
+   SECTION HEADERS
+══════════════════════════════════════════ */
+.sec-head{text-align:center;padding:70px 20px 44px;}
+.eyebrow{
+  display:block;font-family:'Cinzel',serif;font-size:13px;
+  letter-spacing:5px;color:rgba(232,184,75,0.8);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.sec-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(28px,4vw,52px);
+  background:linear-gradient(135deg,#FFE566,#E8B84B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:14px;
+}
+.sec-sub{
+  max-width:540px;margin:0 auto;
+  font-size:18px;line-height:1.8;
+  color:rgba(255,248,232,0.75);font-style:italic;
+}
+.divider{
+  display:flex;align-items:center;gap:16px;padding:0 40px;margin:10px 0;
+}
+.div-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(212,168,67,0.2),transparent);}
+.div-sym{color:rgba(212,168,67,0.4);font-size:14px;}
+
+/* ══════════════════════════════════════════
+   VIMANA CARDS GRID (main page)
+══════════════════════════════════════════ */
+#vimanas{padding:0 40px 80px;}
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  max-width:1200px;
+  margin:0 auto;
+}
+@media(max-width:700px){.cards-grid{grid-template-columns:1fr;}}
+
+.vimana-card{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  background:linear-gradient(145deg,rgba(13,7,48,0.9),rgba(26,10,74,0.6));
+  border:1px solid rgba(212,168,67,0.18);
+  transition:all .4s cubic-bezier(.25,.8,.25,1);
+  group:hover;
+}
+.vimana-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(107,33,240,0.08),rgba(212,168,67,0.04));
+  opacity:0;transition:opacity .4s;
+}
+.vimana-card:hover{
+  border-color:rgba(212,168,67,0.45);
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(107,33,240,0.15),inset 0 1px 0 rgba(212,168,67,0.2);
+}
+.vimana-card:hover::before{opacity:1;}
+
+/* Mini 3D canvas inside card */
+.card-canvas-wrap{
+  position:relative;
+  height:280px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(107,33,240,0.15) 0%,rgba(4,2,14,0.9) 70%);
+  overflow:hidden;
+}
+@media(max-width:480px){.card-canvas-wrap{height:220px;}}
+.card-canvas-wrap canvas{display:block;width:100%;height:100%;}
+
+/* Shine overlay on card canvas */
+.card-canvas-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%,rgba(0,0,0,0.1) 100%);
+  pointer-events:none;
+}
+
+.card-info{padding:20px 22px 22px;}
+.card-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:42px;
+  background:linear-gradient(135deg,rgba(232,184,75,0.25),transparent);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;margin-bottom:-8px;
+}
+.card-name{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(22px,2.8vw,30px);
+  background:linear-gradient(135deg,#FFE566,#E8B84B);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+.card-sanskrit{
+  font-size:15px;color:rgba(232,184,75,0.7);
+  font-style:italic;letter-spacing:2px;margin-bottom:12px;
+}
+.card-desc{
+  font-size:16px;line-height:1.7;
+  color:rgba(255,248,232,0.82);margin-bottom:16px;
+}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.tag{
+  padding:4px 12px;border-radius:100px;
+  background:rgba(232,184,75,0.12);
+  border:1px solid rgba(232,184,75,0.3);
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:1px;color:rgba(255,229,102,0.9);
+}
+.card-open-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;border-radius:100px;
+  background:linear-gradient(135deg,rgba(107,33,240,0.25),rgba(232,184,75,0.12));
+  border:1px solid rgba(232,184,75,0.35);
+  color:var(--gold-l);font-family:'Cinzel',serif;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  transition:all .3s;
+}
+.vimana-card:hover .card-open-btn{
+  background:linear-gradient(135deg,rgba(107,33,240,0.4),rgba(212,168,67,0.2));
+  border-color:rgba(212,168,67,0.5);
+  box-shadow:0 0 20px rgba(212,168,67,0.15);
+}
+.card-open-btn::after{content:'→';transition:transform .3s;}
+.vimana-card:hover .card-open-btn::after{transform:translateX(4px);}
+
+/* ══════════════════════════════════════════
+   FULLSCREEN OVERLAY
+══════════════════════════════════════════ */
+.fullscreen-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(2,1,8,0.97);
+  backdrop-filter:blur(12px);
+  display:none;flex-direction:column;
+  opacity:0;transition:opacity .4s;
+}
+.fullscreen-overlay.open{display:flex;}
+.fullscreen-overlay.visible{opacity:1;}
+
+.fs-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  border-bottom:1px solid rgba(212,168,67,0.12);
+  background:rgba(4,2,14,0.8);
+  flex-shrink:0;
+}
+.fs-title{
+  font-family:'Cinzel Decorative',serif;font-size:clamp(14px,2vw,20px);
+  background:linear-gradient(135deg,#F5D060,#D4A843);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.fs-controls{display:flex;gap:10px;align-items:center;}
+.fs-btn{
+  padding:7px 16px;border-radius:100px;
+  background:rgba(212,168,67,0.08);
+  border:1px solid rgba(212,168,67,0.22);
+  color:var(--gold);font-family:'Cinzel',serif;
+  font-size:9px;letter-spacing:2px;cursor:pointer;
+  text-transform:uppercase;transition:all .25s;
+}
+.fs-btn:hover{background:rgba(212,168,67,0.18);}
+.fs-close{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(139,26,26,0.25);
+  border:1px solid rgba(139,26,26,0.4);
+  color:#FF8080;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .25s;flex-shrink:0;
+}
+.fs-close:hover{background:rgba(139,26,26,0.5);}
+
+.fs-body{
+  display:flex;flex:1;min-height:0;
+  gap:0;
+}
+
+/* 3D canvas side */
+.fs-canvas-side{
+  position:relative;
+  flex:1.2;
+  background:radial-gradient(ellipse at 50% 50%,rgba(107,33,240,0.12) 0%,rgba(2,1,8,0.98) 65%);
+  overflow:hidden;
+}
+#fs-canvas{display:block;width:100%;height:100%;}
+#fs-svg{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:all;
+  overflow:visible;
+}
+
+/* Info panel side */
+.fs-info-side{
+  width:340px;flex-shrink:0;
+  background:rgba(8,4,32,0.95);
+  border-left:1px solid rgba(212,168,67,0.1);
+  overflow-y:auto;
+  display:flex;flex-direction:column;
+}
+@media(max-width:900px){
+  .fs-body{flex-direction:column;}
+  .fs-canvas-side{height:55vh;}
+  .fs-info-side{width:100%;border-left:none;border-top:1px solid rgba(212,168,67,0.1);}
+}
+.fs-info-side::-webkit-scrollbar{width:4px;}
+.fs-info-side::-webkit-scrollbar-track{background:transparent;}
+.fs-info-side::-webkit-scrollbar-thumb{background:rgba(212,168,67,0.2);border-radius:2px;}
+
+.fs-vimana-header{
+  padding:22px 22px 16px;
+  border-bottom:1px solid rgba(212,168,67,0.1);
+}
+.fs-v-num{
+  font-family:'Cinzel Decorative',serif;font-size:44px;
+  color:rgba(212,168,67,0.08);line-height:1;margin-bottom:-10px;
+}
+.fs-v-name{
+  font-family:'Cinzel Decorative',serif;font-size:clamp(18px,2vw,26px);
+  background:linear-gradient(135deg,#F5D060,#FF8C00);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+.fs-v-sanskrit{font-size:13px;color:rgba(212,168,67,0.5);font-style:italic;letter-spacing:2px;margin-bottom:8px;}
+.fs-v-meaning{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(212,168,67,0.35);text-transform:uppercase;}
+
+/* Selected part info panel */
+.part-info-panel{
+  padding:18px 22px;
+  border-bottom:1px solid rgba(212,168,67,0.08);
+  min-height:100px;
+  background:linear-gradient(135deg,rgba(107,33,240,0.08),rgba(212,168,67,0.03));
+  flex-shrink:0;
+}
+.part-info-panel.active{
+  background:linear-gradient(135deg,rgba(107,33,240,0.18),rgba(212,168,67,0.06));
+  border-color:rgba(212,168,67,0.18);
+}
+.pip-hint{
+  font-family:'Cinzel',serif;font-size:13px;
+  letter-spacing:2px;color:rgba(232,184,75,0.55);
+  text-transform:uppercase;text-align:center;
+  padding:24px 0;line-height:1.7;
+}
+.pip-name{
+  font-family:'Cinzel Decorative',serif;font-size:28px;
+  color:var(--gold-l);margin-bottom:8px;letter-spacing:2px;
+  text-align:center;line-height:1.3;
+  text-shadow:0 0 20px rgba(232,184,75,0.5);
+}
+.pip-sanskrit{
+  font-size:18px;color:rgba(232,184,75,0.8);
+  font-style:italic;margin-bottom:14px;
+  text-align:center;letter-spacing:2px;
+}
+.pip-desc{
+  font-size:17px;line-height:1.85;
+  color:rgba(255,248,232,0.88);margin-bottom:10px;
+}
+.pip-speaking{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:var(--gold);
+  text-transform:uppercase;
+}
+.pip-speaking .wave{
+  display:flex;gap:2px;align-items:flex-end;height:12px;
+}
+.pip-speaking .wave span{
+  display:inline-block;width:3px;background:var(--gold);border-radius:2px;
+  animation:wavebar .8s ease-in-out infinite;
+}
+.pip-speaking .wave span:nth-child(2){animation-delay:.1s;}
+.pip-speaking .wave span:nth-child(3){animation-delay:.2s;}
+.pip-speaking .wave span:nth-child(4){animation-delay:.1s;}
+@keyframes wavebar{0%,100%{height:3px}50%{height:12px}}
+
+/* Parts list */
+.parts-list{padding:16px 22px;flex:1;}
+.parts-title{
+  font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:4px;color:rgba(212,168,67,0.4);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.part-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:7px;
+  margin-bottom:6px;cursor:pointer;
+  background:rgba(212,168,67,0.04);
+  border:1px solid rgba(212,168,67,0.1);
+  transition:all .25s;
+}
+.part-item:hover,.part-item.active-part{
+  background:rgba(107,33,240,0.22);
+  border-color:rgba(232,184,75,0.5);
+  box-shadow:0 0 14px rgba(107,33,240,0.25);
+}
+.part-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  box-shadow:0 0 8px rgba(232,184,75,0.7);
+}
+.part-item.active-part .part-dot{
+  background:var(--cyan);
+  box-shadow:0 0 12px rgba(0,229,255,0.8);
+  animation:pulseDot 1s ease-in-out infinite;
+}
+@keyframes pulseDot{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+.part-item-text{}
+.part-item-name{
+  font-family:'Cinzel',serif;font-size:14px;
+  color:var(--gold-l);letter-spacing:1px;
+}
+.part-item-sub{font-size:13px;color:rgba(255,248,232,0.65);}
+.part-speak-icon{
+  margin-left:auto;font-size:16px;opacity:0.6;
+  transition:opacity .2s;
+}
+.part-item:hover .part-speak-icon{opacity:1;}
+
+/* ══════════════════════════════════════════
+   MERCURY, COMPARE, TIMELINE, FACTS
+══════════════════════════════════════════ */
+#mercury{padding:60px 40px;}
+.mercury-inner{max-width:1100px;margin:0 auto;}
+.merc-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  background:linear-gradient(135deg,rgba(13,7,48,0.9),rgba(26,10,74,0.5));
+  border:1px solid rgba(232,184,75,0.2);
+  border-radius:12px;overflow:hidden;margin-bottom:36px;
+}
+@media(max-width:760px){.merc-grid{grid-template-columns:1fr;}}
+.mc{padding:28px 22px;}
+.mc.ctr{
+  background:rgba(107,33,240,0.12);
+  border-left:1px solid rgba(232,184,75,0.15);border-right:1px solid rgba(232,184,75,0.15);
+  text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+@media(max-width:760px){.mc.ctr{border-left:none;border-right:none;border-top:1px solid rgba(232,184,75,0.12);border-bottom:1px solid rgba(232,184,75,0.12);}}
+.mc-head{
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px;
+  color:var(--gold-l);text-transform:uppercase;
+  margin-bottom:16px;padding-bottom:10px;
+  border-bottom:1px solid rgba(232,184,75,0.15);
+}
+.ms{display:flex;gap:10px;margin-bottom:13px;}
+.mn{flex-shrink:0;width:24px;height:24px;border-radius:50%;
+  background:rgba(107,33,240,0.3);border:1px solid rgba(232,184,75,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:11px;color:var(--gold-l);}
+.mt{font-size:15px;line-height:1.75;color:var(--cream);}
+.mt strong{color:#FFE566;}
+.mi{font-size:52px;margin-bottom:12px;filter:drop-shadow(0 0 14px rgba(232,184,75,0.5));}
+.mn2{font-family:'Cinzel Decorative',serif;font-size:26px;color:rgba(232,184,75,0.8);margin-bottom:8px;}
+.mc-info{font-size:15px;color:rgba(255,248,232,0.65);line-height:1.75;font-style:italic;}
+.mc-stats{margin-top:14px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(212,168,67,0.55);line-height:2.2;}
+
+.sci-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:700px){.sci-row{grid-template-columns:1fr;}}
+.sci{
+  padding:20px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(13,7,48,0.8),rgba(42,10,26,0.4));
+  border:1px solid rgba(212,168,67,0.1);transition:all .3s;
+}
+.sci:hover{border-color:rgba(212,168,67,0.3);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+.sci-icon{font-size:28px;margin-bottom:10px;}
+.sci-t{font-family:'Cinzel',serif;font-size:13px;color:#F5D060;margin-bottom:7px;}
+.sci-d{font-size:13px;line-height:1.7;color:var(--text);}
+
+#compare{padding:60px 40px;}
+.cmp-inner{max-width:1060px;margin:0 auto;}
+.cmp-intro{text-align:center;max-width:580px;margin:0 auto 36px;font-size:15px;line-height:1.8;color:rgba(240,232,208,0.55);font-style:italic;}
+.ct{width:100%;border-collapse:collapse;}
+.ct thead tr{background:rgba(107,33,240,0.15);}
+.ct th{padding:13px 16px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid rgba(212,168,67,0.15);text-align:left;}
+.th-a{color:rgba(212,168,67,0.55);width:12%;}
+.th-b{color:var(--gold);}
+.th-c{color:#4A8CBA;}
+.th-v{color:rgba(240,232,208,0.25);text-align:center;width:8%;}
+.ct tbody tr{border-bottom:1px solid rgba(212,168,67,0.06);}
+.ct tbody tr:hover{background:rgba(107,33,240,0.08);}
+.ct td{padding:14px 16px;vertical-align:top;font-size:13px;line-height:1.7;}
+.ta{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(212,168,67,0.55);text-transform:uppercase;}
+.tb{color:rgba(240,232,208,0.7);} .tb strong{color:#F5D060;display:block;font-size:11px;margin-bottom:2px;}
+.tc{color:rgba(175,210,238,0.68);} .tc strong{color:#88C0E8;display:block;font-size:11px;margin-bottom:2px;}
+.vd{text-align:center;font-size:16px;} .vm{color:#5DBF6E;} .vp{color:var(--gold);}
+
+#timeline{padding:50px 0;}
+.tl-head{text-align:center;padding:0 20px 32px;}
+.tl-sc{display:flex;overflow-x:auto;padding:0 40px 16px;gap:0;scrollbar-width:thin;scrollbar-color:rgba(212,168,67,0.12) transparent;}
+.ti{flex-shrink:0;width:190px;padding:20px 16px;border-right:1px solid rgba(212,168,67,0.08);position:relative;}
+.ti::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(107,33,240,0.4),transparent);}
+.t-era{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:rgba(212,168,67,0.5);text-transform:uppercase;margin-bottom:6px;}
+.t-tit{font-family:'Cinzel',serif;font-size:13px;color:#F5D060;margin-bottom:6px;}
+.t-txt{font-size:12px;line-height:1.6;color:rgba(240,232,208,0.48);}
+
+#facts{padding:40px 40px 60px;}
+.facts-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1100px;margin:0 auto;}
+@media(max-width:760px){.facts-g{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.facts-g{grid-template-columns:1fr;}}
+.fc{
+  padding:22px 18px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(13,7,48,0.8),rgba(42,10,26,0.3));
+  border:1px solid rgba(212,168,67,0.1);transition:all .3s;
+}
+.fc:hover{border-color:rgba(212,168,67,0.3);box-shadow:0 0 20px rgba(107,33,240,0.15);}
+.fc-n{font-family:'Cinzel Decorative',serif;font-size:28px;color:rgba(212,168,67,0.1);line-height:1;margin-bottom:7px;}
+.fc-t{font-family:'Cinzel',serif;font-size:13px;color:#F5D060;margin-bottom:7px;}
+.fc-d{font-size:13px;line-height:1.7;color:rgba(240,232,208,0.55);}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  border-top:1px solid rgba(212,168,67,0.1);
+  padding:56px 40px 36px;text-align:center;
+  background:linear-gradient(to top,rgba(2,1,8,0.8),transparent);
+}
+.ft-sym{
+  font-family:'Cinzel Decorative',serif;font-size:24px;
+  background:linear-gradient(135deg,#F5D060,#D4A843);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:0.4;margin-bottom:6px;
+}
+.ft-title{font-family:'Cinzel Decorative',serif;font-size:19px;color:#F0D080;margin-bottom:5px;}
+.ft-sub{font-size:11px;color:rgba(212,168,67,0.35);letter-spacing:3px;font-family:'Cinzel',serif;text-transform:uppercase;margin-bottom:36px;}
+.team-l{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(212,168,67,0.4);text-transform:uppercase;margin-bottom:14px;}
+.team-r{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:680px;margin:0 auto 32px;}
+.tc2{
+  padding:6px 16px;
+  background:linear-gradient(135deg,rgba(107,33,240,0.12),rgba(212,168,67,0.06));
+  border:1px solid rgba(212,168,67,0.16);border-radius:100px;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:var(--gold);transition:all .25s;
+}
+.tc2:hover{background:rgba(212,168,67,0.12);transform:translateY(-1px);}
+.ft-c{font-size:11px;color:rgba(240,232,208,0.18);letter-spacing:2px;font-family:'Cinzel',serif;}
+</style>
+</head>
+<body>
+
+<!-- 3D BACKGROUND CANVAS -->
+<canvas id="bg3d"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">✦ चतुर्विध विमान</div>
+  <div class="nav-links">
+    <a href="#vimanas">Vimanas</a>
+    <a href="#mercury">Mercury</a>
+    <a href="#compare">Compare</a>
+    <a href="#timeline">Timeline</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-ring" style="width:700px;height:700px;--sp:70s;"></div>
+  <div class="hero-ring" style="width:480px;height:480px;--sp:45s;animation-direction:reverse;border-color:rgba(107,33,240,0.1);"></div>
+  <div class="hero-ring" style="width:280px;height:280px;--sp:30s;border-color:rgba(212,168,67,0.06);"></div>
+  <div class="hero-badge">Indian Knowledge System — IKS Project</div>
+  <div class="hero-sanskrit">चतुर्विध विमान</div>
+  <div class="hero-title">Four Sacred<br>Vimanas</div>
+  <div class="hero-sub">Ancient Indian Aeronautics</div>
+  <p class="hero-desc">The Vaimanika Shastra — attributed to Maharishi Bharadvaja — describes four remarkable flying machines with extraordinary technical detail. Written millennia before modern aviation.</p>
+  <div class="hero-quote">"वेगसाम्यात् विमानानां शक्तिः पवनसम्भवा" — The power of Vimanas arises from balancing speed with wind</div>
+  <a href="#vimanas" class="hero-cta">Explore the Vimanas</a>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-sym">✦</div><div class="div-line"></div></div>
+
+<!-- VIMANA CARDS -->
+<section id="vimanas">
+  <div class="sec-head">
+    <span class="eyebrow">॥ विमान प्रकार ॥</span>
+    <div class="sec-title">Tap a Vimana to Explore</div>
+    <p class="sec-sub">Open any Vimana in full-screen to see its detailed 3D model, tap parts to hear their description spoken aloud.</p>
+  </div>
+  <div class="cards-grid">
+    <div class="vimana-card" onclick="openVimana('rukma')">
+      <div class="card-canvas-wrap"><canvas id="mini_rukma"></canvas></div>
+      <div class="card-info">
+        <div class="card-num">01</div>
+        <div class="card-name">Rukma Vimana</div>
+        <div class="card-sanskrit">रुक्म विमान — Gold Flying Vessel</div>
+        <p class="card-desc">Iconic golden domed temple — the most documented Vimana. Mercury vortex engine at its base, four stabiliser legs, ornate arched windows, and a flag-topped spire.</p>
+        <div class="card-tags"><span class="tag">Gold Alloy</span><span class="tag">Mercury Engine</span><span class="tag">Interplanetary</span></div>
+        <div class="card-open-btn">Open Full View</div>
+      </div>
+    </div>
+    <div class="vimana-card" onclick="openVimana('shakuna')">
+      <div class="card-canvas-wrap"><canvas id="mini_shakuna"></canvas></div>
+      <div class="card-info">
+        <div class="card-num">02</div>
+        <div class="card-name">Shakuna Vimana</div>
+        <div class="card-sanskrit">शकुन विमान — Eagle Flying Vessel</div>
+        <p class="card-desc">Eagle-form aircraft — wide flat wings, domed body with turrets, copper beak, red sensor eyes. Most aerodynamically sound design. 32 combat maneuvers.</p>
+        <div class="card-tags"><span class="tag">Bird Form</span><span class="tag">Wind + Solar</span><span class="tag">Combat</span></div>
+        <div class="card-open-btn">Open Full View</div>
+      </div>
+    </div>
+    <div class="vimana-card" onclick="openVimana('sundara')">
+      <div class="card-canvas-wrap"><canvas id="mini_sundara"></canvas></div>
+      <div class="card-info">
+        <div class="card-num">03</div>
+        <div class="card-name">Sundara Vimana</div>
+        <div class="card-sanskrit">सुन्दर विमान — Beautiful Flying Vessel</div>
+        <p class="card-desc">Multi-storey flying palace — white and gold, arched windows on every floor, four turrets, grand central dome, solar crystal mirror panels for propulsion.</p>
+        <div class="card-tags"><span class="tag">Palace Form</span><span class="tag">Solar Power</span><span class="tag">Multi-Floor</span></div>
+        <div class="card-open-btn">Open Full View</div>
+      </div>
+    </div>
+    <div class="vimana-card" onclick="openVimana('tripura')">
+      <div class="card-canvas-wrap"><canvas id="mini_tripura"></canvas></div>
+      <div class="card-info">
+        <div class="card-num">04</div>
+        <div class="card-name">Tripura Vimana</div>
+        <div class="card-sanskrit">त्रिपुर विमान — Three-City Flying Vessel</div>
+        <p class="card-desc">Three-tiered flying city on wheels — air, land and water modes. Each tier is independent with silver domes and gold spires. Tiers separate and re-dock magnetically.</p>
+        <div class="card-tags"><span class="tag">Triple Mode</span><span class="tag">Wheeled Base</span><span class="tag">Magnetic Dock</span></div>
+        <div class="card-open-btn">Open Full View</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCURY -->
+<div class="divider"><div class="div-line"></div><div class="div-sym">✦</div><div class="div-line"></div></div>
+<section id="mercury">
+  <div class="mercury-inner">
+    <div class="sec-head">
+      <span class="eyebrow">॥ पारद यन्त्र रहस्य ॥</span>
+      <div class="sec-title">The Mercury Vortex Engine</div>
+      <p class="sec-sub">A propulsion system powered by rotating mercury — described millennia before modern ion engines.</p>
+    </div>
+    <div class="merc-grid">
+      <div class="mc">
+        <div class="mc-head">Ancient Description — शास्त्र वर्णन</div>
+        <div class="ms"><div class="mn">1</div><div class="mt"><strong>Paarada (पारद)</strong> — liquid mercury loaded into a sealed toroidal ring at the Vimana's base disc.</div></div>
+        <div class="ms"><div class="mn">2</div><div class="mt"><strong>Agni-Shakti (अग्निशक्ति)</strong> — controlled heat creates pressure differentials within the mercury ring.</div></div>
+        <div class="ms"><div class="mn">3</div><div class="mt"><strong>Bhramana (भ्रमण)</strong> — mercury begins vortex rotation, creating gyroscopic stabilisation.</div></div>
+        <div class="ms"><div class="mn">4</div><div class="mt"><strong>Shaktyudgama (शक्त्युद्गम)</strong> — upward thrust generated, direction controlled by sub-chamber rotation speed.</div></div>
+      </div>
+      <div class="mc ctr">
+        <div class="mi">☿</div>
+        <div class="mn2">पारद</div>
+        <div class="mc-info">Only metal liquid at room temperature — uniquely suited for vortex propulsion.</div>
+        <div class="mc-stats">ELEMENT: Hg · Atomic No. 80<br>MASS: 200.59 u<br>DENSITY: 13,534 kg/m³<br>13.6× denser than water<br>Boils 357°C → ionises</div>
+      </div>
+      <div class="mc">
+        <div class="mc-head">Modern Science Parallel</div>
+        <div class="ms"><div class="mn">1</div><div class="mt"><strong>MHD Thrusters</strong> — Magnetohydrodynamic drives use liquid metal in magnetic fields — experimental submarines since 1992.</div></div>
+        <div class="ms"><div class="mn">2</div><div class="mt"><strong>Ion Engines</strong> — NASA's Dawn spacecraft ionised xenon gas — identical to ionising mercury vapor in principle.</div></div>
+        <div class="ms"><div class="mn">3</div><div class="mt"><strong>NASA SERT I &amp; II</strong> — NASA actually tested mercury ion thrusters in 1964 and 1970. The concept physically works.</div></div>
+        <div class="ms"><div class="mn">4</div><div class="mt"><strong>Hall Effect Thrusters</strong> — ESA's SMART-1 lunar probe used rotating electromagnetic ion drive — mercury vortex in principle.</div></div>
+      </div>
+    </div>
+    <div class="sci-row">
+      <div class="sci"><div class="sci-icon">🌀</div><div class="sci-t">Vortex Physics</div><div class="sci-d">Dense mercury rotating at high velocity creates a Taylor-Couette vortex — a central low-pressure column like a tornado's eye, potentially generating upward thrust.</div></div>
+      <div class="sci"><div class="sci-icon">⚡</div><div class="sci-t">Mercury Ionisation</div><div class="sci-d">Above 357°C mercury vaporises. Heat plus rotation ionises the vapor into plasma. Charged plasma in a magnetic field generates the Lorentz Force — directional thrust.</div></div>
+      <div class="sci"><div class="sci-icon">🧲</div><div class="sci-t">Confirmed Science</div><div class="sci-d">NASA SERT-I (1964) and SERT-II (1970) tested mercury ion thrusters for spacecraft propulsion — the Vaimanika Shastra may describe real propulsion physics.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<div class="divider"><div class="div-line"></div><div class="div-sym">✦</div><div class="div-line"></div></div>
+<section id="compare">
+  <div class="cmp-inner">
+    <div class="sec-head">
+      <span class="eyebrow">॥ तुलनात्मक अध्ययन ॥</span>
+      <div class="sec-title">Ancient vs Modern</div>
+    </div>
+    <p class="cmp-intro">How closely does a text written over 1,500 years ago align with aerospace engineering today?</p>
+    <div style="overflow-x:auto;">
+    <table class="ct">
+      <thead><tr><th class="th-a">Aspect</th><th class="th-b">📜 Vaimanika Shastra</th><th class="th-c">✈️ Modern Aerospace</th><th class="th-v">Match</th></tr></thead>
+      <tbody>
+        <tr><td class="ta">Propulsion</td><td class="tb"><strong>Mercury Vortex (Shaktyudgama)</strong>Rotating mercury generates electromagnetic thrust</td><td class="tc"><strong>Ion / MHD Thrusters</strong>Ionised propellant in electromagnetic fields</td><td class="vd vp">◈</td></tr>
+        <tr><td class="ta">Lift</td><td class="tb"><strong>Paksha Vistara</strong>"Wing width determines lift force" — 1300 yrs before Bernoulli</td><td class="tc"><strong>Bernoulli's Principle</strong>Lift = ½ρv²(CL·S) — wing area determines lift</td><td class="vd vm">✦</td></tr>
+        <tr><td class="ta">Materials</td><td class="tb"><strong>16 Special Alloys</strong>Lightweight, heat-resistant, shape-changing under heat</td><td class="tc"><strong>Shape-Memory Alloys</strong>Nitinol changes shape under heat; carbon-fibre composites</td><td class="vd vm">✦</td></tr>
+        <tr><td class="ta">Navigation</td><td class="tb"><strong>Three-System Nav</strong>Compass + star maps + rear-view obstacle mirror</td><td class="tc"><strong>GPS + Celestial + TCAS</strong>Three identical navigation systems in use today</td><td class="vd vm">✦</td></tr>
+        <tr><td class="ta">Stealth</td><td class="tb"><strong>Vyopashamana Yantra</strong>Light-bending invisibility device + smoke screen</td><td class="tc"><strong>Stealth Technology</strong>Radar-absorbent materials + active cancellation</td><td class="vd vp">◈</td></tr>
+        <tr><td class="ta">Pilot</td><td class="tb"><strong>32 Guha Secrets</strong>8 atmospheric layers, 16 metals, meteorology, astral navigation</td><td class="tc"><strong>ATP License + Type Rating</strong>Same knowledge domains required today</td><td class="vd vm">✦</td></tr>
+        <tr><td class="ta">Multi-mode</td><td class="tb"><strong>Tripura Triple Mode</strong>Same vehicle: aircraft + land vehicle + submarine</td><td class="tc"><strong>Amphibious Assault Ships</strong>USS America class: aircraft + vehicles + warship</td><td class="vd vm">✦</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="display:flex;gap:20px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:7px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(240,232,208,0.4);"><span style="color:#5DBF6E;font-size:15px">✦</span>Strong Match</div>
+      <div style="display:flex;align-items:center;gap:7px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(240,232,208,0.4);"><span style="color:#D4A843;font-size:15px">◈</span>Partial Match</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="divider"><div class="div-line"></div><div class="div-sym">✦</div><div class="div-line"></div></div>
+<section id="timeline">
+  <div class="tl-head">
+    <span class="eyebrow">॥ कालरेखा ॥</span>
+    <div class="sec-title">India's Unbroken Thread of Flight</div>
+  </div>
+  <div class="tl-sc">
+    <div class="ti"><div class="t-era">~3000 BCE</div><div class="t-tit">Rigveda</div><div class="t-txt">First celestial "Ratha" chariots of the Ashvins navigating three worlds</div></div>
+    <div class="ti"><div class="t-era">~1500 BCE</div><div class="t-tit">Pushpaka Vimana</div><div class="t-txt">Ramayana's flying palace — moves at the speed of thought, can resize</div></div>
+    <div class="ti"><div class="t-era">~400 BCE</div><div class="t-tit">Mahabharata</div><div class="t-txt">41 aerial combat references; Salva attacks Dwarka with "Saubha"</div></div>
+    <div class="ti"><div class="t-era">~400 CE</div><div class="t-tit">Vaimanika Shastra</div><div class="t-txt">Bharadvaja documents 100 aeronautical topics across 8 chapters</div></div>
+    <div class="ti"><div class="t-era">1100 CE</div><div class="t-tit">Samarangana</div><div class="t-txt">King Bhoja's text: 230 Sanskrit verses on Vimana construction</div></div>
+    <div class="ti"><div class="t-era">1895 CE</div><div class="t-tit">Talpade's Flight</div><div class="t-txt">Unmanned "Marutsakhā" in Mumbai — 8 years before Wright Brothers</div></div>
+    <div class="ti"><div class="t-era">1903 CE</div><div class="t-tit">Wright Brothers</div><div class="t-txt">12 seconds at Kitty Hawk — what India theorised millennia ago</div></div>
+    <div class="ti"><div class="t-era">1975 CE</div><div class="t-tit">ISRO — Aryabhata</div><div class="t-txt">First satellite named after Vedic mathematician. Ancient spirit returns</div></div>
+    <div class="ti"><div class="t-era">2023 CE</div><div class="t-tit">Chandrayaan-3</div><div class="t-txt">India lands on Moon's south pole — first nation ever</div></div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<div class="divider"><div class="div-line"></div><div class="div-sym">✦</div><div class="div-line"></div></div>
+<section id="facts">
+  <div class="sec-head"><span class="eyebrow">॥ रोचक तथ्य ॥</span><div class="sec-title">Did You Know?</div></div>
+  <div class="facts-g">
+    <div class="fc"><div class="fc-n">01</div><div class="fc-t">Pilot Had to Know Chemistry</div><div class="fc-d">A Vimana pilot must memorise preparation of 16 metals — more like a materials engineer. Modern astronauts also study spacecraft materials science.</div></div>
+    <div class="fc"><div class="fc-n">02</div><div class="fc-t">8 Atmospheric Layers</div><div class="fc-d">The Shastra describes 8 distinct atmospheric layers (Ashtadala). Modern aviation recognises troposphere, stratosphere, mesosphere — structurally identical.</div></div>
+    <div class="fc"><div class="fc-n">03</div><div class="fc-t">NASA Tested Mercury Engines</div><div class="fc-d">NASA tested mercury ion thrusters SERT-I (1964) and SERT-II (1970). The concept physically works. The Vaimanika Shastra may describe real physics.</div></div>
+    <div class="fc"><div class="fc-n">04</div><div class="fc-t">Autopilot Described First</div><div class="fc-d">The Shastra contains autopilot diagrams — a system that became reality in modern aviation only in the 1930s, confirmed by the Aeronautical Society of India.</div></div>
+    <div class="fc"><div class="fc-n">05</div><div class="fc-t">ISRO Names from Vedic Science</div><div class="fc-d">Chandrayaan, Mangalyaan, Aryabhata, Bhaskara — ISRO deliberately honours ancient Indian scientists, continuing the Vedic celestial thread.</div></div>
+    <div class="fc"><div class="fc-n">06</div><div class="fc-t">32 Combat Maneuvers</div><div class="fc-d">The Shakuna flight manual describes 32 aerial maneuvers — barrel roll, split-S, Immelmann turn — all part of modern fighter pilot training today.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-sym">✦</div>
+  <div class="ft-title">चतुर्विध विमान</div>
+  <div class="ft-sub">Ancient Indian Aeronautics · Vaimanika Shastra</div>
+  <div class="team-l">॥ Our Team ॥</div>
+  <div class="team-r">
+    <div class="tc2">Darshan</div><div class="tc2">Gaurav</div><div class="tc2">Kanhaiya</div>
+    <div class="tc2">Manas</div><div class="tc2">Diya</div><div class="tc2">Madhura</div>
+    <div class="tc2">Ankita</div><div class="tc2">Shrutika</div><div class="tc2">Payal</div>
+  </div>
+  <div class="ft-c">Indian Knowledge System (IKS) · Group Project · 2025–2026</div>
+</footer>
+
+<!-- FULLSCREEN OVERLAY -->
+<div class="fullscreen-overlay" id="fsOverlay">
+  <div class="fs-header">
+    <div class="fs-title" id="fs-title">Rukma Vimana</div>
+    <div class="fs-controls">
+      <button class="fs-btn" id="fs-pause-btn" onclick="toggleFsPause()">⏸ Pause</button>
+      <button class="fs-btn" onclick="stopSpeech()" title="Stop audio">🔇 Stop</button>
+      <button class="fs-close" onclick="closeVimana()">✕</button>
+    </div>
+  </div>
+  <div class="fs-body">
+    <div class="fs-canvas-side">
+      <canvas id="fs-canvas"></canvas>
+      <svg id="fs-svg"></svg>
+    </div>
+    <div class="fs-info-side">
+      <div class="fs-vimana-header">
+        <div class="fs-v-num" id="fs-v-num">01</div>
+        <div class="fs-v-name" id="fs-v-name">Rukma Vimana</div>
+        <div class="fs-v-sanskrit" id="fs-v-sanskrit">रुक्म विमान</div>
+        <div class="fs-v-meaning" id="fs-v-meaning">Gold Flying Vessel</div>
+      </div>
+      <div class="part-info-panel" id="part-panel">
+        <div class="pip-hint" id="pip-hint">← Tap any glowing label to hear the Sanskrit name</div>
+        <div id="pip-content" style="display:none;">
+          <div class="pip-name" id="pip-name"></div>
+          <div class="pip-sanskrit" id="pip-sanskrit"></div>
+          <div class="pip-speaking" id="pip-speaking" style="display:none;">
+            <div class="wave"><span></span><span></span><span></span><span></span></div>
+            Speaking…
+          </div>
+        </div>
+      </div>
+      <div class="parts-list">
+        <div class="parts-title">Parts of This Vimana</div>
+        <div id="parts-list-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   3D GALAXY BACKGROUND
+══════════════════════════════════════════ */
+(function initBg(){
+  const canvas=document.getElementById('bg3d');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:true});
+  renderer.setClearColor(0,0);
+  renderer.setPixelRatio(1);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,1,0.1,200);
+  camera.position.z=50;
+
+  function resize(){
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  }
+  resize();window.addEventListener('resize',resize);
+
+  // Stars
+  const starGeo=new THREE.BufferGeometry();
+  const N=1800;
+  const pos=new Float32Array(N*3), col=new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    const r=30+Math.random()*80;
+    const theta=Math.random()*Math.PI*2;
+    const phi=Math.acos(2*Math.random()-1);
+    pos[i*3]  =r*Math.sin(phi)*Math.cos(theta);
+    pos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);
+    pos[i*3+2]=r*Math.cos(phi);
+    // Color: mix gold and violet
+    const t=Math.random();
+    col[i*3]  =t>0.7?0.85:0.42;
+    col[i*3+1]=t>0.7?0.66:0.13;
+    col[i*3+2]=t>0.7?0.26:0.94;
+  }
+  starGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  starGeo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const starMat=new THREE.PointsMaterial({size:0.22,vertexColors:true,transparent:true,opacity:0.55,sizeAttenuation:true});
+  const stars=new THREE.Points(starGeo,starMat);
+  scene.add(stars);
+
+  // Nebula particles
+  const nebGeo=new THREE.BufferGeometry();
+  const M=600;
+  const npos=new Float32Array(M*3);
+  for(let i=0;i<M;i++){
+    npos[i*3]  =(Math.random()-0.5)*120;
+    npos[i*3+1]=(Math.random()-0.5)*80;
+    npos[i*3+2]=(Math.random()-0.5)*60-20;
+  }
+  nebGeo.setAttribute('position',new THREE.BufferAttribute(npos,3));
+  const nebMat=new THREE.PointsMaterial({size:0.9,color:0x4422AA,transparent:true,opacity:0.12,sizeAttenuation:true});
+  scene.add(new THREE.Points(nebGeo,nebMat));
+
+  // Floating gold dust
+  const dustGeo=new THREE.BufferGeometry();
+  const D=300;
+  const dpos=new Float32Array(D*3);
+  for(let i=0;i<D;i++){
+    dpos[i*3]  =(Math.random()-0.5)*100;
+    dpos[i*3+1]=(Math.random()-0.5)*80;
+    dpos[i*3+2]=(Math.random()-0.5)*40-10;
+  }
+  dustGeo.setAttribute('position',new THREE.BufferAttribute(dpos,3));
+  const dustMat=new THREE.PointsMaterial({size:0.45,color:0xD4A843,transparent:true,opacity:0.18});
+  const dust=new THREE.Points(dustGeo,dustMat);
+  scene.add(dust);
+
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    t+=0.0003;
+    stars.rotation.y=t*0.4;
+    stars.rotation.x=t*0.15;
+    dust.rotation.y=-t*0.6;
+    dust.rotation.z=t*0.2;
+    renderer.render(scene,camera);
+  })();
+})();
+
+/* ══════════════════════════════════════════
+   THREE.JS MATERIALS
+══════════════════════════════════════════ */
+function MAT(c,e=0x110800,m=0.78,r=0.28){
+  return new THREE.MeshStandardMaterial({color:c,metalness:m,roughness:r,emissive:e,emissiveIntensity:0.1});
+}
+function GMAT(c,e,ei=0.85){
+  return new THREE.MeshStandardMaterial({color:c,emissive:e,emissiveIntensity:ei,transparent:true,opacity:0.82});
+}
+function XMAT(){
+  return new THREE.MeshStandardMaterial({color:0x66CCFF,metalness:0.1,roughness:0.05,transparent:true,opacity:0.75,emissive:0x001133,emissiveIntensity:0.28});
+}
+const GOLD  =()=>MAT(0xD4A843,0x2a1800);
+const GOLD2 =()=>MAT(0xF5D060,0x3a2200,0.65,0.28);
+const DARK  =()=>MAT(0x1a1000,0x050200,0.5,0.6);
+const COPPER=()=>MAT(0xB87333,0x2a1000,0.8,0.25);
+const WHITE =()=>MAT(0xE5E5D8,0x151510,0.22,0.72);
+const SILVER=()=>MAT(0xAAAAAA,0x101010,0.72,0.32);
+const BLUEW =()=>new THREE.MeshStandardMaterial({color:0x2255EE,emissive:0x001188,emissiveIntensity:0.75,transparent:true,opacity:0.88});
+const VIOLET=()=>new THREE.MeshStandardMaterial({color:0x6622CC,emissive:0x220066,emissiveIntensity:0.6,transparent:true,opacity:0.85});
+
+function A(g,geo,m,x=0,y=0,z=0,rx=0,ry=0,rz=0,sx=1,sy=1,sz=1){
+  const o=new THREE.Mesh(geo,m instanceof Function?m():m);
+  o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.scale.set(sx,sy,sz);
+  g.add(o);return o;
+}
+
+/* ══════════════════════════════════════════
+   PART DATA — detailed descriptions for speech
+══════════════════════════════════════════ */
+const PART_DATA={
+  rukma:[
+    {id:'dhvaj',
+     n:'ध्वज — Dhvaja',
+     s:'Flag and Signal Mast',
+     p:new THREE.Vector3(0.22,2.12,0),
+     desc:"Dhvaja means flag. It sits at the very top and was used to send signals to the ground, just like beacon lights on modern aircraft."},
+    {id:'shikhar',
+     n:'स्वर्ण शिखर',
+     s:'Gold Spire',
+     p:new THREE.Vector3(0.5,1.65,0),
+     desc:"Swarna Shikhara means gold spire. Made from heat-resistant Rajaloha metal, it works as a lightning rod and communication antenna combined."},
+    {id:'gumbad',
+     n:'मुख्य गुम्बद',
+     s:'Main Dome',
+     p:new THREE.Vector3(1.1,0.92,0),
+     desc:"Mukha Gumbad means main dome. This is the pilot cabin. Its round shape handles high air pressure at altitude, just like modern aircraft cockpits."},
+    {id:'vataayan',
+     n:'वातायन',
+     s:'Arched Windows',
+     p:new THREE.Vector3(1.12,0.14,0),
+     desc:"Vatayana means arched windows. Eight windows in a circle, made from special crystal glass that blocks harmful sun rays, just like UV protective aircraft windows today."},
+    {id:'kati',
+     n:'राजलोह कटि',
+     s:'Rajaloha Belt Ring',
+     p:new THREE.Vector3(1.28,-0.27,0),
+     desc:"Rajaloha Kati is the main structural belt connecting the dome to the engine base, carrying all flight stress, just like the fuselage frame of a modern aircraft."},
+    {id:'mercury',
+     n:'शक्त्युद्गम यन्त्र',
+     s:'Mercury Vortex Engine',
+     p:new THREE.Vector3(-0.92,-1.0,0),
+     desc:"Shaktyudgama Yantra is the mercury engine. Mercury is heated and spun to create upward thrust. NASA tested this exact idea in 1964, called SERT One, and it actually worked."},
+    {id:'legs',
+     n:'स्तम्भक पाद',
+     s:'Stabiliser Legs',
+     p:new THREE.Vector3(-1.48,-1.02,0.85),
+     desc:"Stambhaka Pada are the four landing legs. They absorb shock on landing, just like hydraulic landing gear on modern aeroplanes, and fold back during flight to reduce drag."},
+  ],
+  shakuna:[
+    {id:'gumbad2',
+     n:'मुख्य गुम्बद',
+     s:'Central Dome',
+     p:new THREE.Vector3(0.85,0.7,0),
+     desc:"The central dome is the pilot cabin of the Shakuna Vimana, placed at the centre of the bird body to keep the craft balanced during high-speed flying."},
+    {id:'shikhar2',
+     n:'शिखर',
+     s:'Dome Spire',
+     p:new THREE.Vector3(0.42,1.08,0),
+     desc:"The Shikhara spire keeps the Vimana pointing in the right direction, just like a tail fin on an aeroplane prevents it from turning sideways."},
+    {id:'right_wing',
+     n:'पक्ष — दायाँ',
+     s:'Right Wing',
+     p:new THREE.Vector3(2.5,0,0),
+     desc:"The right Paksha wing has twelve flexible joints like an eagle, so each part bends separately for smooth control. NASA and DARPA are now building this same idea called morphing wing technology."},
+    {id:'left_wing',
+     n:'पक्ष — बायाँ',
+     s:'Left Wing',
+     p:new THREE.Vector3(-2.5,0,0),
+     desc:"The left Paksha wing has solar crystals called Saurika Darpana on its surface, collecting sunlight for the engine, just like solar panels on the International Space Station."},
+    {id:'beak',
+     n:'चंचु',
+     s:'Copper Beak',
+     p:new THREE.Vector3(0.5,-0.06,1.72),
+     desc:"Chanchu means beak. Its pointed copper shape cuts air with very little resistance like a supersonic jet nose cone. Inside is a detection device similar to modern radar."},
+    {id:'tail',
+     n:'पुच्छ',
+     s:'Tail Stabiliser',
+     p:new THREE.Vector3(-1.08,0.34,-1.1),
+     desc:"Puccha means tail. Its fins control up-down and sideways movement of the Vimana, same as the stabilator on India's own Tejas fighter aircraft today."},
+    {id:'thruster',
+     n:'उदर यन्त्र',
+     s:'Belly Thruster',
+     p:new THREE.Vector3(-0.86,-0.5,-0.08),
+     desc:"Udara Yantra is the belly engine using solar energy to create thrust, allowing vertical takeoff and landing, just like the Harrier jump jet."},
+  ],
+  sundara:[
+    {id:'spire3',
+     n:'मुख्य शिखर',
+     s:'Central Gold Spire',
+     p:new THREE.Vector3(0.6,1.63,0),
+     desc:"Mukha Shikhara is the central gold spire made from Rajaloha alloy. It safely carries atmospheric electricity away from the Vimana, just like a lightning rod on a building."},
+    {id:'dome3',
+     n:'स्वर्ण गुम्बद',
+     s:'Gold Dome',
+     p:new THREE.Vector3(1.04,1.12,0),
+     desc:"Swarna Gumbad is the gold dome and command centre. Its reflective surface concentrates sunlight into the power chamber below, making it a cockpit and solar collector at once."},
+    {id:'upper',
+     n:'उपरि तल',
+     s:'Upper Floor',
+     p:new THREE.Vector3(1.04,0.3,0),
+     desc:"Upari Tala is the upper floor where pilots use the Nakshatra Patha star map system for navigation, exactly like celestial navigation used in aviation before GPS."},
+    {id:'middle',
+     n:'मध्य तल',
+     s:'Middle Floor',
+     p:new THREE.Vector3(1.14,-0.19,0),
+     desc:"Madhya Tala is the main crew floor. The Shastra says it holds thirty two secret devices including a smoke screen machine and a sound-guided weapon system."},
+    {id:'solar',
+     n:'सौरिक दर्पण',
+     s:'Solar Crystal Panel',
+     p:new THREE.Vector3(-1.48,-0.5,0),
+     desc:"Saurika Darpana are solar panels that focus sunlight into the power chamber. They rotate to always face the sun, just like solar arrays on the International Space Station."},
+    {id:'wing3',
+     n:'पक्ष पटल',
+     s:'Wing Platform',
+     p:new THREE.Vector3(-1.98,-1.08,0),
+     desc:"Paksha Patala is the wide wing base giving lift. It extends on all four sides like a flying wing, the same design as the American B-2 Spirit stealth bomber."},
+    {id:'turret3',
+     n:'कोण स्तम्भ',
+     s:'Corner Turret',
+     p:new THREE.Vector3(0.8,0.22,-0.76),
+     desc:"Kona Stambha are four corner towers rotating three sixty degrees, each holding a weapon system and a rear observation mirror, just like gun turrets on modern warships."},
+  ],
+  tripura:[
+    {id:'tspire',
+     n:'मुख्य शिखर',
+     s:'Central Spire',
+     p:new THREE.Vector3(0.52,1.25,0),
+     desc:"The central spire holds a gyroscopic device keeping the Tripura balanced in air, on land, and on water, exactly like a modern Inertial Navigation System."},
+    {id:'dome_t',
+     n:'रजत गुम्बद',
+     s:'Silver Dome',
+     p:new THREE.Vector3(1.06,0.58,0),
+     desc:"Rajat Gumbad is the silver dome made from heat-reflecting Mourthwika metal, protecting the crew from extreme temperatures at high altitude."},
+    {id:'tier3_t',
+     n:'तृतीय तल',
+     s:'Top Tier — Air Mode',
+     p:new THREE.Vector3(1.08,0.05,0),
+     desc:"Tritiya Tala is the top flying tier. The Shastra says it can detach and fly alone, just like the Apollo Command Module that separated from the rocket and returned to Earth independently."},
+    {id:'tier2_t',
+     n:'द्वितीय तल',
+     s:'Middle Tier — Land Mode',
+     p:new THREE.Vector3(1.34,-0.5,0),
+     desc:"Dvitiya Tala is the middle tier for land travel using gear-driven wheels. It also holds crew rooms and food storage, like the inside of a modern aircraft carrier."},
+    {id:'tier1_t',
+     n:'प्रथम तल',
+     s:'Bottom Tier — Water Mode',
+     p:new THREE.Vector3(1.52,-1.07,0),
+     desc:"Prathama Tala is the bottom water tier using Jala Shakti, meaning water power, for travel on and under water. Modern amphibious ships like USS America do exactly this."},
+    {id:'wheels',
+     n:'चक्र यन्त्र',
+     s:'Chakra-Yantra Wheels',
+     p:new THREE.Vector3(-1.42,-1.54,0),
+     desc:"Chakra Yantra are the large ground wheels. The Shastra says the spokes are hollow with fluid inside for shock absorption, the same idea as hydraulic suspension in modern vehicles."},
+    {id:'dock',
+     n:'आयस्कान्त वलय',
+     s:'Magnetic Dock Ring',
+     p:new THREE.Vector3(-1.55,-1.26,0),
+     desc:"Ayaskanta Valaya means magnetic ring. It holds the three tiers together and allows them to separate and re-join in the air, exactly like NASA's docking system on the International Space Station."},
+  ]
+};
+
+/* ══════════════════════════════════════════
+   BUILD VIMANA MODELS — All Golden, matching physical models
+══════════════════════════════════════════ */
+
+/* ── Gold palette ── */
+const G1=()=>new THREE.MeshStandardMaterial({color:0xD4A843,metalness:0.9,roughness:0.16,emissive:0x3a2000,emissiveIntensity:0.18});
+const G2=()=>new THREE.MeshStandardMaterial({color:0xF5D060,metalness:0.85,roughness:0.20,emissive:0x4a3000,emissiveIntensity:0.22});
+const G3=()=>new THREE.MeshStandardMaterial({color:0xC49A28,metalness:0.92,roughness:0.14,emissive:0x2a1800,emissiveIntensity:0.14});
+const GD=()=>new THREE.MeshStandardMaterial({color:0x8B6500,metalness:0.88,roughness:0.22,emissive:0x1a1000,emissiveIntensity:0.1});
+const GW=()=>new THREE.MeshStandardMaterial({color:0x1a1000,metalness:0.5,roughness:0.6,emissive:0x050200,emissiveIntensity:0.08});
+const GL=(c,e)=>new THREE.MeshStandardMaterial({color:c,emissive:e,emissiveIntensity:1.3,transparent:true,opacity:0.88});
+
+/*
+ RUKMA VIMANA
+ Photo: gold UFO-temple. Wide rounded belly at bottom, ring of 8 arched
+ windows on cylinder body, large ribbed dome on top, small dome+thin spire
+ with triangle flag, 4 chunky outward-splayed legs at base corners.
+*/
+function buildRukma(){
+  const g=new THREE.Group();
+
+  // 4 chunky splayed legs (placed FIRST so they sit under base)
+  for(let i=0;i<4;i++){
+    const a=i/4*Math.PI*2+Math.PI/4;
+    const lx=Math.cos(a)*1.55, lz=Math.sin(a)*1.55;
+    // upper leg (angled outward)
+    A(g,new THREE.CylinderGeometry(0.13,0.17,0.6,8),G3(),lx,-1.05,lz, 0,0, Math.atan2(lz,lx)*0+0.22*Math.sign(lx));
+    // foot pad (flat box)
+    A(g,new THREE.BoxGeometry(0.42,0.12,0.32),G3(),lx,-1.36,lz);
+    A(g,new THREE.BoxGeometry(0.52,0.06,0.40),GD(),lx,-1.30,lz);
+  }
+
+  // Wide base disc (the skirt)
+  A(g,new THREE.CylinderGeometry(2.0,2.12,0.16,48),G1(),0,-1.08,0);
+  A(g,new THREE.TorusGeometry(2.05,0.07,8,48),G2(),0,-1.0,0);
+  // Scallop bumps on edge
+  for(let i=0;i<28;i++){
+    const a=i/28*Math.PI*2;
+    A(g,new THREE.SphereGeometry(0.085,6,6),G2(),Math.cos(a)*2.02,-1.02,Math.sin(a)*2.02);
+  }
+
+  // Big lower belly dome
+  const belly=new THREE.Mesh(new THREE.SphereGeometry(1.80,36,22,0,Math.PI*2,0,Math.PI*0.50),G1());
+  belly.position.y=-1.08; g.add(belly);
+
+  // Lower decorative band
+  A(g,new THREE.CylinderGeometry(1.30,1.34,0.20,32),G2(),0,-0.28,0);
+  A(g,new THREE.TorusGeometry(1.31,0.055,8,48),GD(),0,-0.19,0);
+  A(g,new THREE.TorusGeometry(1.31,0.055,8,48),GD(),0,-0.37,0);
+  for(let i=0;i<22;i++){
+    const a=i/22*Math.PI*2;
+    A(g,new THREE.SphereGeometry(0.048,5,5),G3(),Math.cos(a)*1.30,-0.28,Math.sin(a)*1.30);
+  }
+
+  // Main body cylinder
+  A(g,new THREE.CylinderGeometry(1.08,1.12,0.68,32),G1(),0,0.10,0);
+
+  // 8 arched windows with proper arch tops
+  for(let i=0;i<8;i++){
+    const a=i/8*Math.PI*2;
+    const cx=Math.cos(a)*1.10, cz=Math.sin(a)*1.10;
+    // surround box
+    A(g,new THREE.BoxGeometry(0.24,0.38,0.07),G3(),cx,0.10,cz,0,a,0);
+    // dark recess
+    A(g,new THREE.BoxGeometry(0.16,0.28,0.09),GD(),cx*1.005,0.11,cz*1.005,0,a,0);
+    // arch half-cylinder top
+    const ah=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,0.075,8,1,false,0,Math.PI),G2());
+    ah.rotation.z=Math.PI/2; ah.rotation.y=a;
+    ah.position.set(cx*1.006,0.30,cz*1.006); g.add(ah);
+  }
+
+  // Upper ring with beads
+  A(g,new THREE.TorusGeometry(1.08,0.058,8,48),G2(),0,0.46,0);
+  for(let i=0;i<18;i++){
+    const a=i/18*Math.PI*2;
+    A(g,new THREE.SphereGeometry(0.042,5,5),G3(),Math.cos(a)*1.08,0.46,Math.sin(a)*1.08);
+  }
+
+  // MAIN LARGE RIBBED DOME
+  A(g,new THREE.SphereGeometry(1.02,36,20,0,Math.PI*2,0,Math.PI*0.64),G1(),0,0.46,0);
+  // 8 dome ribs
+  for(let i=0;i<8;i++){
+    const a=i/8*Math.PI*2;
+    const pts=[];
+    for(let j=0;j<=14;j++){
+      const t=j/14*Math.PI*0.64;
+      pts.push(new THREE.Vector3(Math.sin(t)*1.05*Math.cos(a),0.46+Math.cos(t)*0.68,Math.sin(t)*1.05*Math.sin(a)));
+    }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),14,0.030,6,false),G2()));
+  }
+  A(g,new THREE.TorusGeometry(1.0,0.062,8,48),GD(),0,0.47,0);
+
+  // Neck
+  A(g,new THREE.CylinderGeometry(0.36,0.44,0.22,16),G2(),0,1.40,0);
+
+  // Small top dome with ribs
+  A(g,new THREE.SphereGeometry(0.34,20,14,0,Math.PI*2,0,Math.PI*0.68),G2(),0,1.60,0);
+  for(let i=0;i<6;i++){
+    const a=i/6*Math.PI*2;
+    const pts2=[];
+    for(let j=0;j<=8;j++){
+      const t=j/8*Math.PI*0.68;
+      pts2.push(new THREE.Vector3(Math.sin(t)*0.36*Math.cos(a),1.60+Math.cos(t)*0.24,Math.sin(t)*0.36*Math.sin(a)));
+    }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts2),8,0.022,5,false),G3()));
+  }
+  A(g,new THREE.TorusGeometry(0.33,0.038,8,24),GD(),0,1.61,0);
+
+  // Spire pole
+  A(g,new THREE.CylinderGeometry(0.032,0.040,0.68,8),G2(),0,2.02,0);
+
+  // Flag (triangle)
+  const fsh=new THREE.Shape([new THREE.Vector2(0,0),new THREE.Vector2(0.30,0.10),new THREE.Vector2(0,0.20)]);
+  A(g,new THREE.ExtrudeGeometry(fsh,{depth:0.030,bevelEnabled:false}),GL(0xFF4400,0xFF1100),0.04,2.38,0);
+
+  // Engine glow ring at base
+  A(g,new THREE.TorusGeometry(0.80,0.070,8,36),GL(0xFF9900,0xFF6600),0,-1.22,0);
+
+  return g;
+}
+
+/*
+ SHAKUNA VIMANA
+ Photo: bird/eagle aircraft. WIDE flat wings (3 stepped segments) spread out.
+ Central oval fuselage with temple dome on top (small dome + 4 mini turrets).
+ Pointed copper beak at front. Vertical tail fin + 2 horizontal fins at rear.
+ Under-body engine pod.
+*/
+function buildShakuna(){
+  const g=new THREE.Group();
+  g.scale.set(0.90,0.90,0.90);
+
+  // === FUSELAGE (elongated oval body) ===
+  const fuse=new THREE.Mesh(new THREE.SphereGeometry(0.74,28,16),G1());
+  fuse.scale.set(1.0,0.60,2.15); g.add(fuse);
+  // Fuselage side detail strips
+  [-1,1].forEach(s=>A(g,new THREE.BoxGeometry(0.08,0.5,1.9),G3(),s*0.72,-0.05,0));
+  // Belly keel
+  A(g,new THREE.BoxGeometry(0.26,0.16,1.6),G3(),0,-0.34,0.0);
+
+  // === TEMPLE DOME on top ===
+  A(g,new THREE.CylinderGeometry(0.50,0.54,0.24,18),G1(),0,0.32,0);
+  A(g,new THREE.TorusGeometry(0.51,0.042,8,32),G2(),0,0.44,0);
+  // Dome with ribs
+  A(g,new THREE.SphereGeometry(0.52,22,14,0,Math.PI*2,0,Math.PI*0.62),G1(),0,0.44,0);
+  for(let i=0;i<6;i++){
+    const a=i/6*Math.PI*2;
+    const pts=[];
+    for(let j=0;j<=8;j++){
+      const t=j/8*Math.PI*0.62;
+      pts.push(new THREE.Vector3(Math.sin(t)*0.54*Math.cos(a),0.44+Math.cos(t)*0.34,Math.sin(t)*0.54*Math.sin(a)));
+    }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),8,0.022,5,false),G2()));
+  }
+  A(g,new THREE.TorusGeometry(0.50,0.04,8,30),GD(),0,0.45,0);
+  // Top knob + spire
+  A(g,new THREE.SphereGeometry(0.12,10,10),G2(),0,0.90,0);
+  A(g,new THREE.CylinderGeometry(0.022,0.030,0.32,8),G2(),0,1.07,0);
+  A(g,new THREE.SphereGeometry(0.050,8,8),G2(),0,1.24,0);
+
+  // === 4 CORNER TURRETS on dome ===
+  for(let i=0;i<4;i++){
+    const a=i/4*Math.PI*2;
+    const tx=Math.cos(a)*0.44, tz=Math.sin(a)*0.44;
+    A(g,new THREE.CylinderGeometry(0.068,0.078,0.30,8),G1(),tx,0.41,tz);
+    A(g,new THREE.SphereGeometry(0.085,10,8),G2(),tx,0.58,tz);
+    A(g,new THREE.CylinderGeometry(0.014,0.014,0.20,6),G2(),tx,0.72,tz);
+    A(g,new THREE.SphereGeometry(0.034,6,6),G2(),tx,0.83,tz);
+  }
+
+  // === WINGS — 3 stepped segments per side (like photo) ===
+  [-1,1].forEach(s=>{
+    // Root segment (thickest, at fuselage)
+    A(g,new THREE.BoxGeometry(0.72,0.18,1.08),G1(),s*0.60,-0.06,-0.05);
+    A(g,new THREE.BoxGeometry(0.70,0.06,0.98),G2(),s*0.60,0.04,-0.04);// top chamfer
+    // Step-down join ridge
+    A(g,new THREE.BoxGeometry(0.06,0.20,1.05),GD(),s*0.97,-0.06,-0.05);
+
+    // Mid segment
+    A(g,new THREE.BoxGeometry(0.98,0.13,0.90),G1(),s*1.44,-0.09,-0.02);
+    A(g,new THREE.BoxGeometry(0.95,0.05,0.82),G2(),s*1.44,-0.01,-0.01);
+    A(g,new THREE.BoxGeometry(0.06,0.15,0.88),GD(),s*1.96,-0.08,-0.02);
+
+    // Outer segment (thinnest, swept)
+    A(g,new THREE.BoxGeometry(0.82,0.09,0.68),G1(),s*2.42,-0.12,0.08);
+    A(g,new THREE.BoxGeometry(0.78,0.04,0.60),G2(),s*2.42,-0.07,0.09);
+    // Tip
+    A(g,new THREE.BoxGeometry(0.38,0.07,0.32),G3(),s*2.94,-0.14,0.16);
+
+    // Leading edge tube (runs full span)
+    A(g,new THREE.CylinderGeometry(0.048,0.048,2.92,10),GD(),s*1.52,0.0,-0.56,0,0,Math.PI/2);
+    // Trailing edge
+    A(g,new THREE.CylinderGeometry(0.028,0.028,2.70,8),G3(),s*1.52,-0.12,0.54,0,0,Math.PI/2);
+  });
+
+  // === BEAK / NOSE ===
+  // Nose sphere
+  A(g,new THREE.SphereGeometry(0.18,14,10),G1(),0,-0.04,1.24);
+  // Pointed beak cone
+  A(g,new THREE.ConeGeometry(0.14,0.65,8),G3(),0,-0.08,1.58,Math.PI/2,0,0);
+  // Beak rings
+  A(g,new THREE.TorusGeometry(0.10,0.022,6,16),GD(),0,-0.08,1.45,Math.PI/2,0,0);
+  A(g,new THREE.TorusGeometry(0.10,0.022,6,16),GD(),0,-0.08,1.56,Math.PI/2,0,0);
+  // Sensor eyes
+  [-1,1].forEach(s=>{
+    A(g,new THREE.SphereGeometry(0.068,8,8),GL(0xFF3300,0xFF0000),s*0.22,0.11,1.18);
+    A(g,new THREE.SphereGeometry(0.028,6,6),GL(0xFFFF00,0xFFAA00),s*0.22,0.11,1.26);
+  });
+
+  // === TAIL ===
+  // Vertical tail fin (tall)
+  A(g,new THREE.BoxGeometry(0.08,0.72,0.55),G1(),0,0.38,-1.22);
+  A(g,new THREE.BoxGeometry(0.06,0.04,0.50),GD(),0,0.70,-1.20);
+  // Horizontal stabilisers (2)
+  [-1,1].forEach(s=>{
+    A(g,new THREE.BoxGeometry(0.65,0.09,0.38),G1(),s*0.37,0.24,-1.12);
+    A(g,new THREE.BoxGeometry(0.62,0.04,0.34),G2(),s*0.37,0.29,-1.10);
+  });
+
+  // === UNDER ENGINE POD ===
+  A(g,new THREE.CylinderGeometry(0.17,0.21,0.34,10),G3(),0,-0.38,-0.05);
+  A(g,new THREE.SphereGeometry(0.11,8,8),GL(0xFF9900,0xFF5500),0,-0.58,-0.05);
+
+  return g;
+}
+
+/*
+ SUNDARA VIMANA
+ Photo: flying palace/mahal. Wide platform base with legs.
+ Rounded (spherical) front section. Two tall cylindrical towers on left & right sides.
+ Central multi-storey palace with arches. Grand ribbed dome on top.
+*/
+function buildSundara(){
+  const g=new THREE.Group();
+  // Photo: Sundara = multi-storey rectangular flying palace (mahal)
+  // Wide flat rectangular base platform with wing extensions + legs
+  // 3 stacked cylinder floors (wedding cake) getting narrower going up
+  // Gold horizontal band rings on each floor edge
+  // 8 arched windows on ground, 6 on mid, arch door on upper
+  // 4 corner turrets with spires at ground floor corners
+  // Grand ribbed dome + finial on top
+  // Two wider wing-like extensions left and right of base
+  // NO spheres, NO rounded nose — fully flat-front rectangular palace
+
+  // === WIDE WING EXTENSIONS (flat platforms left & right) ===
+  A(g,new THREE.BoxGeometry(1.0,0.14,1.60),G1(),-1.85,-1.12,0);
+  A(g,new THREE.BoxGeometry(1.0,0.14,1.60),G1(), 1.85,-1.12,0);
+  // Wing edge bands
+  [-2.36,2.36].forEach(x=>{
+    A(g,new THREE.BoxGeometry(0.06,0.18,1.62),G2(),x,-1.12,0);
+  });
+  [-0.82,0.82].forEach(z=>{
+    A(g,new THREE.BoxGeometry(1.05,0.06,0.08),G2(),-1.85,-1.07,z);
+    A(g,new THREE.BoxGeometry(1.05,0.06,0.08),G2(), 1.85,-1.07,z);
+  });
+  // Wing corner mini ornaments
+  [[-2.32,-0.76],[-2.32,0.76],[2.32,-0.76],[2.32,0.76]].forEach(([x,z])=>{
+    A(g,new THREE.CylinderGeometry(0.06,0.08,0.22,8),G2(),x,-1.07,z);
+    A(g,new THREE.SphereGeometry(0.07,7,7),G3(),x,-0.92,z);
+  });
+
+  // === MAIN BASE PLATFORM ===
+  A(g,new THREE.BoxGeometry(2.4,0.20,2.0),G1(),0,-1.12,0);
+  // Base gold edge bands
+  [-1.0,1.0].forEach(z=>A(g,new THREE.BoxGeometry(2.45,0.07,0.07),G2(),0,-1.07,z));
+  [-1.22,1.22].forEach(x=>A(g,new THREE.BoxGeometry(0.07,0.07,2.0),G2(),x,-1.07,0));
+
+  // === 4 BASE LEGS ===
+  [[-0.95,-0.72],[-0.95,0.72],[0.95,-0.72],[0.95,0.72]].forEach(([lx,lz])=>{
+    A(g,new THREE.CylinderGeometry(0.10,0.13,0.30,8),G3(),lx,-1.28,lz);
+    A(g,new THREE.BoxGeometry(0.30,0.09,0.24),GD(),lx,-1.46,lz);
+  });
+
+  // === GROUND FLOOR (widest cylinder) ===
+  A(g,new THREE.CylinderGeometry(1.02,1.07,0.54,20),G1(),0,-0.80,0);
+  // Gold band rings top and bottom of ground floor
+  A(g,new THREE.TorusGeometry(1.03,0.055,8,40),G2(),0,-0.56,0);
+  A(g,new THREE.TorusGeometry(1.03,0.055,8,40),G2(),0,-1.03,0);
+  // Horizontal gold band mid-floor
+  A(g,new THREE.CylinderGeometry(1.03,1.03,0.058,20),G2(),0,-0.79,0);
+  // 8 arched windows
+  for(let i=0;i<8;i++){
+    const a=i/8*Math.PI*2;
+    A(g,new THREE.BoxGeometry(0.16,0.30,0.075),G3(),Math.cos(a)*1.04,-0.80,Math.sin(a)*1.04,0,a,0);
+    A(g,new THREE.BoxGeometry(0.10,0.11,0.085),GD(),Math.cos(a)*1.045,-0.72,Math.sin(a)*1.045,0,a,0);
+    // Arch top
+    const arch=new THREE.Mesh(new THREE.CylinderGeometry(0.076,0.076,0.078,8,1,false,0,Math.PI),G2());
+    arch.rotation.z=Math.PI/2; arch.rotation.y=a;
+    arch.position.set(Math.cos(a)*1.041,-0.58,Math.sin(a)*1.041); g.add(arch);
+  }
+
+  // === 4 CORNER TURRETS at ground floor corners ===
+  for(let i=0;i<4;i++){
+    const a=i/4*Math.PI*2+Math.PI/4, r=0.95;
+    const tx=Math.cos(a)*r, tz=Math.sin(a)*r;
+    A(g,new THREE.CylinderGeometry(0.11,0.12,1.10,10),G1(),tx,-0.27,tz);
+    A(g,new THREE.TorusGeometry(0.115,0.028,7,20),G2(),tx,-0.05,tz);
+    A(g,new THREE.TorusGeometry(0.115,0.028,7,20),G2(),tx,-0.78,tz);
+    // 3 windows on turret
+    for(let j=0;j<3;j++){
+      const wa=j/3*Math.PI*2;
+      A(g,new THREE.BoxGeometry(0.055,0.13,0.05),GD(),tx+Math.cos(wa+a)*0.12,-0.30,tz+Math.sin(wa+a)*0.12);
+    }
+    // Turret cap dome
+    A(g,new THREE.SphereGeometry(0.13,12,8,0,Math.PI*2,0,Math.PI*0.65),G2(),tx,0.26,tz);
+    A(g,new THREE.TorusGeometry(0.125,0.026,7,18),GD(),tx,0.26,tz);
+    // Turret spire
+    A(g,new THREE.SphereGeometry(0.055,7,7),G3(),tx,0.42,tz);
+    A(g,new THREE.CylinderGeometry(0.014,0.020,0.30,6),G2(),tx,0.57,tz);
+    A(g,new THREE.SphereGeometry(0.034,6,6),G2(),tx,0.74,tz);
+  }
+
+  // === MID FLOOR (medium) ===
+  A(g,new THREE.CylinderGeometry(0.80,0.84,0.46,18),G1(),0,-0.21,0);
+  A(g,new THREE.TorusGeometry(0.81,0.050,8,34),G2(),0,-0.0,0);
+  A(g,new THREE.TorusGeometry(0.81,0.050,8,34),G2(),0,-0.41,0);
+  A(g,new THREE.CylinderGeometry(0.812,0.812,0.056,18),G2(),0,-0.20,0);
+  for(let i=0;i<6;i++){
+    const a=i/6*Math.PI*2;
+    A(g,new THREE.BoxGeometry(0.13,0.24,0.07),G3(),Math.cos(a)*0.82,-0.21,Math.sin(a)*0.82,0,a,0);
+    A(g,new THREE.BoxGeometry(0.09,0.09,0.08),GD(),Math.cos(a)*0.825,-0.13,Math.sin(a)*0.825,0,a,0);
+  }
+
+  // === UPPER FLOOR (narrowest) ===
+  A(g,new THREE.CylinderGeometry(0.62,0.65,0.40,16),G1(),0,0.31,0);
+  A(g,new THREE.TorusGeometry(0.63,0.047,8,30),G2(),0,0.48,0);
+  A(g,new THREE.TorusGeometry(0.63,0.047,8,30),G2(),0,0.12,0);
+  A(g,new THREE.CylinderGeometry(0.632,0.632,0.054,16),G2(),0,0.32,0);
+  for(let i=0;i<5;i++){
+    const a=i/5*Math.PI*2;
+    A(g,new THREE.BoxGeometry(0.11,0.20,0.065),G3(),Math.cos(a)*0.645,0.31,Math.sin(a)*0.645,0,a,0);
+    A(g,new THREE.BoxGeometry(0.075,0.08,0.075),GD(),Math.cos(a)*0.65,0.38,Math.sin(a)*0.65,0,a,0);
+  }
+
+  // === GRAND RIBBED DOME ===
+  A(g,new THREE.SphereGeometry(0.60,26,18,0,Math.PI*2,0,Math.PI*0.65),G1(),0,0.72,0);
+  for(let i=0;i<8;i++){
+    const a=i/8*Math.PI*2;
+    const pts=[];
+    for(let j=0;j<=12;j++){
+      const t=j/12*Math.PI*0.65;
+      pts.push(new THREE.Vector3(Math.sin(t)*0.62*Math.cos(a),0.72+Math.cos(t)*0.42,Math.sin(t)*0.62*Math.sin(a)));
+    }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),12,0.023,6,false),G2()));
+  }
+  A(g,new THREE.TorusGeometry(0.58,0.052,8,32),GD(),0,0.73,0);
+
+  // === DOME FINIAL + SPIRE ===
+  A(g,new THREE.SphereGeometry(0.15,12,10),G2(),0,1.27,0);
+  A(g,new THREE.CylinderGeometry(0.024,0.032,0.44,8),G2(),0,1.50,0);
+  A(g,new THREE.SphereGeometry(0.055,8,8),GL(0xFF9900,0xFF5500),0,1.74,0);
+
+  return g;
+}
+
+/*
+ TRIPURA VIMANA
+ Photo: 3 separate temple structures SIDE BY SIDE on a wheeled cart.
+ - Centre temple is tallest
+ - Left & right temples slightly shorter
+ - Each temple: 2-tier cylinder body + ribbed dome + small dome + spire
+ - Wide dark chassis with 4 large visible wheels
+ - All golden
+*/
+function buildTripura(){
+  const g=new THREE.Group();
+
+  // === WHEELED CHASSIS ===
+  A(g,new THREE.BoxGeometry(3.4,0.24,1.9),GD(),0,-1.52,0);
+  A(g,new THREE.BoxGeometry(3.6,0.08,1.92),G3(),0,-1.42,0);
+
+  // 4 large wheels
+  const wheelPositions=[[-1.0,-0.70],[1.0,-0.70],[-1.0,0.70],[1.0,0.70]];
+  wheelPositions.forEach(([wx,wz])=>{
+    // Tyre (torus)
+    A(g,new THREE.TorusGeometry(0.36,0.14,14,28),GD(),wx,-1.62,wz,Math.PI/2,0,0);
+    // Hub
+    A(g,new THREE.CylinderGeometry(0.12,0.12,0.24,10),G3(),wx,-1.62,wz,0,0,Math.PI/2);
+    // 4 spokes
+    for(let s=0;s<4;s++){
+      const sa=s/4*Math.PI;
+      A(g,new THREE.BoxGeometry(0.055,0.055,0.64),GD(),wx,-1.62+Math.cos(sa)*0.0,wz,Math.PI/2,sa,0);
+    }
+  });
+  // Axles
+  [-1.0,1.0].forEach(ax=>{
+    A(g,new THREE.CylinderGeometry(0.055,0.055,1.62,8),G3(),ax,-1.62,0,0,0,Math.PI/2);
+  });
+
+  // === PLATFORM on top of chassis ===
+  A(g,new THREE.BoxGeometry(3.2,0.14,1.7),G1(),0,-1.30,0);
+  A(g,new THREE.TorusGeometry(1.55,0.055,6,36),G2(),0,-1.24,0);
+
+  // === HELPER: build one temple ===
+  function temple(g, cx, cz, sc, baseY){
+    const by=baseY||0;
+    // Tier 1 (wider base)
+    A(g,new THREE.CylinderGeometry(0.68*sc,0.72*sc,0.44*sc,18),G1(),cx,by-0.88,cz);
+    A(g,new THREE.TorusGeometry(0.69*sc,0.050*sc,8,32),G2(),cx,by-0.67,cz);
+    A(g,new THREE.TorusGeometry(0.69*sc,0.050*sc,8,32),G2(),cx,by-1.10,cz);
+    A(g,new THREE.CylinderGeometry(0.685*sc,0.685*sc,0.055*sc,18),G2(),cx,by-0.86,cz);
+    // T1 windows (6)
+    for(let i=0;i<6;i++){
+      const a=i/6*Math.PI*2;
+      A(g,new THREE.BoxGeometry(0.10*sc,0.20*sc,0.06*sc),GD(),cx+Math.cos(a)*0.70*sc,by-0.88,cz+Math.sin(a)*0.70*sc,0,a,0);
+    }
+
+    // Tier 2 (narrower)
+    A(g,new THREE.CylinderGeometry(0.52*sc,0.56*sc,0.40*sc,16),G1(),cx,by-0.37,cz);
+    A(g,new THREE.TorusGeometry(0.53*sc,0.044*sc,8,28),G2(),cx,by-0.19,cz);
+    A(g,new THREE.TorusGeometry(0.53*sc,0.044*sc,8,28),G2(),cx,by-0.55,cz);
+    for(let i=0;i<5;i++){
+      const a=i/5*Math.PI*2;
+      A(g,new THREE.BoxGeometry(0.09*sc,0.16*sc,0.06*sc),GD(),cx+Math.cos(a)*0.54*sc,by-0.37,cz+Math.sin(a)*0.54*sc,0,a,0);
+    }
+    // Inter-tier pillars
+    for(let i=0;i<4;i++){
+      const a=i/4*Math.PI*2;
+      A(g,new THREE.CylinderGeometry(0.034*sc,0.034*sc,0.44*sc,6),G3(),cx+Math.cos(a)*0.44*sc,by-0.64,cz+Math.sin(a)*0.44*sc);
+    }
+
+    // RIBBED DOME
+    const dr=0.50*sc;
+    A(g,new THREE.SphereGeometry(dr,22,14,0,Math.PI*2,0,Math.PI*0.64),G1(),cx,by+0.04,cz);
+    for(let i=0;i<6;i++){
+      const a=i/6*Math.PI*2;
+      const pts=[];
+      for(let j=0;j<=8;j++){
+        const t=j/8*Math.PI*0.64;
+        pts.push(new THREE.Vector3(cx+Math.sin(t)*dr*1.04*Math.cos(a), by+0.04+Math.cos(t)*dr*0.68, cz+Math.sin(t)*dr*1.04*Math.sin(a)));
+      }
+      g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),8,0.020*sc,5,false),G2()));
+    }
+    A(g,new THREE.TorusGeometry(dr*0.97,0.040*sc,8,28),GD(),cx,by+0.05,cz);
+
+    // Dome neck
+    A(g,new THREE.CylinderGeometry(0.18*sc,0.22*sc,0.18*sc,10),G2(),cx,by+0.64,cz);
+    // Small top dome
+    A(g,new THREE.SphereGeometry(0.20*sc,14,10,0,Math.PI*2,0,Math.PI*0.66),G2(),cx,by+0.77,cz);
+    A(g,new THREE.TorusGeometry(0.19*sc,0.030*sc,6,18),GD(),cx,by+0.78,cz);
+    // Top knob + spire
+    A(g,new THREE.SphereGeometry(0.082*sc,8,8),G3(),cx,by+0.99,cz);
+    A(g,new THREE.CylinderGeometry(0.018*sc,0.026*sc,0.44*sc,6),G2(),cx,by+1.16,cz);
+    A(g,new THREE.SphereGeometry(0.040*sc,6,6),G2(),cx,by+1.42,cz);
+  }
+
+  // Build 3 temples: centre tallest, flanks slightly shorter
+  temple(g,  0.0, 0, 1.00, -0.18); // centre (tall)
+  temple(g, -1.1, 0, 0.88, -0.30); // left
+  temple(g,  1.1, 0, 0.88, -0.30); // right
+
+  // Connecting base band
+  A(g,new THREE.BoxGeometry(2.4,0.12,1.4),G1(),0,-1.22,0);
+
+  return g;
+}
+
+const BUILDERS={rukma:buildRukma,shakuna:buildShakuna,sundara:buildSundara,tripura:buildTripura};
+
+/* ══════════════════════════════════════════
+   MINI CARD RENDERERS
+══════════════════════════════════════════ */
+['rukma','shakuna','sundara','tripura'].forEach(id=>{
+  const canvas=document.getElementById('mini_'+id);
+  const wrap=canvas.parentElement;
+  if(!canvas||!wrap)return;
+
+  const W=wrap.offsetWidth||400, H=wrap.offsetHeight||280;
+  canvas.width=W; canvas.height=H;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+  renderer.setSize(W,H); renderer.setClearColor(0,0);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(38,W/H,0.1,100);
+  camera.position.set(1.8,1.4,4.8); camera.lookAt(0,-0.2,0);
+
+  scene.add(new THREE.AmbientLight(0x5a3800,1.4));
+  const dl=new THREE.DirectionalLight(0xFFDD88,3.0); dl.position.set(4,7,4); scene.add(dl);
+  const dl2=new THREE.DirectionalLight(0xFF8800,1.2); dl2.position.set(-3,2,5); scene.add(dl2);
+  const dl3=new THREE.DirectionalLight(0x442200,0.8); dl3.position.set(-4,-2,-4); scene.add(dl3);
+  const pl=new THREE.PointLight(0xFFCC44,2.0,12); scene.add(pl);
+
+  const group=BUILDERS[id](); scene.add(group);
+  let t=0;
+  (function loop(){
+    requestAnimationFrame(loop); t+=0.007;
+    group.rotation.y+=0.007;
+    group.position.y=Math.sin(t)*0.07;
+    pl.position.set(Math.cos(t)*3,1.5,Math.sin(t)*3);
+    renderer.render(scene,camera);
+  })();
+
+  window.addEventListener('resize',()=>{
+    const nW=wrap.offsetWidth, nH=wrap.offsetHeight;
+    renderer.setSize(nW,nH);
+    canvas.style.width=nW+'px'; canvas.style.height=nH+'px';
+    camera.aspect=nW/nH; camera.updateProjectionMatrix();
+  });
+});
+
+/* ══════════════════════════════════════════
+   FULLSCREEN VIEWER
+══════════════════════════════════════════ */
+let fsRenderer=null, fsScene=null, fsCamera=null, fsGroup=null;
+let fsPl=null, fsT=0, fsAutoRot=false, fsAnimId=null;
+let fsDragging=false, fsLastX=0, fsLastY=0, fsManRY=0, fsManRX=0;
+let currentVimanaId=null, activePart=null;
+
+const VIMANA_META={
+  rukma:{num:'01',name:'Rukma Vimana',sanskrit:'रुक्म विमान',meaning:'Gold Flying Vessel'},
+  shakuna:{num:'02',name:'Shakuna Vimana',sanskrit:'शकुन विमान',meaning:'Eagle Flying Vessel'},
+  sundara:{num:'03',name:'Sundara Vimana',sanskrit:'सुन्दर विमान',meaning:'Beautiful Flying Vessel'},
+  tripura:{num:'04',name:'Tripura Vimana',sanskrit:'त्रिपुर विमान',meaning:'Three-City Flying Vessel'},
+};
+
+function openVimana(id){
+  currentVimanaId=id;
+  activePart=null;
+  const meta=VIMANA_META[id];
+  document.getElementById('fs-title').textContent=meta.name;
+  document.getElementById('fs-v-num').textContent=meta.num;
+  document.getElementById('fs-v-name').textContent=meta.name;
+  document.getElementById('fs-v-sanskrit').textContent=meta.sanskrit;
+  document.getElementById('fs-v-meaning').textContent=meta.meaning;
+
+  // Build parts list
+  buildPartsList(id);
+  // Reset part info panel
+  document.getElementById('pip-hint').style.display='block';
+  document.getElementById('pip-content').style.display='none';
+  document.getElementById('part-panel').classList.remove('active');
+
+  const overlay=document.getElementById('fsOverlay');
+  overlay.style.display='flex';
+  requestAnimationFrame(()=>overlay.classList.add('visible'));
+
+  initFsRenderer(id);
+}
+
+function closeVimana(){
+  stopSpeech();
+  const overlay=document.getElementById('fsOverlay');
+  overlay.classList.remove('visible');
+  setTimeout(()=>{overlay.style.display='none';},400);
+  if(fsAnimId){cancelAnimationFrame(fsAnimId);fsAnimId=null;}
+  if(fsRenderer){fsRenderer.dispose();fsRenderer=null;}
+  document.getElementById('fs-svg').innerHTML='';
+  fsGroup=null;
+}
+
+function initFsRenderer(id){
+  if(fsAnimId){cancelAnimationFrame(fsAnimId);fsAnimId=null;}
+  if(fsRenderer){fsRenderer.dispose();}
+
+  const canvas=document.getElementById('fs-canvas');
+  const wrap=document.querySelector('.fs-canvas-side');
+
+  fsRenderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  fsRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  fsRenderer.setClearColor(0,0);
+
+  fsScene=new THREE.Scene();
+  fsCamera=new THREE.PerspectiveCamera(36,1,0.1,100);
+  fsCamera.position.set(2.0,1.6,5.2);
+  fsCamera.lookAt(0,-0.2,0);
+
+  fsScene.add(new THREE.AmbientLight(0x5a3800,1.4));
+  const dl=new THREE.DirectionalLight(0xFFDD88,3.2); dl.position.set(4,7,5); fsScene.add(dl);
+  const dl2=new THREE.DirectionalLight(0xFF8800,1.4); dl2.position.set(-3,2,4); fsScene.add(dl2);
+  const dl3=new THREE.DirectionalLight(0x442200,0.6); dl3.position.set(-5,-3,-4); fsScene.add(dl3);
+  fsPl=new THREE.PointLight(0xFFCC44,2.2,14); fsPl.position.set(0,2,3); fsScene.add(fsPl);
+
+  fsGroup=BUILDERS[id](); fsScene.add(fsGroup);
+  fsManRY=0; fsManRX=0; fsAutoRot=false;
+  document.getElementById('fs-pause-btn').textContent='▶ Auto Rotate';
+
+  // Set up SVG
+  const svg=document.getElementById('fs-svg');
+  svg.innerHTML='';
+  const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+  defs.innerHTML=`<filter id="fsglow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+  svg.appendChild(defs);
+
+  function resize(){
+    const W=wrap.offsetWidth, H=wrap.offsetHeight;
+    if(W<1||H<1)return;
+    fsRenderer.setSize(W,H,false);
+    canvas.style.width=W+'px'; canvas.style.height=H+'px';
+    fsCamera.aspect=W/H; fsCamera.updateProjectionMatrix();
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    svg.style.width=W+'px'; svg.style.height=H+'px';
+  }
+  resize();
+  const ro=new ResizeObserver(resize); ro.observe(wrap);
+
+  // Mouse/touch
+  canvas.addEventListener('mousedown',e=>{fsDragging=true;fsLastX=e.clientX;fsLastY=e.clientY;});
+  window.addEventListener('mousemove',e=>{
+    if(!fsDragging)return;
+    fsManRY+=(e.clientX-fsLastX)*0.012;
+    fsManRX+=(e.clientY-fsLastY)*0.008;
+    fsManRX=Math.max(-0.9,Math.min(0.9,fsManRX));
+    fsLastX=e.clientX;fsLastY=e.clientY;
+  });
+  window.addEventListener('mouseup',()=>{fsDragging=false;});
+  canvas.addEventListener('touchstart',e=>{fsDragging=true;fsLastX=e.touches[0].clientX;fsLastY=e.touches[0].clientY;e.preventDefault();},{passive:false});
+  canvas.addEventListener('touchmove',e=>{
+    if(!fsDragging)return;
+    fsManRY+=(e.touches[0].clientX-fsLastX)*0.012;
+    fsManRX+=(e.touches[0].clientY-fsLastY)*0.008;
+    fsManRX=Math.max(-0.9,Math.min(0.9,fsManRX));
+    fsLastX=e.touches[0].clientX;fsLastY=e.touches[0].clientY;e.preventDefault();
+  },{passive:false});
+  canvas.addEventListener('touchend',()=>{fsDragging=false;});
+
+  const parts=PART_DATA[id]||[];
+
+  function loop(){
+    fsAnimId=requestAnimationFrame(loop);
+    fsT+=0.007;
+    if(fsAutoRot){
+      fsGroup.rotation.y+=0.005;
+      fsManRY=fsGroup.rotation.y;
+    } else {
+      fsGroup.rotation.y=fsManRY;
+      fsGroup.rotation.x=fsManRX;
+    }
+    fsGroup.position.y=Math.sin(fsT)*0.08;
+    fsPl.position.set(Math.cos(fsT)*3,2,Math.sin(fsT)*3);
+    fsRenderer.render(fsScene,fsCamera);
+
+    // Project labels
+    const W=wrap.offsetWidth, H=wrap.offsetHeight;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    while(svg.childNodes.length>1) svg.removeChild(svg.lastChild);
+
+    parts.forEach(lbl=>{
+      const wp=lbl.p.clone().applyMatrix4(fsGroup.matrixWorld);
+      const ndc=wp.clone().project(fsCamera);
+      if(ndc.z>1) return;
+      const sx=(ndc.x*0.5+0.5)*W;
+      const sy=(-ndc.y*0.5+0.5)*H;
+      if(sx<10||sx>W-10||sy<10||sy>H-10) return;
+
+      const toL=wp.clone().sub(fsCamera.position).normalize();
+      const camFwd=new THREE.Vector3(0,0,-1).applyQuaternion(fsCamera.quaternion);
+      if(camFwd.dot(toL)<-0.05) return;
+
+      const isActive=(activePart===lbl.id);
+      const onRight=sx<=W/2;
+      const lineLen=44;
+      const ex=onRight?sx+lineLen:sx-lineLen;
+      const tx=onRight?ex+6:ex-6;
+      const anchor=onRight?'start':'end';
+
+      const grp=document.createElementNS('http://www.w3.org/2000/svg','g');
+      grp.style.cursor='pointer';
+
+      // Clickable area
+      const hit=document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+      hit.setAttribute('cx',sx);hit.setAttribute('cy',sy);hit.setAttribute('rx','28');hit.setAttribute('ry','16');
+      hit.setAttribute('fill','transparent');
+      grp.appendChild(hit);
+
+      // Pulse ring if active
+      if(isActive){
+        const ring=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        ring.setAttribute('cx',sx);ring.setAttribute('cy',sy);ring.setAttribute('r','10');
+        ring.setAttribute('fill','none');ring.setAttribute('stroke','rgba(0,212,255,0.5)');ring.setAttribute('stroke-width','2');
+        grp.appendChild(ring);
+      }
+
+      // Dot
+      const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx',sx);dot.setAttribute('cy',sy);dot.setAttribute('r',isActive?'5':'3.5');
+      dot.setAttribute('fill',isActive?'#00D4FF':'#F5D060');
+      dot.setAttribute('filter','url(#fsglow)');
+      grp.appendChild(dot);
+
+      // Line
+      const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+      ln.setAttribute('x1',sx);ln.setAttribute('y1',sy);ln.setAttribute('x2',ex);ln.setAttribute('y2',sy);
+      ln.setAttribute('stroke',isActive?'rgba(0,212,255,0.6)':'rgba(212,168,67,0.5)');ln.setAttribute('stroke-width','1');
+      grp.appendChild(ln);
+
+      // Text outlines + main text
+      [[lbl.n,'10','Cinzel,serif',isActive?'#00D4FF':'#F5D060','-2.5'],
+       [lbl.s,'8.5','Crimson Pro,serif',isActive?'rgba(0,212,255,0.7)':'rgba(212,168,67,0.6)','10']
+      ].forEach(([txt,fs,ff,fc,yo])=>{
+        [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([dx,dy])=>{
+          const sh=document.createElementNS('http://www.w3.org/2000/svg','text');
+          sh.setAttribute('x',tx+dx);sh.setAttribute('y',sy+parseFloat(yo)+dy);
+          sh.setAttribute('text-anchor',anchor);sh.setAttribute('fill','rgba(2,1,8,0.95)');
+          sh.setAttribute('font-family',ff);sh.setAttribute('font-size',fs);sh.textContent=txt;
+          grp.appendChild(sh);
+        });
+        const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x',tx);t.setAttribute('y',sy+parseFloat(yo));
+        t.setAttribute('text-anchor',anchor);t.setAttribute('fill',fc);
+        t.setAttribute('font-family',ff);t.setAttribute('font-size',fs);t.textContent=txt;
+        grp.appendChild(t);
+      });
+
+      // Speak icon
+      const spk=document.createElementNS('http://www.w3.org/2000/svg','text');
+      const spkX=onRight?ex+lineLen*0.4:ex-lineLen*0.4;
+      spk.setAttribute('x',spkX-18);spk.setAttribute('y',sy+4);
+      spk.setAttribute('font-size','11');spk.setAttribute('fill',isActive?'#00D4FF':'rgba(212,168,67,0.55)');
+      spk.textContent='🔊';
+      grp.appendChild(spk);
+
+      grp.addEventListener('click',()=>selectPart(lbl));
+      grp.addEventListener('touchend',e=>{e.preventDefault();selectPart(lbl);});
+      svg.appendChild(grp);
+    });
+  }
+  loop();
+}
+
+function toggleFsPause(){
+  fsAutoRot=!fsAutoRot;
+  document.getElementById('fs-pause-btn').textContent=fsAutoRot?'⏸ Pause':'▶ Auto Rotate';
+}
+
+/* ══════════════════════════════════════════
+   PART SELECTION + SPEECH
+══════════════════════════════════════════ */
+function selectPart(lbl){
+  activePart=lbl.id;
+
+  // Show only the Sanskrit name — no description
+  document.getElementById('pip-hint').style.display='none';
+  document.getElementById('pip-content').style.display='block';
+  document.getElementById('pip-name').textContent=lbl.n;
+  document.getElementById('pip-sanskrit').textContent=lbl.s;
+  document.getElementById('part-panel').classList.add('active');
+
+  // Highlight in parts list
+  document.querySelectorAll('.part-item').forEach(el=>{
+    el.classList.toggle('active-part',el.dataset.partId===lbl.id);
+  });
+
+  // Speak only the Sanskrit name
+  speakPart(lbl);
+}
+
+function speakPart(lbl){
+  stopSpeech();
+  if(!window.speechSynthesis) return;
+
+  // Speak ONLY the Sanskrit name — pure and clear
+  const sanskritName = lbl.n;  // e.g. "मुख्य गुम्बद"
+  const englishName  = lbl.s;  // e.g. "Main Dome"
+
+  const voices = window.speechSynthesis.getVoices();
+
+  // 1. Try to speak Sanskrit name in Hindi voice (reads Devanagari correctly)
+  const hindiVoice = voices.find(v=>v.lang==='hi-IN')
+                  || voices.find(v=>v.lang.startsWith('hi'));
+
+  if(hindiVoice){
+    // Speak Sanskrit name in Hindi voice
+    const u1 = new SpeechSynthesisUtterance(sanskritName);
+    u1.voice   = hindiVoice;
+    u1.rate    = 0.65;
+    u1.pitch   = 1.0;
+    u1.volume  = 1.0;
+    u1.onstart = ()=>{ document.getElementById('pip-speaking').style.display='inline-flex'; };
+
+    // Then speak English name slowly
+    const engVoice = voices.find(v=>v.lang==='en-IN')
+                  || voices.find(v=>v.lang.startsWith('en-IN'))
+                  || voices.find(v=>v.lang.startsWith('en'));
+    const u2 = new SpeechSynthesisUtterance(englishName);
+    if(engVoice) u2.voice = engVoice;
+    u2.rate   = 0.70;
+    u2.pitch  = 0.92;
+    u2.volume = 1.0;
+    u2.onend  = u2.onerror = ()=>{ document.getElementById('pip-speaking').style.display='none'; };
+
+    window.speechSynthesis.speak(u1);
+    window.speechSynthesis.speak(u2);
+  } else {
+    // Fallback: speak English name only
+    const engVoice = voices.find(v=>v.lang==='en-IN')
+                  || voices.find(v=>v.lang.startsWith('en-IN'))
+                  || voices.find(v=>v.lang.startsWith('en-GB'))
+                  || voices.find(v=>v.lang.startsWith('en'));
+    const u = new SpeechSynthesisUtterance(englishName);
+    if(engVoice) u.voice = engVoice;
+    u.rate   = 0.70;
+    u.pitch  = 0.92;
+    u.volume = 1.0;
+    u.onstart = ()=>{ document.getElementById('pip-speaking').style.display='inline-flex'; };
+    u.onend = u.onerror = ()=>{ document.getElementById('pip-speaking').style.display='none'; };
+    window.speechSynthesis.speak(u);
+  }
+}
+
+function stopSpeech(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  document.getElementById('pip-speaking').style.display='none';
+}
+
+// Load voices early
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
+}
+
+function buildPartsList(id){
+  const parts=PART_DATA[id]||[];
+  const container=document.getElementById('parts-list-content');
+  container.innerHTML='';
+  parts.forEach(lbl=>{
+    const item=document.createElement('div');
+    item.className='part-item';
+    item.dataset.partId=lbl.id;
+    item.innerHTML=`
+      <div class="part-dot"></div>
+      <div class="part-item-text">
+        <div class="part-item-name">${lbl.n}</div>
+        <div class="part-item-sub">${lbl.s}</div>
+      </div>
+      <div class="part-speak-icon">🔊</div>
+    `;
+    item.addEventListener('click',()=>selectPart(lbl));
+    container.appendChild(item);
+  });
+}
+
+// Close on Escape
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVimana();});
+</script>
+</body>
+</html>
+// IT's PROJECT OF CLASS CO 2 ABOUT INDIAN ASSIAN Aeronautics
+//DONE BY DSK_1207_

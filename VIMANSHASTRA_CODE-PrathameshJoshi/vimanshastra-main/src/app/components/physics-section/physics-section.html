@@ -1,0 +1,49 @@
+<section class="physics-section" id="physics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Chapter III</div>
+      <h2 class="section-title">The <span class="gold">Physics</span> of Survival</h2>
+      <p class="section-subtitle">
+        Understanding how reducing mass at the moment of impact can mean the difference
+        between catastrophe and survival.
+      </p>
+    </div>
+
+    <!-- Equations Grid -->
+    <div class="equations-grid">
+      @for (eq of equations; track eq.name) {
+        <div class="equation-card glass-card">
+          <div class="equation-formula">{{ eq.formula }}</div>
+          <div class="equation-name">{{ eq.name }}</div>
+          <p class="equation-explanation">{{ eq.explanation }}</p>
+        </div>
+      }
+    </div>
+
+    <!-- Energy Comparison -->
+    <div class="energy-comparison glass-card">
+      <h3 class="comparison-title">Impact Energy Comparison</h3>
+      <p class="comparison-subtitle">Scenario: 75,000 kg aircraft at 80 m/s approach speed</p>
+      <div class="comparison-bars">
+        @for (comp of comparisons; track comp.label) {
+          <div class="bar-group">
+            <div class="bar-label">{{ comp.label }}</div>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                [style.width.%]="(comp.value / 240) * 100"
+                [style.background]="comp.color"
+              >
+                <span class="bar-value">{{ comp.value }} {{ comp.unit }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="comparison-result">
+        <span class="result-label">Impact Energy Reduction</span>
+        <span class="result-value gradient-text">85%</span>
+      </div>
+    </div>
+  </div>
+</section>

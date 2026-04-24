@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Region Details - Ancient Crops</title>
+    <meta name="description" content="Detailed analysis of regional ancient farming, climate, soil, and key crops.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">AgriAntiquity</div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#regions">Regions</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="error-message"></div>
+    <div id="loading">Loading region data...</div>
+
+    <!-- Main Content wrapper (Hidden until JS loads data) -->
+    <main id="region-content" style="display: none;">
+        
+        <!-- Region Hero -->
+        <section id="region-hero" class="region-hero">
+            <div class="container">
+                <h1 id="region-title" class="fade-in">Region Name</h1>
+            </div>
+        </section>
+
+        <!-- Detailed Environment Analysis -->
+        <section class="region-details">
+            <div class="container">
+                <h2 class="section-title fade-in">Agricultural Environment</h2>
+                
+                <div class="details-grid">
+                    <div class="detail-box fade-in">
+                        <h3>🌤️ Climate</h3>
+                        <p id="detail-climate">Climate description goes here.</p>
+                    </div>
+                    
+                    <div class="detail-box fade-in">
+                        <h3>🌱 Soil Type</h3>
+                        <p id="detail-soil">Soil description goes here.</p>
+                    </div>
+
+                    <div class="detail-box fade-in">
+                        <h3>💧 Water Availability</h3>
+                        <p id="detail-water">Water description goes here.</p>
+                    </div>
+
+                    <div class="detail-box fade-in">
+                        <h3>⛏️ Farming Techniques</h3>
+                        <p id="detail-techniques">Techniques description goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regional Crops -->
+        <section class="crops-section" style="background-color: var(--color-bg);">
+            <div class="container">
+                <h2 class="section-title fade-in">Key Regional Crops</h2>
+                
+                <!-- Cards will be injected here via script.js -->
+                <div id="crops-container" class="crops-grid"></div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="margin-bottom: 1.5rem;">AgriAntiquity</div>
+            <p style="margin-bottom: 2rem;">&copy; 2026 Ancient Crops Portfolio. Crafted for historical exploration.</p>
+            
+            <div class="credits">
+                <h4 style="margin-bottom: 1rem; color: var(--color-accent); font-size: 1.1rem; letter-spacing: 2px;">CREATED BY</h4>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 10px; font-size: 0.9rem; opacity: 0.9; text-align: left; max-width: 900px; margin: 0 auto;">
+                    <span>1) ADITYA KATKURI</span>
+                    <span>2) AYUSH JADHAV</span>
+                    <span>3) AJIT KOKATE</span>
+                    <span>4) PRATIK KESHATWAR</span>
+                    <span>5) YASH BINGEWAD</span>
+                    <span>6) OM GAIKWAD</span>
+                    <span>7) VEDANT DAMKONDWAR</span>
+                    <span>8) PRUTHVIRAJ GHARGE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Reference -->
+    <script src="script.js"></script>
+</body>
+</html>

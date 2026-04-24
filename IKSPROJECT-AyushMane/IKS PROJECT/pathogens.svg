@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#2a3a1f"/>
+      <stop offset="100%" stop-color="#050a04"/>
+    </radialGradient>
+    
+    <!-- Bacteria Glow -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="20" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Bacteria Surface texture -->
+    <radialGradient id="bactBody" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#b6d94c"/>
+      <stop offset="60%" stop-color="#5a8c22"/>
+      <stop offset="100%" stop-color="#1b360b"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1000" height="800" fill="url(#bg)"/>
+
+  <!-- Background floating particles -->
+  <circle cx="200" cy="150" r="15" fill="#4b6b23" opacity="0.4" filter="url(#glow)"/>
+  <circle cx="800" cy="200" r="35" fill="#4b6b23" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="150" cy="650" r="25" fill="#4b6b23" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="700" cy="700" r="12" fill="#4b6b23" opacity="0.6" filter="url(#glow)"/>
+  <circle cx="450" cy="100" r="10" fill="#7ba03f" opacity="0.4" filter="url(#glow)"/>
+  <circle cx="900" cy="550" r="20" fill="#7ba03f" opacity="0.3" filter="url(#glow)"/>
+  
+  <!-- Main Bacteria 1 -->
+  <g transform="translate(420, 380) rotate(-25)" filter="url(#glow)">
+    <rect x="-220" y="-85" width="440" height="170" rx="85" ry="85" fill="url(#bactBody)"/>
+    <!-- Cilia/flagella on bacteria -->
+    <path d="M -200 -70 Q -250 -140 -300 -90 M 200 70 Q 250 140 300 90 M 0 -85 Q 50 -150 90 -110 M -60 85 Q -100 150 -50 180" stroke="#b6d94c" stroke-width="3" fill="none" opacity="0.6"/>
+    <!-- Surface bumps (colonies) -->
+    <circle cx="-110" cy="-25" r="10" fill="#e8e25d" opacity="0.9"/>
+    <circle cx="-50" cy="40" r="14" fill="#e8e25d" opacity="0.8"/>
+    <circle cx="60" cy="-15" r="18" fill="#e8e25d" opacity="0.9"/>
+    <circle cx="130" cy="45" r="8" fill="#e8e25d" opacity="0.7"/>
+    <circle cx="170" cy="-20" r="12" fill="#e8e25d" opacity="0.85"/>
+    <circle cx="-160" cy="20" r="11" fill="#e8e25d" opacity="0.8"/>
+  </g>
+
+  <!-- Main Bacteria 2 -->
+  <g transform="translate(800, 600) rotate(15)" filter="url(#glow)">
+    <rect x="-140" y="-55" width="280" height="110" rx="55" ry="55" fill="url(#bactBody)"/>
+    <!-- Surface bumps -->
+    <circle cx="-60" cy="-15" r="8" fill="#e8e25d" opacity="0.9"/>
+    <circle cx="30" cy="25" r="12" fill="#e8e25d" opacity="0.8"/>
+    <circle cx="90" cy="-20" r="10" fill="#e8e25d" opacity="0.9"/>
+    <circle cx="-100" cy="15" r="7" fill="#e8e25d" opacity="0.85"/>
+  </g>
+  
+  <!-- Subtle organic overlays -->
+  <path d="M 0 0 C 300 200, 700 800, 1000 800 L 1000 0 Z" fill="#2a3a1f" opacity="0.1" filter="url(#glow)"/>
+</svg>

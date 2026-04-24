@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Varanasi Ghats – Blending Tradition with Technology</title>
+    <meta name="description"
+        content="Experience the spiritual essence of Varanasi's ancient ghats through a modern digital lens. Interactive Virtual Aarti, immersive storytelling, and premium design.">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass"
+        style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px; z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div class="logo"
+            style="font-family: 'Outfit'; font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; color: var(--primary);">
+            KASHI DIGITAL</div>
+        <ul style="display: flex; list-style: none; gap: 2rem;">
+            <li><a href="#hero" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Home</a></li>
+            <li><a href="#ghats" style="color: var(--text-main); text-decoration: none; font-weight: 500;">The Ghats</a>
+            </li>
+            <li><a href="#aarti" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Virtual
+                    Aarti</a></li>
+            <li><a href="#about" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Vision</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <img src="hero.png" alt="Varanasi Ghats at Night" class="hero-bg">
+        <div class="hero-content">
+            <p>A SCHOOL PROJECT PRESENTATION</p>
+            <h1>Digital Varanasi Ghats</h1>
+            <p>Blending Ancient Tradition with 21st Century Technology</p>
+            <div style="margin-top: 3rem;">
+                <a href="#aarti" class="btn-primary">Experience Virtual Aarti</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="reveal">
+        <div class="glass" style="padding: 4rem; text-align: center;">
+            <div class="section-title">
+                <h2>The Vision: Sacred Heritage</h2>
+                <div class="divider"></div>
+            </div>
+            <p
+                style="font-size: 1.25rem; max-width: 900px; margin: 0 auto; color: var(--text-muted); line-height: 1.8;">
+                "Digital Varanasi Ghats" is a tribute to Kashi, the oldest living city on Earth. Our project aims to
+                bridge the gap between ancient spirituality and modern innovation. By digitizing the sacred ghats—from
+                the sunrise at Assi to the eternal flames of Manikarnika—we ensure that the wisdom and serenity of the
+                Ganges are preserved for the Gen-Z era and beyond.
+            </p>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <div class="stat-item">
+                    <h4 style="color: var(--primary); font-size: 2rem;">3000+</h4>
+                    <p>Years of History</p>
+                </div>
+                <div class="stat-item">
+                    <h4 style="color: var(--primary); font-size: 2rem;">84+</h4>
+                    <p>Sacred Ghats</p>
+                </div>
+                <div class="stat-item">
+                    <h4 style="color: var(--primary); font-size: 2rem;">∞</h4>
+                    <p>Eternal Faith</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ghats Explorer -->
+    <section id="ghats">
+        <div class="section-title">
+            <h2>Explore the Holy Ghats</h2>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 1rem auto;">Journey through the steps that
+                connect the earthly realm to the divine flow of the Ganga.</p>
+            <div class="divider"></div>
+        </div>
+        <div class="ghat-grid">
+            <div class="ghat-card glass reveal">
+                <img src="hero.png" alt="Dashashwamedh Ghat">
+                <div class="ghat-overlay">
+                    <h3>Dashashwamedh Ghat</h3>
+                    <p>The heart of Kashi. According to legend, Lord Brahma sacrificed ten horses here. Famous for the
+                        spectacular Ganga Aarti that illuminates the night sky.</p>
+                </div>
+            </div>
+            <div class="ghat-card glass reveal">
+                <img src="hero.png" alt="Assi Ghat">
+                <div class="ghat-overlay">
+                    <h3>Assi Ghat</h3>
+                    <p>Where the river Assi meets the Ganga. A place of deep meditation, pilgrims seek blessings here
+                        before embarking on their spiritual journey through the city.</p>
+                </div>
+            </div>
+            <div class="ghat-card glass reveal">
+                <img src="hero.png" alt="Manikarnika Ghat">
+                <div class="ghat-overlay">
+                    <h3>Manikarnika Ghat</h3>
+                    <p>The gateway to liberation (Moksha). The sacred fires here have burned continuously for millennia,
+                        reminding us of the eternal cycle of life and death.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Aarti -->
+    <section id="aarti">
+        <div class="section-title">
+            <h2>Divine Virtual Aarti</h2>
+            <p>Immerse yourself in the spiritual vibration of Kashi Vishwanath.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="aarti-container glass" id="aarti-interactive-area">
+            <div class="thali-rotate-container" id="thali-container">
+                <div class="thali-aura"></div>
+                <div class="particles-container" id="particles-container"></div>
+                <img src="thali.png" alt="Aarti Thali" class="thali-img" id="aarti-thali">
+                <div class="diya-glow" id="glow-1" style="top: 20%; left: 50%;"></div>
+                <div class="diya-glow" id="glow-2" style="top: 50%; left: 80%;"></div>
+                <div class="diya-glow" id="glow-3" style="top: 80%; left: 50%;"></div>
+                <div class="diya-glow" id="glow-4" style="top: 50%; left: 20%;"></div>
+            </div>
+
+            <div id="aarti-status"
+                style="margin-top: 2rem; font-weight: 500; color: var(--text-muted); letter-spacing: 1px;">
+                READY FOR RITUAL
+            </div>
+
+            <button id="light-button" class="btn-primary aarti-btn" style="margin-top: 2rem;">Perform Aarti</button>
+            <audio id="aarti-audio" src="aarti.mp3" loop preload="auto"></audio>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="tech" class="reveal">
+        <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 style="font-size: 3rem; margin-bottom: 2rem;">Modern Tech, <span
+                        style="color: var(--primary);">Ancient Soul</span></h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+                    We leverage high-performance web animations, interactive SVGs, and modern design frameworks to tell
+                    a story that is thousands of years old. Our goal is to make heritage accessible to everyone,
+                    everywhere.
+                </p>
+                <ul style="list-style: none; color: var(--primary); font-weight: 600;">
+                    <li style="margin-bottom: 1rem;">✦ Interactive PWA Support</li>
+                    <li style="margin-bottom: 1rem;">✦ WebGL Rendered Environments</li>
+                    <li style="margin-bottom: 1rem;">✦ Responsive Mobile UI</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px;" class="glass">
+                <!-- Static Diya Image for Tech Section -->
+                <img src="diya.png" alt="Glowing Diya" style="width: 100%; border-radius: 20px;">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 1rem;">KASHI DIGITAL</div>
+        <p>&copy; 2024 Digital Varanasi Ghats Project. Built for School Excellence.</p>
+        <div class="socials">
+            <a href="#">Instagram</a>
+            <a href="#">X (Twitter)</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

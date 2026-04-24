@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <!-- Lush Green Lettuce Background -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#72b02e"/>
+      <stop offset="60%" stop-color="#4a8517"/>
+      <stop offset="100%" stop-color="#2a5209"/>
+    </radialGradient>
+    
+    <!-- Glove Gradient -->
+    <linearGradient id="gloveBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a6fdc"/>
+      <stop offset="40%" stop-color="#3252b3"/>
+      <stop offset="100%" stop-color="#1c3070"/>
+    </linearGradient>
+    <linearGradient id="gloveDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3252b3"/>
+      <stop offset="100%" stop-color="#152454"/>
+    </linearGradient>
+
+    <!-- Glass Petri Dish -->
+    <radialGradient id="glass" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="80%" stop-color="#e0f4ff" stop-opacity="0.1"/>
+      <stop offset="95%" stop-color="#bde6ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#7abdff" stop-opacity="0.6"/>
+    </radialGradient>
+    
+    <filter id="shadowLeft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="-8" dy="12" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="shadowRight" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="8" dy="12" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    
+    <filter id="glassDark">
+      <feDropShadow dx="3" dy="8" stdDeviation="6" flood-color="#0a1a05" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bgGlow)"/>
+
+  <!-- Background abstract lettuce/leaves texture -->
+  <path d="M -50 100 Q 150 -50 350 150 T 650 50 T 900 150 L 900 650 L -50 650 Z" fill="#52961d" opacity="0.6"/>
+  <path d="M -100 300 Q 200 150 400 350 T 800 250 T 950 400 L 950 650 L -100 650 Z" fill="#3c7312" opacity="0.7"/>
+  <path d="M 0 450 Q 300 300 500 450 T 900 350 L 900 650 L 0 650 Z" fill="#2d570d" opacity="0.8"/>
+  <circle cx="100" cy="150" r="120" fill="#78bf32" opacity="0.4"/>
+  <circle cx="700" cy="200" r="160" fill="#69ab2a" opacity="0.4"/>
+  <circle cx="750" cy="500" r="140" fill="#406e16" opacity="0.5"/>
+
+  <!-- Left Hand (Holding the base) -->
+  <g filter="url(#shadowLeft)">
+    <!-- Base of hand/wrist -->
+    <path d="M 0 450 Q 150 400 250 350 L 350 450 Q 200 550 0 600 Z" fill="url(#gloveBlue)"/>
+    <!-- Fingers underneath -->
+    <path d="M 220 330 Q 380 270 480 300 Q 500 330 400 360 Z" fill="url(#gloveDark)"/>
+    <path d="M 230 360 Q 400 300 490 340 Q 500 370 380 390 Z" fill="url(#gloveDark)"/>
+    <path d="M 200 310 Q 350 170 450 190 Q 470 220 380 270 Z" fill="url(#gloveBlue)"/>
+    <!-- Thumb holding side -->
+    <path d="M 180 430 Q 320 450 380 380 Q 350 330 250 370 Z" fill="url(#gloveBlue)"/>
+  </g>
+
+  <!-- Right Hand (Holding tweezers) -->
+  <g filter="url(#shadowRight)">
+    <path d="M 800 500 Q 600 450 520 530 L 480 550 Q 550 650 800 650 Z" fill="url(#gloveBlue)"/>
+    <!-- Thumb holding tweezers -->
+    <path d="M 600 500 Q 500 480 450 540 Q 480 570 540 530 Z" fill="url(#gloveBlue)"/>
+    <!-- Fingers holding tweezers -->
+    <path d="M 520 500 Q 480 430 430 470 Q 450 510 500 520 Z" fill="url(#gloveDark)"/>
+  </g>
+
+  <!-- Tweezers -->
+  <path d="M 450 530 L 360 400 L 370 395 L 460 520 Z" fill="#bdc3c7"/>
+  <path d="M 445 520 L 380 390 L 385 388 L 452 510 Z" fill="#95a5a6"/>
+
+  <!-- Petri Dish Base & Plant -->
+  <g filter="url(#glassDark)">
+    <!-- Bottom Dish -->
+    <ellipse cx="380" cy="280" rx="100" ry="100" fill="url(#glass)" stroke="#8bc8f7" stroke-width="4"/>
+    <!-- Soil/Agar -->
+    <ellipse cx="380" cy="280" rx="90" ry="90" fill="#2d570d" opacity="0.3"/>
+    
+    <!-- Plant inside -->
+    <path d="M 380 340 Q 360 280 330 230 Q 360 240 380 280 Z" fill="#79c230"/>
+    <path d="M 380 340 Q 440 300 460 250 Q 420 280 380 300 Z" fill="#69ad23"/>
+    <path d="M 380 340 Q 390 260 400 200 Q 410 240 390 300 Z" fill="#8bf02b"/>
+    <path d="M 380 340 Q 350 310 300 300 Q 340 330 370 340 Z" fill="#528f14"/>
+
+    <!-- Plant being held by tweezers -->
+    <path d="M 370 395 Q 380 380 420 360 Q 400 390 375 400 Z" fill="#8bf02b"/>
+  </g>
+
+  <!-- Petri Dish Lid (Held/offset) -->
+  <ellipse cx="270" cy="220" rx="105" ry="105" fill="url(#glass)" stroke="#8bc8f7" stroke-width="3" filter="url(#glassDark)"/>
+  <!-- Highlight lid rim -->
+  <path d="M 190 140 Q 270 100 340 150" stroke="#ffffff" stroke-width="6" fill="none" opacity="0.7" stroke-linecap="round"/>
+</svg>

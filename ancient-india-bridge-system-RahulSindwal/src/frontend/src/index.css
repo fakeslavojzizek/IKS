@@ -1,0 +1,385 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Fraunces";
+    --font-body: "GeneralSans";
+    --font-mono: "GeistMono";
+    --radius: 0.5rem;
+
+    --background: 0.98 0.02 55;
+    --foreground: 0.2 0.02 30;
+    --card: 0.95 0.03 60;
+    --card-foreground: 0.18 0.02 25;
+    --popover: 0.96 0.02 50;
+    --popover-foreground: 0.15 0.02 20;
+
+    --primary: 0.51 0.12 30;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.68 0.22 65;
+    --secondary-foreground: 0.2 0.02 30;
+    --muted: 0.88 0.05 55;
+    --muted-foreground: 0.5 0.02 40;
+
+    --accent: 0.32 0.16 20;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.32 0.16 20;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.85 0.04 50;
+    --input: 0.92 0.03 55;
+    --ring: 0.72 0.12 75;
+
+    --chart-1: 0.51 0.12 30;
+    --chart-2: 0.68 0.22 65;
+    --chart-3: 0.32 0.16 20;
+    --chart-4: 0.72 0.12 75;
+    --chart-5: 0.42 0.1 25;
+
+    --sidebar: 0.95 0.03 60;
+    --sidebar-foreground: 0.2 0.02 30;
+    --sidebar-primary: 0.51 0.12 30;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.68 0.22 65;
+    --sidebar-accent-foreground: 0.2 0.02 30;
+    --sidebar-border: 0.85 0.04 50;
+    --sidebar-ring: 0.72 0.12 75;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.68 0.22 65 / 0.8),
+      oklch(0.72 0.12 75)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      oklch(0.51 0.12 30 / 0.6),
+      oklch(0.32 0.16 20 / 0.8)
+    );
+  }
+
+  .dark {
+    --background: 0.16 0.01 30;
+    --foreground: 0.92 0.01 60;
+    --card: 0.22 0.01 35;
+    --card-foreground: 0.9 0.01 55;
+    --popover: 0.25 0.01 40;
+    --popover-foreground: 0.88 0.01 50;
+
+    --primary: 0.62 0.15 35;
+    --primary-foreground: 0.16 0.01 30;
+
+    --secondary: 0.72 0.2 68;
+    --secondary-foreground: 0.16 0.01 30;
+    --muted: 0.3 0.02 40;
+    --muted-foreground: 0.65 0.02 50;
+
+    --accent: 0.55 0.18 25;
+    --accent-foreground: 0.95 0 0;
+
+    --destructive: 0.55 0.18 25;
+    --destructive-foreground: 0.95 0 0;
+
+    --border: 0.35 0.02 35;
+    --input: 0.28 0.02 32;
+    --ring: 0.72 0.12 75;
+
+    --chart-1: 0.62 0.15 35;
+    --chart-2: 0.72 0.2 68;
+    --chart-3: 0.55 0.18 25;
+    --chart-4: 0.75 0.14 78;
+    --chart-5: 0.52 0.12 28;
+
+    --sidebar: 0.2 0.01 32;
+    --sidebar-foreground: 0.9 0.01 55;
+    --sidebar-primary: 0.62 0.15 35;
+    --sidebar-primary-foreground: 0.95 0 0;
+    --sidebar-accent: 0.72 0.2 68;
+    --sidebar-accent-foreground: 0.16 0.01 30;
+    --sidebar-border: 0.35 0.02 35;
+    --sidebar-ring: 0.72 0.12 75;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.72 0.2 68 / 0.6),
+      oklch(0.75 0.14 78)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      oklch(0.62 0.15 35 / 0.5),
+      oklch(0.55 0.18 25 / 0.7)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GeneralSans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  /* Scroll-triggered animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-from-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .animate-from-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .animate-from-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .animate-from-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* CSS Keyframe animations */
+  .fade-in {
+    animation: fadeIn 0.6s ease-in-out both;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.7s ease-out both;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.6s ease-out both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Draw-stroke for SVGs */
+  .draw-stroke-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+
+  .draw-stroke-path.is-visible {
+    animation: drawStroke 2.2s ease-in-out forwards;
+  }
+
+  @keyframes drawStroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Stone texture overlay */
+  .stone-texture {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.015) 2px,
+        rgba(0, 0, 0, 0.015) 4px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.01) 2px,
+        rgba(0, 0, 0, 0.01) 4px
+      );
+  }
+
+  .stone-texture-dark {
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.01) 2px,
+        rgba(255, 255, 255, 0.01) 4px
+      );
+  }
+
+  /* Gold border accents */
+  .border-gold {
+    border-color: oklch(0.72 0.12 75);
+  }
+
+  .gold-ornament {
+    position: relative;
+  }
+
+  .gold-ornament::before,
+  .gold-ornament::after {
+    content: "✦";
+    color: oklch(0.72 0.12 75);
+    margin: 0 0.5rem;
+    font-size: 0.75em;
+  }
+
+  /* Section utilities */
+  .section-elevated {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .section-card {
+    border: 1px solid oklch(var(--border));
+    border-radius: var(--radius);
+  }
+
+  .gold-accent {
+    border-color: oklch(0.72 0.12 75);
+  }
+
+  /* Typography utilities */
+  .text-display {
+    @apply font-display font-bold;
+  }
+
+  .text-headline {
+    @apply text-3xl md:text-4xl lg:text-5xl text-display tracking-tight;
+  }
+
+  .text-subheading {
+    @apply text-xl md:text-2xl text-display;
+  }
+
+  .text-body-lg {
+    @apply text-lg font-body leading-relaxed;
+  }
+
+  /* Decorative divider */
+  .ornamental-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ornamental-divider::before,
+  .ornamental-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      oklch(0.72 0.12 75 / 0.6),
+      transparent
+    );
+  }
+
+  /* Pulse glow for interactive elements */
+  @keyframes pulseGold {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 oklch(0.72 0.12 75 / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px oklch(0.72 0.12 75 / 0);
+    }
+  }
+
+  .pulse-gold {
+    animation: pulseGold 2.5s infinite;
+  }
+
+  /* Floating animation for hero accents */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+}

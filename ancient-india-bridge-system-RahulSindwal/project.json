@@ -1,0 +1,23 @@
+{
+  "overview": "A visually rich, educational website about the Ancient Indian Bridge System. Features animated SVG structural diagrams, bridge type showcases, historical timelines, and notable bridges gallery — all presented in an authentic ancient Indian aesthetic with terracotta, saffron, gold, and ivory tones.",
+  "features": [
+    "Animated hero section with ancient Indian aesthetic",
+    "Interactive animated SVG structural overview of bridge types",
+    "Bridge types showcase (Rope, Stone Arch, Timber, Pontoon, Chain)",
+    "Animated historical timeline from Ramayana to Fa Hien",
+    "Notable ancient bridges gallery across India",
+    "Stone texture backgrounds and scroll-triggered animations",
+    "Fully responsive layout for mobile, tablet, and desktop"
+  ],
+  "category": "education",
+  "tags": [
+    "ancient-india",
+    "history",
+    "engineering",
+    "bridges",
+    "education",
+    "animation",
+    "architecture"
+  ],
+  "last_updated": "2026-04-15T10:37:52.163Z"
+}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#ebcba9"/>
+      <stop offset="100%" stop-color="#ba824c"/>
+    </radialGradient>
+    <linearGradient id="brickColor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b85f31"/>
+      <stop offset="100%" stop-color="#803510"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8fd4db"/>
+      <stop offset="100%" stop-color="#46888f"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Cross section of the ground -->
+  <path d="M 0 300 L 800 300 L 800 600 L 0 600 Z" fill="#8a6136"/>
+  <!-- Top surface layer -->
+  <path d="M 0 300 Q 200 280 400 300 T 800 300 L 800 330 L 0 330 Z" fill="#704e2a"/>
+
+  <!-- Ancient Drainage Structure -->
+  <!-- Brick Walls -->
+  <rect x="250" y="320" width="60" height="200" fill="url(#brickColor)" filter="url(#shadow)"/>
+  <rect x="490" y="320" width="60" height="200" fill="url(#brickColor)" filter="url(#shadow)"/>
+  
+  <!-- Brick Base -->
+  <rect x="250" y="520" width="300" height="50" fill="url(#brickColor)" filter="url(#shadow)"/>
+  
+  <!-- Brick Cover (Limestone typical of Mohenjo Daro) -->
+  <path d="M 230 300 L 570 300 L 550 330 L 250 330 Z" fill="#d9cdb8" filter="url(#shadow)"/>
+
+  <!-- Brick Textures -->
+  <path d="M 250 350 L 310 350 M 250 380 L 310 380 M 250 410 L 310 410 M 250 440 L 310 440 M 250 470 L 310 470" stroke="#5c260b" stroke-width="2"/>
+  <path d="M 490 350 L 550 350 M 490 380 L 550 380 M 490 410 L 550 410 M 490 440 L 550 440 M 490 470 L 550 470" stroke="#5c260b" stroke-width="2"/>
+  <path d="M 300 520 L 300 570 M 350 520 L 350 570 M 400 520 L 400 570 M 450 520 L 450 570 M 500 520 L 500 570" stroke="#5c260b" stroke-width="2"/>
+
+  <!-- Water flowing inside perfectly encapsulated drain -->
+  <rect x="310" y="440" width="180" height="80" fill="url(#water)"/>
+  <!-- Ripple effect -->
+  <path d="M 320 460 Q 350 450 380 460 T 440 460" stroke="#bcebf0" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 340 490 Q 370 480 400 490 t 60 0" stroke="#bcebf0" stroke-width="3" fill="none" opacity="0.6"/>
+</svg>

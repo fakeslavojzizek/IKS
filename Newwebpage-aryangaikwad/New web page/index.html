@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prana | Digital Sanctuary Collection</title>
+    <meta name="description" content="A curated editorial wellness experience. Explore Yoga, Mudras, Chakras, Panchakarma, and Sound Alchemy.">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Heavy Glassmorphism Sidebar Menu -->
+    <div class="sidebar-menu" id="sidebar-menu">
+        <div class="menu-content">
+            <button class="close-menu" id="close-menu">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <h2 class="menu-title">Sanctuary Modules</h2>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Menu links injected by JS -->
+            </nav>
+        </div>
+    </div>
+
+    <header class="header blur-header">
+        <div class="logo">Wellness</div>
+
+        <div class="header-controls">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme">
+                <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+            </button>
+            <button class="hamburger-btn" id="open-menu" aria-label="Open Menu">
+                <span class="material-symbols-outlined">menu_open</span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero">
+            <div class="hero-bg" style="position: absolute; inset: -30px; z-index: -2; background: url('hero_zen_meditation.png') center/cover no-repeat; filter: blur(15px); opacity: 0.45; transition: var(--transition);"></div>
+            <div class="hero-content">
+                <span class="eyebrow" style="color: #b04105;">Editorial Series 01</span>
+                
+
+
+                <h1 class="hero-title">The Art Of <br><em>Presence</em></h1>
+                <p class="hero-desc">Step into a thoughtfully designed digital space where timeless practices are reimagined through a modern lens. This experience is crafted to guide you toward balance, clarity, and a deeper connection with yourself—helping you slow down, focus your mind, and rediscover a sense of inner presence in today’s fast-moving world.</p>
+                <a href="#gallery" class="btn-primary" style="background-color: #b04105; border-radius: 8px; color: white; display: inline-flex; align-items: center; padding: 1rem 2rem;">Begin the Practice <span class="material-symbols-outlined" style="margin-left: 8px; font-size: 1.2rem;">arrow_forward</span></a>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="gallery-header">
+                <h2>Your Journey Begins Here</h2>
+                <p>Click any module to load the interactive experience.</p>
+            </div>
+            
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery Cards injected by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer id="philosophy" class="footer">
+        <p>&copy; 2026 PRANA Editorial Wellness. A Digital Sanctuary.</p>
+    </footer>
+
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

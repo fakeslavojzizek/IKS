@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="skyGrad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fff1db"/>
+      <stop offset="100%" stop-color="#e8c89b"/>
+    </radialGradient>
+    <linearGradient id="brick1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d68c56"/>
+      <stop offset="100%" stop-color="#a65c2b"/>
+    </linearGradient>
+    <linearGradient id="brick2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c97b47"/>
+      <stop offset="100%" stop-color="#965123"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8abec7"/>
+      <stop offset="100%" stop-color="#4d8c96"/>
+    </linearGradient>
+    <filter id="shadow" dx="2" dy="5">
+      <feDropShadow dx="3" dy="5" stdDeviation="3" flood-color="#593014" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#skyGrad)"/>
+
+  <!-- Sun -->
+  <circle cx="200" cy="150" r="60" fill="#fcf6cf" opacity="0.8"/>
+
+  <!-- Background Hills -->
+  <path d="M 0 350 Q 150 250 300 350 T 600 300 T 800 350 L 800 600 L 0 600 Z" fill="#c79a61"/>
+  <path d="M 0 400 Q 200 320 400 400 T 800 380 L 800 600 L 0 600 Z" fill="#b8884f"/>
+
+  <!-- The Great Bath (Indus Valley) Structure -->
+  <!-- Base platform -->
+  <rect x="150" y="450" width="500" height="150" fill="url(#brick2)" filter="url(#shadow)"/>
+  
+  <!-- Steps down -->
+  <rect x="300" y="450" width="200" height="20" fill="url(#brick1)"/>
+  <rect x="320" y="470" width="160" height="20" fill="url(#brick2)"/>
+  <rect x="340" y="490" width="120" height="20" fill="url(#brick1)"/>
+  <rect x="360" y="510" width="80" height="20" fill="url(#brick2)"/>
+  
+  <!-- Pool wall inside -->
+  <rect x="200" y="420" width="400" height="30" fill="url(#brick1)"/>
+  <rect x="180" y="400" width="440" height="20" fill="url(#brick2)"/>
+  
+  <!-- Side Columns / Structures -->
+  <rect x="100" y="250" width="60" height="200" fill="url(#brick1)" filter="url(#shadow)"/>
+  <rect x="640" y="250" width="60" height="200" fill="url(#brick1)" filter="url(#shadow)"/>
+  <rect x="200" y="280" width="50" height="120" fill="url(#brick2)"/>
+  <rect x="550" y="280" width="50" height="120" fill="url(#brick2)"/>
+
+  <!-- Drainage / Water system -->
+  <rect x="380" y="530" width="40" height="70" fill="url(#water)" filter="url(#shadow)"/>
+  <!-- Decorative Brick lines -->
+  <path d="M 150 480 L 650 480 M 150 510 L 650 510 M 150 540 L 650 540 M 150 570 L 650 570" stroke="#783e18" stroke-width="2"/>
+  <path d="M 100 300 L 160 300 M 100 350 L 160 350 M 100 400 L 160 400" stroke="#783e18" stroke-width="2"/>
+  <path d="M 640 300 L 700 300 M 640 350 L 700 350 M 640 400 L 700 400" stroke="#783e18" stroke-width="2"/>
+</svg>

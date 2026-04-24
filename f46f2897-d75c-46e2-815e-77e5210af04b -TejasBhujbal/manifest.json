@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "tool": "website_one_page",
+  "seed_url": "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app/",
+  "seed_origin": "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app:443",
+  "seed_host": "agent-69e7209160eed40f2c3752ea--accide.netlify.app",
+  "final_url": "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app/",
+  "final_host": "agent-69e7209160eed40f2c3752ea--accide.netlify.app",
+  "origin_lock_mode": "host_only",
+  "captured_at": "2026-04-21T07:18:13.873193Z",
+  "base_href_used": false,
+  "base_href_value": null,
+  "budgets": {
+    "max_pages": 1,
+    "max_assets": 200,
+    "max_assets_per_page": 200,
+    "max_redirects": 5,
+    "max_css_import_depth": 2,
+    "max_html_bytes": 2097152,
+    "max_css_bytes": 1048576,
+    "max_asset_bytes": 104857600,
+    "max_total_asset_bytes": 52428800
+  },
+  "budgets_used": {
+    "pages": 1,
+    "assets": 3,
+    "total_asset_bytes": 282069
+  },
+  "counts": {
+    "html_pages": 1,
+    "assets_total": 3,
+    "assets_included": 3,
+    "assets_excluded": 0
+  },
+  "excluded": [],
+  "mapping": {
+    "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app/1.jpeg": {
+      "local_path": "assets/5886bcbc2a364636c0dedad887f2469ff044b13392c273542cbcfa59a4768457.jpeg",
+      "content_type": "image/jpeg"
+    },
+    "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app/2.jpeg": {
+      "local_path": "assets/94c98a5a668300846fda3e335548d8af73d0d4355157eeafbcde09d335e5ba2d.jpeg",
+      "content_type": "image/jpeg"
+    },
+    "https://agent-69e7209160eed40f2c3752ea--accide.netlify.app/3.jpeg": {
+      "local_path": "assets/e3610dd0e5d0fd00cd21b0cbd8e0a8ef6aae2e4ad778940bf669e9b0b20b68c3.jpeg",
+      "content_type": "image/jpeg"
+    }
+  },
+  "heuristics": {
+    "script_src_count": 0,
+    "meaningful_elements": 17,
+    "text_content_length": 3918
+  }
+}

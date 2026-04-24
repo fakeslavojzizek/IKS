@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="60%" r="70%">
+      <stop offset="0%" stop-color="#2a1a08"/>
+      <stop offset="100%" stop-color="#0d0803"/>
+    </radialGradient>
+    <radialGradient id="turmericGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5c518"/>
+      <stop offset="100%" stop-color="#c47d08" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stoneTable" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3d3028"/>
+      <stop offset="100%" stop-color="#1a1210"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="softShadow">
+      <feDropShadow dx="2" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Stone surface -->
+  <rect x="0" y="380" width="800" height="220" fill="url(#stoneTable)"/>
+  <path d="M 0 380 Q 200 370 400 380 T 800 380 L 800 395 L 0 395 Z" fill="#4a3c30" opacity="0.8"/>
+
+  <!-- Turmeric glow ambiance -->
+  <ellipse cx="300" cy="400" rx="200" ry="80" fill="url(#turmericGlow)" opacity="0.3"/>
+
+  <!-- === TURMERIC ROOT === -->
+  <g filter="url(#softShadow)">
+    <!-- Root body -->
+    <path d="M 180 370 Q 220 350 270 365 Q 300 375 290 395 Q 260 415 220 405 Q 185 395 180 370 Z" fill="#c47d08"/>
+    <path d="M 180 370 Q 210 360 250 368 Q 275 378 270 393 Q 245 407 215 400 Q 185 390 180 370 Z" fill="#d99010"/>
+    <!-- Knobs -->
+    <ellipse cx="240" cy="360" rx="18" ry="12" fill="#c47d08" transform="rotate(-20, 240, 360)"/>
+    <ellipse cx="270" cy="355" rx="14" ry="9" fill="#b56d05" transform="rotate(15, 270, 355)"/>
+    <ellipse cx="195" cy="375" rx="12" ry="9" fill="#c47d08" transform="rotate(-10, 195, 375)"/>
+    <!-- Turmeric powder pile -->
+    <ellipse cx="235" cy="415" rx="55" ry="15" fill="#e8aa12" opacity="0.9"/>
+    <ellipse cx="235" cy="410" rx="40" ry="10" fill="#f5c518" opacity="0.8"/>
+  </g>
+
+  <!-- === NEEM LEAVES === -->
+  <g filter="url(#softShadow)" transform="translate(400, 280)">
+    <!-- Branch -->
+    <path d="M 0 100 Q -10 60 -5 0" stroke="#5a3a10" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Leaf pairs -->
+    <path d="M -5 80 Q -40 60 -50 35 Q -30 55 -5 65 Z" fill="#2d7a1f"/>
+    <path d="M -5 80 Q 25 55 30 28 Q 15 52 -5 65 Z" fill="#3a9428"/>
+    <path d="M -5 55 Q -38 32 -45 8 Q -26 28 -5 40 Z" fill="#338a22"/>
+    <path d="M -5 55 Q 28 28 33 5 Q 18 28 -5 40 Z" fill="#449c32"/>
+    <path d="M -5 30 Q -30 10 -32 -15 Q -18 8 -5 18 Z" fill="#2d7a1f"/>
+    <path d="M -5 30 Q 24 5 25 -18 Q 12 5 -5 18 Z" fill="#3a9428"/>
+    <!-- Tip leaf -->
+    <path d="M -5 5 Q -15 -20 -5 -40 Q 5 -20 -5 5 Z" fill="#449c32"/>
+  </g>
+
+  <!-- === CLOVES === -->
+  <g filter="url(#softShadow)">
+    <ellipse cx="500" cy="420" rx="60" ry="12" fill="#3d1a0a" opacity="0.6"/>
+    <!-- Individual cloves -->
+    <g fill="#5c2a0e">
+      <ellipse cx="475" cy="405" rx="5" ry="14" transform="rotate(-15, 475, 405)"/>
+      <circle cx="472" cy="391" r="6" fill="#3a1808"/>
+      
+      <ellipse cx="495" cy="400" rx="5" ry="14" transform="rotate(5, 495, 400)"/>
+      <circle cx="496" cy="386" r="6" fill="#3a1808"/>
+      
+      <ellipse cx="515" cy="407" rx="5" ry="14" transform="rotate(20, 515, 407)"/>
+      <circle cx="519" cy="393" r="6" fill="#3a1808"/>
+      
+      <ellipse cx="485" cy="412" rx="5" ry="13" transform="rotate(-5, 485, 412)"/>
+      <circle cx="484" cy="399" r="5" fill="#3a1808"/>
+      
+      <ellipse cx="507" cy="415" rx="4" ry="12" transform="rotate(10, 507, 415)"/>
+      <circle cx="509" cy="403" r="5" fill="#3a1808"/>
+    </g>
+  </g>
+
+  <!-- === TULSI / HOLY BASIL SPRIG === -->
+  <g filter="url(#softShadow)" transform="translate(100, 250)">
+    <path d="M 50 160 Q 45 100 50 40" stroke="#5a3a10" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 50 130 Q 15 108 8 82 Q 28 105 50 115 Z" fill="#1a6e2a"/>
+    <path d="M 50 130 Q 82 105 88 80 Q 70 105 50 115 Z" fill="#238c36"/>
+    <path d="M 50 100 Q 18 78 12 52 Q 32 76 50 88 Z" fill="#1a6e2a"/>
+    <path d="M 50 100 Q 80 75 84 50 Q 65 75 50 88 Z" fill="#238c36"/>
+    <path d="M 50 70 Q 22 50 20 25 Q 38 48 50 60 Z" fill="#1f7a30"/>
+    <path d="M 50 70 Q 76 47 76 22 Q 61 47 50 60 Z" fill="#2a9040"/>
+    <!-- Purple flower cluster at top -->
+    <path d="M 50 40 Q 40 20 50 0 Q 60 20 50 40 Z" fill="#7b5ea7"/>
+    <circle cx="50" cy="5" r="7" fill="#9b7ec8"/>
+    <circle cx="40" cy="12" r="5" fill="#8b6eb8"/>
+    <circle cx="60" cy="12" r="5" fill="#8b6eb8"/>
+  </g>
+
+  <!-- === BARK PIECES === -->
+  <g filter="url(#softShadow)">
+    <path d="M 580 370 Q 630 355 660 370 Q 655 400 605 410 Q 575 400 580 370 Z" fill="#6b3a18"/>
+    <path d="M 585 375 Q 615 365 645 374" stroke="#8a5028" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M 582 385 Q 618 373 648 383" stroke="#8a5028" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M 584 395 Q 620 383 648 393" stroke="#8a5028" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M 620 345 Q 660 332 685 348 Q 678 372 638 380 Q 610 372 620 345 Z" fill="#7a4520"/>
+    <path d="M 625 352 Q 653 343 678 352" stroke="#9a6535" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M 622 362 Q 655 352 678 362" stroke="#9a6535" stroke-width="2" fill="none" opacity="0.6"/>
+  </g>
+
+  <!-- Warm dramatic lighting overlay -->
+  <ellipse cx="400" cy="280" rx="400" ry="200" fill="#f5a318" opacity="0.04"/>
+  <ellipse cx="250" cy="200" rx="150" ry="100" fill="#f0c040" opacity="0.06"/>
+
+  <!-- Label text -->
+  <text x="400" y="560" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#d4a84b" opacity="0.85">Ayurvedic Antimicrobial Herbs</text>
+  <text x="400" y="582" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#a08040" opacity="0.7">Turmeric • Neem • Tulsi • Cloves • Bark</text>
+</svg>

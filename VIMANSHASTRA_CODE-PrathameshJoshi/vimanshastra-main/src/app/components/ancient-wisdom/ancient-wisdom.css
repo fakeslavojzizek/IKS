@@ -1,0 +1,124 @@
+.origins-section {
+  padding: var(--section-padding);
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-header .section-label {
+  justify-content: center;
+}
+
+.section-header .section-subtitle {
+  margin: 0 auto;
+}
+
+/* Sanskrit Block */
+.sanskrit-block {
+  text-align: center;
+  margin-bottom: 72px;
+  position: relative;
+}
+
+.sanskrit-text {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--gold-400);
+  opacity: 0.6;
+  letter-spacing: 8px;
+  margin-bottom: 8px;
+}
+
+.sanskrit-translation {
+  font-family: var(--font-scholarly);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--white-40);
+  margin-bottom: 24px;
+}
+
+.sanskrit-line {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+  margin: 0 auto;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.feature-card {
+  padding: 36px;
+  border-radius: 20px;
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.feature-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 164, 36, 0.06);
+  border: 1px solid rgba(212, 164, 36, 0.15);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.feature-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.feature-desc {
+  font-size: 0.9rem;
+  color: var(--white-60);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.feature-verse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--gold-500);
+  font-family: var(--font-scholarly);
+  font-style: italic;
+  padding-top: 16px;
+  border-top: 1px solid var(--white-05);
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid .feature-card:last-child {
+    grid-column: span 2;
+    max-width: 50%;
+    justify-self: center;
+  }
+}

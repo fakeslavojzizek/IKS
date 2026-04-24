@@ -1,0 +1,78 @@
+type TextCitation = 
+ record {
+   chapter: text;
+   textName: text;
+   translation: text;
+   verse: text;
+ };
+type TechniqueCategory = 
+ variant {
+   Dhyana;
+   HerbalRemedies;
+   MantraChanting;
+   Mudra;
+   Pranayama;
+   Sattvavajaya;
+ };
+type Technique = 
+ record {
+   benefits: vec text;
+   category: TechniqueCategory;
+   contraindications: vec text;
+   difficulty: text;
+   doshasAffected: vec Dosha;
+   duration: text;
+   historicalContext: text;
+   id: text;
+   imageKeyword: text;
+   longDescription: text;
+   name: text;
+   origin: TextCitation;
+   relatedTechniqueIds: vec text;
+   sanskritName: text;
+   scientificBacking: text;
+   shortDescription: text;
+   steps: vec text;
+ };
+type FounderInfo = 
+ record {
+   bio: text;
+   credentials: vec text;
+   imageKeyword: text;
+   mission: text;
+   name: text;
+   title: text;
+ };
+type DoshaDetail = 
+ record {
+   description: text;
+   imbalanceSymptoms: vec text;
+   name: text;
+   qualities: vec text;
+ };
+type Dosha = 
+ variant {
+   Kapha;
+   Pitta;
+   Vata;
+ };
+type AncientText = 
+ record {
+   authors: vec text;
+   description: text;
+   id: text;
+   name: text;
+   relevance: text;
+   sanskritName: text;
+   teachings: vec text;
+   year: text;
+ };
+service : {
+  getAllTechniques: () -> (vec Technique) query;
+  getAncientTexts: () -> (vec AncientText) query;
+  getDoshaDetails: () -> (vec DoshaDetail) query;
+  getFounderInfo: () -> (FounderInfo) query;
+  getTechniqueById: (id: text) -> (opt Technique) query;
+  getTechniquesByCategory: (category: TechniqueCategory) ->
+   (vec Technique) query;
+}

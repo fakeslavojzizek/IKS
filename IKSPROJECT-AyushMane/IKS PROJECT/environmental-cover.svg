@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8f4e5"/>
+      <stop offset="100%" stop-color="#9dc190"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73a6c4"/>
+      <stop offset="50%" stop-color="#a4d1e8"/>
+      <stop offset="100%" stop-color="#5587a3"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#2c4224" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg)"/>
+
+  <!-- Sun -->
+  <circle cx="400" cy="200" r="150" fill="#fcedb6" opacity="0.7"/>
+
+  <!-- Ancient Drainage Structure running alongside a river -->
+  <path d="M 0 250 Q 200 200 400 250 T 800 200 L 800 400 L 0 400 Z" fill="#758c67"/>
+  <path d="M 0 280 Q 250 220 500 280 T 800 240 L 800 400 L 0 400 Z" fill="#587349"/>
+
+  <!-- River flowing -->
+  <path d="M 100 400 Q 300 280 500 320 T 800 250 L 800 400 Z" fill="url(#river)"/>
+
+  <!-- Structured Wells / Columns in the background -->
+  <rect x="150" y="100" width="40" height="180" fill="#a86e42" filter="url(#shadow)"/>
+  <rect x="250" y="150" width="30" height="120" fill="#915830" filter="url(#shadow)"/>
+  <rect x="650" y="120" width="40" height="140" fill="#a86e42" filter="url(#shadow)"/>
+</svg>

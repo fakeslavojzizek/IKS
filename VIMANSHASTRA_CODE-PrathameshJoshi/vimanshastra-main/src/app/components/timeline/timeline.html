@@ -1,0 +1,29 @@
+<section class="timeline-section" id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Chapter IV</div>
+      <h2 class="section-title">Through the <span class="gold">Ages</span></h2>
+      <p class="section-subtitle">
+        A timeline bridging millennia — from the first visions of flight preserved in Sanskrit
+        to the aerospace innovations of tomorrow.
+      </p>
+    </div>
+
+    <div class="timeline-track">
+      <div class="timeline-line"></div>
+      @for (event of events; track event.title; let i = $index) {
+        <div class="timeline-event" [class]="'event-' + (i % 2 === 0 ? 'left' : 'right')">
+          <div class="event-content glass-card">
+            <div class="event-era" [class]="'era-' + event.era.toLowerCase()">{{ event.era }}</div>
+            <div class="event-year">{{ event.year }}</div>
+            <h4 class="event-title">{{ event.title }}</h4>
+            <p class="event-desc">{{ event.description }}</p>
+          </div>
+          <div class="event-dot">
+            <div class="dot-inner" [class]="'era-dot-' + event.era.toLowerCase()"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
