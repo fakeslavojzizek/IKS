@@ -1,0 +1,112 @@
+/* ========================================
+   AGRITECH - Indian Organic Marketplace
+   Modern, Responsive CSS Stylesheet
+======================================== */
+
+/* CSS Custom Properties (Variables) */
+:root {
+    --primary-green: #28a745;
+    --secondary-green: #20c997;
+    --dark-green: #1e7e34;
+    --orange: #fd7e14;
+    --light-green: #d4edda;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --gray-light: #f1f3f4;
+    --gray-dark: #495057;
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+    --border-radius: 20px;
+    --border-radius-sm: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--gray-dark);
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.header {
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    color: var(--white);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+/* HERO SECTION UPDATED */
+.hero {
+    background:
+        linear-gradient(135deg, rgba(40,167,69,0.85), rgba(32,201,151,0.75)),
+        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    margin-top: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Light overlay for smooth blending */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Keep your existing hero grain animation */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="75" cy="75" r="1.5" fill="%23ffffff" opacity="0.02"/><circle cx="50" cy="10" r="0.8" fill="%23ffffff" opacity="0.04"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    animation: grain 8s steps(10) infinite;
+}
+
+/* Keep rest of your CSS SAME */
+
+/* (I am not repeating entire unchanged code for readability, 
+   but NOTHING else is modified except hero background) */

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech - Indian Organic Marketplace</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel = "stylesheet" href = "style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #28a745;
+            --secondary-green: #20c997;
+            --dark-green: #1e7e34;
+            --orange: #fd7e14;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--orange);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--orange);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e86a0d;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(40,167,69,0.9), rgba(32,201,151,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8f9fa" width="1200" height="600"/><circle fill="%2328a745" opacity="0.1" cx="200" cy="150" r="100"/><circle fill="%23fd7e14" opacity="0.1" cx="1000" cy="400" r="120"/><path fill="%2320c997" opacity="0.1" d="M300 500 Q500 450 700 500 Q900 550 1100 500"/></svg>');
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark-green);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-green), var(--secondary-green));
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .product-info h3 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            margin: 1rem 0;
+        }
+
+        .organic-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .login-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--primary-green);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-green);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Farmer Dashboard Specific */
+        .farmer-listings {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .listing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .listing-item:last-child {
+            border-bottom: none;
+        }
+
+        .add-listing {
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                AgriTech
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#farmers">Farmers</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-secondary" onclick="showLogin('buyer')">Buyer Login</a>
+                <a href="#" class="btn btn-primary" onclick="showLogin('farmer')">Farmer Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Purely Organic, Straight from Farm</h1>
+            <p>Connect directly with Indian farmers for 100% certified organic produce</p>
+            <a href="#products" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 3rem;">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Products Section -->
+        <section id="products">
+            <h2 class="section-title">Fresh Organic Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="organic-badge">Certified Organic</div>
+                    <div class="product-image">
+                        <i class="fas fa-carrot"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Organic Carrots</h3>
+                        <div class="price">₹45/kg</div>
+                        <button class="btn btn-primary" onclick="addToCart('Carrots')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="organic-badge">Certified Organic</div>
+                    <div class="product-image">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Organic Apples</h3>
+                        <div class="price">₹120/kg</div>
+                        <button class="btn btn-primary" onclick="addToCart('Apples')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="organic-badge">Certified Organic</div>
+                    <div class="product-image">
+                        <i class="fas fa-lemon"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Organic Lemons</h3>
+                        <div class="price">₹60/kg</div>
+                        <button class="btn btn-primary" onclick="addToCart('Lemons')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="organic-badge">Certified Organic</div>
+                    <div class="product-image">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Microgreens</h3>
+                        <div class="price">₹250/100g</div>
+                        <button class="btn btn-primary" onclick="addToCart('Microgreens')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buyer Dashboard -->
+        <section id="buyer-dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <h2>Welcome Back, Buyer!</h2>
+                <p>Manage your orders and favorite organic products</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹5,420</div>
+                    <div class="stat-label">Total Spent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Active Orders</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; padding: 1.5rem; font-size: 1.2rem;" onclick="logout()">Logout</button>
+        </section>
+
+        <!-- Farmer Dashboard -->
+        <section id="farmer-dashboard" class="dashboard">
+            <div class="dashboard-header">
+                <h2>Welcome Back, Farmer!</h2>
+                <p>Manage your organic listings and orders</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">₹42,500</div>
+                    <div class="stat-label">Monthly Earnings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Pending Orders</div>
+                </div>
+            </div>
+
+            <div class="farmer-listings">
+                <button class="add-listing">
+                    <i class="fas fa-plus"></i> Add New Listing
+                </button>
+                <div class="listing-item">
+                    <div>
+                        <h4>Organic Tomatoes</h4>
+                        <p>₹80/kg • 50kg available</p>
+                    </div>
+                    <div>
+                        <span style="color: var(--orange);">15 Orders</span>
+                    </div>
+                </div>
+                <div class="listing-item">
+                    <div>
+                        <h4>Organic Spinach</h4>
+                        <p>₹45/bundle • 200 bundles available</p>
+                    </div>
+                    <div>
+                        <span style="color: var(--orange);">8 Orders</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; padding: 1.5rem; font-size: 1.2rem; margin-top: 2rem;" onclick="logout()">Logout</button>
+        </section>
+
+<!-- Farmers Section (NEW ADDED) -->
+<section id="farmers">
+    <h2 class="section-title">Meet Our Trusted Farmers</h2>
+
+    <div class="products-grid">
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" class="product-image" style="height:220px; object-fit:cover;">
+            <div class="product-info">
+                <h3>Rajesh Patil</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Nashik, Maharashtra</p>
+                <p>Specialist in organic vegetables & seasonal fruits. 12+ years farming experience.</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449" class="product-image" style="height:220px; object-fit:cover;">
+            <div class="product-info">
+                <h3>Sunita Devi</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Ludhiana, Punjab</p>
+                <p>Expert in organic wheat, rice & pulses using traditional farming methods.</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1600180758890-6c4b0c3c1c66" class="product-image" style="height:220px; object-fit:cover;">
+            <div class="product-info">
+                <h3>Ramesh Gowda</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Mysuru, Karnataka</p>
+                <p>Specializes in microgreens, herbs and chemical-free farming practices.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--dark-green);">
+                                <i class="fas fa-seedling"></i> AgriTech Login
+            </h2>
+            <div class="login-tabs">
+                <button class="tab active" onclick="switchTab('buyer')">Buyer</button>
+                <button class="tab" onclick="switchTab('farmer')">Farmer</button>
+            </div>
+            
+            <!-- Buyer Login -->
+            <div id="buyer-tab" class="tab-content active">
+                <form id="buyerForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Phone Number</label>
+                        <input type="tel" placeholder="+91 98765 43210" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
+                        <i class="fas fa-sign-in-alt"></i> Buyer Login
+                    </button>
+                </form>
+            </div>
+
+            <!-- Farmer Login -->
+            <div id="farmer-tab" class="tab-content">
+                <form id="farmerForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user-farmer"></i> Farmer ID</label>
+                        <input type="text" placeholder="Enter your farmer ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem; background: var(--secondary-green);">
+                        <i class="fas fa-sign-in-alt"></i> Farmer Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-green); color: white; padding: 3rem 2rem 2rem; margin-top: 4rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <div class="logo" style="color: var(--orange); margin-bottom: 1rem;">
+                        <i class="fas fa-seedling"></i> AgriTech
+                    </div>
+                    <p>Connecting Indian farmers directly with health-conscious buyers for 100% certified organic produce.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul style="list-style: none;">
+                        <li><a href="#" style="color: #ccc; text-decoration: none;">Home</a></li>
+                        <li><a href="#" style="color: #ccc; text-decoration: none;">Products</a></li>
+                        <li><a href="#" style="color: #ccc; text-decoration: none;">Farmers</a></li>
+                        <li><a href="#" style="color: #ccc; text-decoration: none;">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> support@agritech.in</p>
+                    <p><i class="fas fa-map-marker-alt"></i> India</p>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #555; color: #aaa;">
+                <p>&copy; 2024 AgriTech. All rights reserved. Certified Organic Marketplace.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let currentUserType = null;
+        let cart = [];
+
+        // Modal functions
+        function showLogin(userType) {
+            document.getElementById('loginModal').style.display = 'block';
+            switchTab(userType);
+        }
+
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function switchTab(type) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (type === 'buyer') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('buyer-tab').classList.add('active');
+            } else {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('farmer-tab').classList.add('active');
+            }
+        }
+
+        // Form submissions
+        document.getElementById('buyerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentUserType = 'buyer';
+            currentUser = 'Premium Buyer';
+            loginSuccess();
+        });
+
+        document.getElementById('farmerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentUserType = 'farmer';
+            currentUser = 'Organic Farmer Rajesh';
+            loginSuccess();
+        });
+
+        function loginSuccess() {
+            closeLogin();
+            showDashboard();
+            updateHeader();
+        }
+
+        function showDashboard() {
+            // Hide all sections
+            document.querySelectorAll('.dashboard, #products').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show appropriate dashboard
+            if (currentUserType === 'buyer') {
+                document.getElementById('buyer-dashboard').style.display = 'block';
+            } else if (currentUserType === 'farmer') {
+                document.getElementById('farmer-dashboard').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            currentUserType = null;
+            document.querySelectorAll('.dashboard').forEach(d => d.style.display = 'none');
+            document.getElementById('products').style.display = 'block';
+            updateHeader();
+        }
+
+        function updateHeader() {
+            const authButtons = document.querySelector('.auth-buttons');
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <span style="color: white; font-weight: 500;">
+                        <i class="fas fa-user"></i> ${currentUser}
+                    </span>
+                    <button class="btn btn-secondary" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                `;
+            } else {
+                authButtons.innerHTML = `
+                    <a href="#" class="btn btn-secondary" onclick="showLogin('buyer')">Buyer Login</a>
+                    <a href="#" class="btn btn-primary" onclick="showLogin('farmer')">Farmer Login</a>
+                `;
+            }
+        }
+
+        // Cart functionality
+        function addToCart(productName) {
+            if (currentUserType === 'buyer') {
+                cart.push(productName);
+                alert(`${productName} added to cart! Total items: ${cart.length}`);
+            } else {
+                alert('Please login as Buyer to add items to cart');
+                showLogin('buyer');
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeLogin();
+            }
+        }
+
+        // Initialize
+        updateHeader();
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(40, 167, 69, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--primary-green), var(--secondary-green))';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

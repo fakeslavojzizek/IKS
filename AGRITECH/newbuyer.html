@@ -1,0 +1,545 @@
+//buyer page
+<!DOCTYPE html>
+<html>
+<head>
+<title>New Buyer - AgriTech Market</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:#f5f7f6;
+}
+
+/* TOP BAR */
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:60px;
+background:#28a745;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+z-index:1000;
+}
+
+.topbar h3{
+margin:0;
+}
+
+/* ICONS */
+.icon{
+background:white;
+color:#28a745;
+border-radius:50%;
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* PRODUCTS */
+.products{
+margin-top:80px;
+padding:20px;
+}
+
+.products-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.product-card{
+background:white;
+padding:10px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+button{
+background:#28a745;
+color:white;
+border:none;
+padding:8px;
+border-radius:5px;
+cursor:pointer;
+}
+
+/* CART SIDEBAR */
+.cart-sidebar{
+position:fixed;
+top:0;
+right:-350px;
+width:300px;
+height:100%;
+background:white;
+box-shadow:-4px 0 15px rgba(0,0,0,0.2);
+transition:0.3s;
+padding:15px;
+z-index:2000;
+}
+
+.cart-sidebar.open{
+right:0;
+}
+
+/* PROFILE SIDEBAR */
+.profile-sidebar{
+position:fixed;
+top:0;
+right:-350px;
+width:300px;
+height:100%;
+background:white;
+box-shadow:-4px 0 15px rgba(0,0,0,0.2);
+transition:0.3s;
+padding:15px;
+z-index:2000;
+}
+
+.profile-sidebar.open{
+right:0;
+}
+
+.section{
+padding:10px;
+border-bottom:1px solid #ddd;
+cursor:pointer;
+}
+
+.section:hover{
+background:#f0f0f0;
+}
+
+.product-card img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.close-btn{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+width:80%;
+padding:10px;
+background:red;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+z-index:4000;
+}
+
+.popup-content{
+background:white;
+padding:20px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+<h3>🌱 AgriTech Market</h3>
+
+<div style="display:flex;gap:10px;align-items:center;">
+<button onclick="toggleCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+<div class="icon" onclick="toggleProfile()">U</div>
+</div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+<h2>Shop Categories</h2>
+
+<h3>Fruits</h3>
+<div class="products-grid">
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"><p>Apple ₹120</p>
+ <button onclick="addToCart('Apple',120)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400"><p>Banana ₹50</p>
+ <button onclick="addToCart('Banana',50)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1547514701-42782101795e?w=400"><p>Mango ₹150</p>
+<button onclick="addToCart('Mango',150)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="orange.jpg" alt="image" width="" height="" ><p>Orange ₹80</p> 
+<button onclick="addToCart('Orange',80)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="grapes.jpg" alt="image" width="" height="" ><p>Grapes ₹90</p>
+<button onclick="addToCart('Grapes',90)">Add to Cart</button></div>
+</div>
+
+<h3>Vegetables</h3>
+<div class="products-grid">
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1589927986089-35812388d1f4?w=400"><p>Carrot ₹60</p>
+<button onclick="addToCart('Carrot',60)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=400"><p>Onion ₹25</p>
+<button onclick="addToCart('Onion',25)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="potato.jpg" alt="image" width="" height="" ><p>Potato ₹20</p>
+<button onclick="addToCart('Potato',20)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400"><p>Tomato ₹40</p>
+<button onclick="addToCart('Tomato',40)">Add to Cart</button></div>
+</div>
+
+<!-- ✅ NEW: GRAINS -->
+<h3>Grains</h3>
+<div class="products-grid">
+<div class="product-card"><div class="tag">Certified Organic</div><img src="wheat.jpg" alt="image" width="" height="" ><p>Wheat ₹40</p>
+<button onclick="addToCart('Wheat',40)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400"><p>Rice ₹60</p>
+<button onclick="addToCart('Rice',60)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="maize.jpg" alt="image" width="" height="" ><p>Maize ₹35</p>
+<button onclick="addToCart('Maize',35)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="barley.jpg" alt="image" width="" height="" ><p>Barley ₹55</p>
+<button onclick="addToCart('Barley',70)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="millets.jpg" alt="image" width="" height="" ><p>Millets ₹70</p>
+<button onclick="addToCart('Millets',70)">Add to Cart</button></div>
+</div>
+
+<!-- ✅ NEW: PULSES -->
+<h3>Pulses</h3>
+<div class="products-grid">
+<div class="product-card"><div class="tag">Certified Organic</div><img src="moongdal.jpg" alt="image" width="" height="" ><p>Moong Dal ₹75</p>
+<button onclick="addToCart('Moong Dal',75)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="chickpeas.jpg" alt="image" width="" height="" ><p>Chickpeas ₹90</p>
+<button onclick="addToCart('Chickpeas',90)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="toordal.jpg" alt="image" width="" height="" ><p>Toor Dal ₹85</p>
+<button onclick="addToCart('Toor Dal',85)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="uraddal.jpg" alt="image" width="" height="" ><p>Urad Dal ₹80</p>
+<button onclick="addToCart('Urad Dal',80)">Add to Cart</button></div>
+<div class="product-card"><div class="tag">Certified Organic</div><img src="masoordal.jpg" alt="image" width="" height="" ><p>Masoor Dal ₹70</p>
+<button onclick="addToCart('Masoor Dal',70)">Add to Cart</button></div>
+</div>
+
+</section>
+
+<!-- CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+<h3>🛒 Cart</h3>
+<div id="cartItems"></div>
+<h3>Total: ₹<span id="total">0</span></h3>
+<button onclick="openPayment()">Pay Now</button>
+<!-- CLOSE BUTTON (BOTTOM) -->
+<button class="close-btn" onclick="closeCart()">Close</button>
+
+</div>
+
+<!-- PROFILE SIDEBAR -->
+<div id="profileSidebar" class="profile-sidebar">
+
+<h3>👤 Account</h3>
+
+<div class="section" onclick="openAccount()">Account Info</div>
+<div class="section" onclick="openCheckout()">Checkout</div>
+<div class="section" onclick="openHistory()">History</div>
+<div class="section" onclick="logout()">Logout</div>
+
+</div>
+
+<div id="paymentModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:3000;">
+
+<div style="background:white;padding:20px;border-radius:10px;width:300px;position:relative;">
+
+<h3>Payment</h3>
+
+<input id="upiInput" placeholder="Enter UPI ID" style="width:100%;padding:8px;margin:8px 0;" oninput="checkUpi()">
+
+<input id="pinInput" type="password" placeholder="Enter PIN" disabled
+style="width:100%;padding:8px;margin:8px 0;">
+
+<button id="confirmPayBtn" onclick="confirmPayment()" disabled>
+Confirm Pay
+</button>
+
+<br><br>
+<button onclick="closePayment()">Cancel</button>
+
+</div>
+</div>
+
+<!-- ACCOUNT POPUP -->
+<div id="accountModal" class="popup">
+<div class="popup-content">
+<h3>👤 Your Account</h3>
+<p><b>Name:</b> Demo Buyer</p>
+<p><b>Contact:</b> 9876543210</p>
+<p><b>Total Orders:</b> <span id="totalOrders">0</span></p>
+<p><b>Pending Orders:</b> <span id="pendingOrders">0</span></p>
+<button onclick="closePopup('accountModal')">Close</button>
+</div>
+</div>
+
+<!-- CHECKOUT POPUP -->
+<div id="checkoutModal" class="popup">
+<div class="popup-content">
+<h3>🧾 Checkout</h3>
+<div id="checkoutContent">No recent orders</div>
+<button onclick="closePopup('checkoutModal')">Close</button>
+</div>
+</div>
+
+<!-- HISTORY POPUP -->
+<div id="historyModal" class="popup">
+<div class="popup-content">
+<h3>📜 Order History</h3>
+<div id="historyContent"></div>
+<button onclick="closePopup('historyModal')">Close</button>
+</div>
+</div>
+
+
+<script>
+
+let cart = [];
+let orders = [];
+
+// ✅ ADD THIS LINE HERE
+let demoMode = (localStorage.getItem("demoMode") || "false") === "true";localStorage.setItem("demoMode", "true");
+
+function addToCart(name, price){
+
+cart.push({name, price});
+
+// update UI immediately
+updateCart();
+
+// auto open cart so user can see item added
+document.getElementById("cartSidebar").classList.add("open");
+}
+
+function updateCart(){
+
+// cart count
+document.getElementById("cartCount").innerText = cart.length;
+
+let box = document.getElementById("cartItems");
+box.innerHTML = "";
+
+let total = 0;
+
+if(cart.length === 0){
+box.innerHTML = "<p>No items in cart</p>";
+document.getElementById("total").innerText = 0;
+return;
+}
+
+cart.forEach((item, index)=>{
+total += item.price;
+
+box.innerHTML += `
+<div style="display:flex;justify-content:space-between;margin:8px 0;">
+<span>${item.name} - ₹${item.price}</span>
+<button onclick="removeItem(${index})">❌</button>
+</div>
+`;
+});
+
+document.getElementById("total").innerText = total;
+}
+
+
+function toggleCart(){
+document.getElementById("cartSidebar").classList.toggle("open");
+}
+
+function toggleProfile(){
+document.getElementById("profileSidebar").classList.toggle("open");
+}
+
+function logout(){
+alert("Logged out");
+window.location.href = "agritech.html#home";
+}
+
+function closeCart(){
+document.getElementById("cartSidebar").classList.remove("open");
+}
+
+function removeItem(index){
+cart.splice(index, 1); // remove 1 item at position index
+updateCart(); // refresh UI
+}
+
+function openPayment(){
+if(cart.length === 0){
+alert("Cart is empty!");
+return;
+}
+document.getElementById("paymentModal").style.display = "flex";
+}
+
+function closePayment(){
+document.getElementById("paymentModal").style.display = "none";
+
+// restore original popup content (important fix)
+document.getElementById("paymentModal").innerHTML = `
+<div style="background:white;padding:20px;border-radius:10px;width:300px;position:relative;">
+
+<h3>Payment</h3>
+
+<input id="upiInput" placeholder="Enter UPI ID" style="width:100%;padding:8px;margin:8px 0;" oninput="checkUpi()">
+
+<input id="pinInput" type="password" placeholder="Enter PIN" disabled
+style="width:100%;padding:8px;margin:8px 0;">
+
+<button id="confirmPayBtn" onclick="confirmPayment()" disabled>
+Confirm Pay
+</button>
+
+<br><br>
+<button onclick="closePayment()">Cancel</button>
+
+</div>
+`;
+}
+
+
+function checkUpi(){
+let upi = document.getElementById("upiInput").value;
+let pin = document.getElementById("pinInput");
+
+if(upi.length > 3){
+pin.disabled = false;
+} else {
+pin.disabled = true;
+document.getElementById("confirmPayBtn").disabled = true;
+}
+}
+
+setTimeout(()=>{
+let pinInput = document.getElementById("pinInput");
+if(pinInput){
+pinInput.addEventListener("input", function(){
+if(this.value.length >= 4){
+document.getElementById("confirmPayBtn").disabled = false;
+} else {
+document.getElementById("confirmPayBtn").disabled = true;
+}
+});
+}
+}, 500);
+
+function confirmPayment(){
+
+let upi = document.getElementById("upiInput").value;
+let pin = document.getElementById("pinInput").value;
+
+if(!upi || !pin){
+alert("Please enter UPI ID and PIN");
+return;
+}
+
+// show success message inside popup
+document.getElementById("paymentModal").innerHTML = `
+<div style="background:white;padding:20px;border-radius:10px;text-align:center;">
+<h2>✅ Payment Successful</h2>
+<p>Order is placed</p>
+</div>
+`;
+
+// close cart sidebar
+document.getElementById("cartSidebar").classList.remove("open");
+
+orders.push(document.getElementById("total").innerText);
+
+// clear cart (optional but recommended)
+cart = [];
+updateCart();
+
+// close popup after 2 seconds
+setTimeout(()=>{
+closePayment();
+}, 2000);
+
+}
+
+
+
+function openAccount(){
+console.log("Account clicked"); //
+document.getElementById("accountModal").style.display = "flex";
+
+if(demoMode){
+document.getElementById("totalOrders").innerText = 4;
+document.getElementById("pendingOrders").innerText = 0;
+} else {
+document.getElementById("totalOrders").innerText = orders.length;
+document.getElementById("pendingOrders").innerText = orders.length;
+}
+
+}
+
+function openCheckout(){
+let box = document.getElementById("checkoutContent");
+
+if(orders.length === 0){
+box.innerHTML = "No recent orders";
+} else {
+box.innerHTML = `
+<p>Last Order: ₹${orders[orders.length-1]}</p>
+<button onclick="alert('Tracking order...')">Track Order</button>
+`;
+}
+
+document.getElementById("checkoutModal").style.display = "flex";
+}
+
+function openHistory(){
+let box = document.getElementById("historyContent");
+
+if(demoMode){
+box.innerHTML = `
+<p>Order 1 - ₹200</p>
+<p>Order 2 - ₹350</p>
+<p>Order 3 - ₹150</p>
+<p>Order 4 - ₹500</p>
+`;
+} else {
+if(orders.length === 0){
+box.innerHTML = "No orders yet";
+} else {
+box.innerHTML = orders.map((o,i)=>`<p>Order ${i+1} - ₹${o}</p>`).join("");
+}
+}
+
+document.getElementById("historyModal").style.display = "flex";
+}
+
+function closePopup(id){
+document.getElementById(id).style.display = "none";
+}
+
+
+</script>
+
+</body>
+</html>
