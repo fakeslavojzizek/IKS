@@ -4,37 +4,37 @@ const revealOptions = {
     rootMargin: "0px 0px -50px 0px"
 };
 
-// Aarti Initialization & Control
+const lightBtn = document.querySelector('button');
 lightBtn.addEventListener('click', (e) => {
     createRipple(e);
     isAartiActive = !isAartiActive;
-    
+
     if (isAartiActive) {
         thaliContainer.classList.add('thali-active');
         aartiInteractiveArea.classList.add('aarti-active');
-        
+
         lightBtn.textContent = 'Stop Aarti';
         lightBtn.style.background = 'var(--accent-red)';
-        
+
         aartiStatus.textContent = 'RITUAL ACTIVE • HAR HAR MAHADEV';
         aartiStatus.style.color = 'var(--primary)';
-        
+
         startParticles();
-        
+
         aartiAudio.currentTime = 0;
         aartiAudio.play().catch(err => console.warn("Audio file missing: aarti.mp3", err));
     } else {
         thaliContainer.classList.remove('thali-active');
         aartiInteractiveArea.classList.remove('aarti-active');
-        
+
         lightBtn.textContent = 'Perform Aarti';
         lightBtn.style.background = 'var(--gradient)';
-        
+
         aartiStatus.textContent = 'READY FOR RITUAL';
         aartiStatus.style.color = 'var(--text-muted)';
-        
+
         stopParticles();
-        
+
         aartiAudio.pause();
         aartiAudio.currentTime = 0;
     }
