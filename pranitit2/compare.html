@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare All Eras — IKS Taxation System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body[data-era="home"] { background: var(--bg-main); color: var(--text-primary); overflow-y: auto; }
+        .compare-page-container {
+            max-width: 1200px; margin: 120px auto 4rem; padding: 2rem;
+            background: rgba(20, 18, 16, 0.6); backdrop-filter: blur(20px);
+            border-radius: 16px; border: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .compare-header { text-align: center; margin-bottom: 0.5rem; }
+        .compare-header h1 { font-family: var(--hf); font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--primary-light); margin-bottom: 1rem; }
+        .compare-header p { font-family: var(--df); font-size: 1.25rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.9; }
+        
+        .chart-container {
+            width: 100%; max-width: 1200px; margin: 0 auto 0;
+            padding: 0; background: rgba(0, 0, 0, 0.3); border-radius: 16px; border: none;
+            box-shadow: none;
+        }
+        .topic-img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; border: 1px solid var(--bg-card-border); flex-shrink: 0; margin-bottom: 1rem; }
+        @media(min-width: 800px) {
+            .topic-img { width: 280px; height: auto; margin-bottom: 0; margin-right: 1.5rem; }
+        }
+        
+        .detailed-list {
+            display: flex; flex-direction: column; gap: 2.5rem; margin-top: 0.5rem;
+        }
+        .horizontal-topic-row {
+            display: flex; flex-direction: column; gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.02); border: none;
+            padding: 2.5rem; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .horizontal-topic-row:hover { transform: translateX(5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        
+        @media(min-width: 800px) {
+            .horizontal-topic-row { flex-direction: row; align-items: stretch; }
+            .topic-meta { width: 280px; flex-shrink: 0; padding-right: 2rem; border-right: none; }
+            .topic-detail { flex-grow: 1; padding-left: 1rem; }
+        }
+        
+        .topic-meta h3 { font-family: var(--hf); font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .topic-meta .winner { display: inline-block; padding: 0.5rem 1rem; background: var(--primary-dark); color: #fff; font-weight: 600; border-radius: 4px; font-size: 1.1rem; line-height: 1.4; }
+        
+        .topic-detail p { font-family: var(--df); font-size: 1.25rem; color: var(--text-secondary); line-height: 1.9; margin-bottom: 1rem; }
+        .topic-detail ul { list-style-type: none; padding-left: 0; }
+        .topic-detail li { position: relative; padding-left: 1.5rem; font-family: var(--df); font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 0.8rem; line-height: 1.9; }
+        .topic-detail li::before { content: '🔸'; position: absolute; left: 0; font-size: 0.9rem; top: 3px; }
+        
+    </style>
+</head>
+<body data-era="home">
+
+    <!-- Navbar -->
+    <nav id="navbar" style="z-index: 1000;">
+        <div class="nav-brand">
+            <span class="nav-logo">☸</span>
+            <span class="nav-title">IKS</span>
+            <span class="nav-subtitle">Indian Knowledge Systems</span>
+        </div>
+        <div class="nav-links">
+            <button id="btn-home" class="nav-btn" onclick="window.location.href='index.html'">
+                Home
+            </button>
+            <button id="btn-compare-all" class="nav-btn active" onclick="window.location.href='compare.html'">
+                Compare All Eras
+            </button>
+            <button id="btn-modern-tax" class="nav-btn" onclick="window.location.href='modern-tax.html'">
+                Modern Tax System
+            </button>
+        </div>
+    </nav>
+
+    <div class="compare-page-container">
+        <header class="compare-header">
+            <h1>Multi-Dimensional Empire Analysis</h1>
+            <p>A rigorous, comprehensive breakdown scaling the military, structural, financial, and geographic magnitudes of ancient Indian empires using a comparative Radar Chart.</p>
+        </header>
+
+        <div class="chart-container">
+            <h2 style="font-family: var(--hf); color: var(--text-primary); text-align: center; margin-bottom: 0;">Empire Capability Radar Matrix</h2>
+            <canvas id="compareRadarChart"></canvas>
+        </div>
+
+        <div class="detailed-list">
+            
+            <div class="horizontal-topic-row">
+                <img src="images/comp_military_1776931164575.png" alt="Military Might" class="topic-img">
+                <div class="topic-meta">
+                    <h3>⚔️ Military Might</h3>
+                    <div class="winner">Greatest: Mauryan Empire</div>
+                </div>
+                <div class="topic-detail">
+                    <p>Militarily, the <strong>Mauryan Empire</strong> reigned supreme, dwarfing contemporary powers across the ancient world. Maintaining a staggering standing army—historically noted to include up to 600,000 infantry, 30,000 elite cavalrymen, and 9,000 terrifying war elephants—required an unprecedented fiscal engine.</p>
+                    <ul>
+                        <li>Chanakya's <em>Arthashastra</em> laid down meticulous rules for weapon production, fort maintenance, and spy mobilization, completely subsidized by the crown.</li>
+                        <li>Their tax net (up to 25% of crops plus heavy trade tolls) specifically targeted funding Kshatriya mobilization without crashing the economy.</li>
+                        <li>No other Indian empire mobilized such a centralized, deeply structured, and ruthlessly efficient military machine.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="horizontal-topic-row">
+                <img src="images/comp_economy_1776931237242.png" alt="Economic Prosperity" class="topic-img">
+                <div class="topic-meta">
+                    <h3>💰 Economic Prosperity</h3>
+                    <div class="winner">Greatest: Gupta Empire</div>
+                </div>
+                <div class="topic-detail">
+                    <p>The <strong>Gupta Dynasty</strong> represented the undisputed <em>Golden Age</em> of economic prosperity, championing a system where minimal taxation directly nurtured maximum domestic wealth.</p>
+                    <ul>
+                        <li>Unlike the heavy Mauryan bureaucracy, the Guptas decentralized trade, allowing <em>Shrenis</em> (Merchant Guilds) astonishing autonomy to self-assess taxes.</li>
+                        <li>Tax rates were rigorously capped at exactly <strong>1/6th of produce</strong>, preventing peasant revolt and ensuring immense excess capital remained with the citizens.</li>
+                        <li>This fiscal trust allowed the Indian GDP to skyrocket, manifesting in the massive minting operations of the <em>Dinara</em>—some of the purest, most beautifully artistic gold coins of classical antiquity.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="horizontal-topic-row">
+                <img src="images/comp_political_1776931298522.png" alt="Political Admin" class="topic-img">
+                <div class="topic-meta">
+                    <h3>🏛️ Political & Admin</h3>
+                    <div class="winner">Greatest: Chola Dynasty</div>
+                </div>
+                <div class="topic-detail">
+                    <p>Politically, the <strong>Cholas</strong> established incredibly sophisticated localized democratic frameworks, bypassing the traditional top-down absolutist taxation models of the North.</p>
+                    <ul>
+                        <li>The <em>Uttaramerur inscription</em> details astonishingly modern democratic elections where village assemblies (Sabhas) actively voted on budget, tax collection limits, and local infrastructure projects.</li>
+                        <li>They pioneered early cadastral land surveys—measuring soil viability, proximity to rivers, and crop output to ensure taxation was mathematically equitable.</li>
+                        <li>Their port authority administration managed highly complex maritime tariffs, enabling a seaborne empire stretching all the way to Southeast Asia (Srivijaya).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="horizontal-topic-row">
+                <img src="images/comp_geography_1776931334649.png" alt="Geographical Vastness" class="topic-img">
+                <div class="topic-meta">
+                    <h3>🗺️ Geographical Vastness</h3>
+                    <div class="winner">Greatest: Mughal Empire</div>
+                </div>
+                <div class="topic-detail">
+                    <p>In terms of sheer contiguous landmass, the <strong>Mughal Empire</strong> (reaching its absolute zenith under Aurangzeb) was the most expansive, stretching over 4 million square kilometers.</p>
+                    <ul>
+                        <li>Managing this gargantuan territory was only possible through Raja Todar Mal's legendary <em>Zabt</em> (Dahsala) land mensuration protocol—the most advanced statistical agricultural system of the medieval era.</li>
+                        <li>Every province, from the lush plains of Bengal to the arid regions of Rajputana, was surveyed with standard bamboo jaribs (measuring rods) and taxed on a 10-year rolling crop cycle average.</li>
+                        <li>Despite the brilliance of its structure, the taxation rates climbed oppressively high (33% to 50%), which funded their massive empire but eventually destroyed peasant loyalty.</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Render Radar Chart
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('compareRadarChart').getContext('2d');
+            
+            // Re-config for Radar map across 5 axes
+            const data = {
+                labels: [
+                    'Military Might', 
+                    'Economic Prosperity', 
+                    'Political & Admin Efficiency', 
+                    'Geographical Expansion', 
+                    'Revenue Maximization (Tax Base)'
+                ],
+                datasets: [
+                    {
+                        label: 'Mauryan Empire',
+                        data: [95, 75, 90, 85, 90],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: '#ff6384',
+                        pointBackgroundColor: '#ff6384',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Gupta Dynasty',
+                        data: [75, 98, 85, 65, 70],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: '#36a2eb',
+                        pointBackgroundColor: '#36a2eb',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Chola Dynasty',
+                        data: [85, 88, 95, 60, 80],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: '#ffce56',
+                        pointBackgroundColor: '#ffce56',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Mughal Empire',
+                        data: [90, 80, 80, 95, 98],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: '#4bc0c0',
+                        pointBackgroundColor: '#4bc0c0',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Vedic Period',
+                        data: [40, 60, 50, 30, 25],
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                        borderColor: '#ffffff',
+                        pointBackgroundColor: '#ffffff',
+                        borderWidth: 2
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: {
+                                color: '#e8ddd0',
+                                font: { family: "'Cinzel', serif", size: 14 }
+                            },
+                            ticks: {
+                                display: false,
+                                max: 100,
+                                min: 0,
+                                stepSize: 20
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#e8ddd0',
+                                font: { family: "'Inter', sans-serif", size: 13, weight: 'bold' },
+                                padding: 5
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleFont: { family: "'Cinzel', serif", size: 14 },
+                            bodyFont: { family: "'Inter', sans-serif", size: 13 }
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+        });
+    </script>
+</body>
+</html>
