@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Chariot of Time — Konark Sun Temple Deep Dive</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    .fast-facts-grid { font-size: 1.1rem; column-count: 2; column-gap: 3rem; }
+    
+    @media (max-width: 600px) {
+      .fast-facts-grid { column-count: 1; }
+      .legend-box { padding: 2.5rem 1.5rem; }
+      .konark-hero-title h1 { letter-spacing: 12px; }
+      .manuscript-section { padding: 4rem 1.5rem; }
+    }
+
+    /* ── High-Fidelity Artifact Gallery ── */
+    .visual-archives { max-width: 1400px; margin: 6rem auto; padding: 0 2rem; }
+    .gallery-masonry { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .gallery-frame { position: relative; overflow: hidden; aspect-ratio: 3/4; border: 1px solid rgba(200,134,10,0.15); transition: 0.5s; cursor: pointer; }
+    .gallery-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); filter: grayscale(30%); }
+    .gallery-frame:hover { border-color: rgba(200,134,10,0.6); box-shadow: 0 10px 40px rgba(200,134,10,0.1); }
+    .gallery-frame:hover img { opacity: 1; transform: scale(1.05); filter: grayscale(0%); }
+    
+    .gallery-caption { position: absolute; bottom: -50px; left: 0; width: 100%; padding: 4rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; transition: 0.5s ease; opacity: 0; text-align: center; }
+    .gallery-frame:hover .gallery-caption { bottom: 0; opacity: 1; }
+    @media (max-width: 900px) { .gallery-masonry { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body style="background-color: #0E0700;">
+
+  <!-- ── Navbar (Universal Sync) ── -->
+  <nav id="navbar" class="dm-sans scrolled">
+    <div class="nav-container">
+      <a href="../index.html" class="logo cinzel" style="text-decoration:none;">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="konark.html" class="active">Konark</a></li>
+          <li><a href="../styles.html">Styles</a></li>
+          <li><a href="../elements.html">Elements</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Immersive Full-Bleed Hero ── -->
+  <header class="konark-hero">
+    <div class="hero-zoom-img" style="background-image: url('../assets/temples/konark_sun.jpg');"></div>
+    <div class="konark-hero-title">
+      <span class="chapter-num" style="margin-bottom: 2.8rem; color: var(--gold); font-weight: 900; text-shadow: 0px 4px 15px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.8);">THE EXCLUSIVE CASE STUDY</span>
+      <h1 class="cinzel">KONARK</h1>
+      <p class="hero-desc dm-sans" style="color: var(--gold); letter-spacing: 7px; text-transform: uppercase; font-weight: 800; text-shadow: 0px 4px 15px rgba(0,0,0,1), 0px 0px 30px rgba(0,0,0,0.8); margin-top: 0.5rem;">The Chariot of the Sun God</p>
+    </div>
+  </header>
+
+  <!-- ── Chapter 1: The Chariot ── -->
+  <section class="manuscript-section">
+    <div class="scroll-fade">
+      <span class="chapter-num">CHAPTER I</span>
+      <h2 class="cinzel" style="font-size: 3.5rem; margin-bottom: 2rem; text-align: left; color: var(--gold);">A Monument of Time</h2>
+      <div class="manuscript-text">
+        <span class="drop-cap">B</span>uilt in the 13th Century by King Narasimhadeva I, the Sun Temple at Konark stands as a colossal stone chariot drawn by seven horses across the horizon. Its architectural precision is matched only by its symbolic depth, serving as a functional celestial observatory carved in sandstone. The temple was originally positioned so that the first rays of the rising sun would travel through the main entrance, cross the audience hall, and illuminate the jewel in the head of the Sun God's idol within the sanctum. This "Solar Zenith" alignment was calculated with such precision that it occurred only on the equinoxes.
+      </div>
+    </div>
+
+    <div class="legend-box scroll-fade" style="margin-top: 4rem;">
+      <h4 class="cinzel">The Legend of Samba</h4>
+      <p class="cormorant" style="font-size: 1.25rem; line-height: 1.7; opacity: 0.9; text-align: left;">
+        Ancient texts claim the temple's sanctity predates the 13th century. It is said that <strong>Samba</strong>, the son of Lord Krishna, was cured of leprosy after 12 years of penance dedicated to Surya at this very site. In gratitude, he installed the first image of the Sun God here, making Konark (<em>Kona</em> - Corner, <em>Arka</em> - Sun) the eternal "Corner of the Sun."
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Visual Archives (Real Photographs Gallery) ── -->
+  <section class="visual-archives scroll-fade">
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <span class="chapter-num" style="display: block; margin-bottom: 1rem;">VISUAL ARCHIVES</span>
+      <h2 class="cinzel" style="font-size: 2.5rem; color: var(--gold);">The Stone Masterpieces</h2>
+      <div style="width: 100px; height: 1px; background: var(--gold); margin: 2rem auto; opacity: 0.3;"></div>
+    </div>
+    
+    <div class="gallery-masonry">
+      <div class="gallery-frame">
+        <img src="../assets/temples/konark_wheel_masterpiece.png" alt="Konark Stone Wheel Detail">
+        <div class="gallery-caption">Celestial Hub: The Sun Wheel</div>
+      </div>
+      <div class="gallery-frame">
+        <img src="../assets/temples/konark_sacred_horses.png" alt="Konark Seven Sacred Horses">
+        <div class="gallery-caption">The Seven Celestial Steeds</div>
+      </div>
+      <div class="gallery-frame">
+        <img src="../assets/temples/konark_sun_zenith.png" alt="Konark Sun Temple Solar Zenith">
+        <div class="gallery-caption">Solar Zenith: Chariot of the Sky</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Chapter 2: Legend of Dharmapada (Condensed Hero) ── -->
+  <header class="konark-hero" style="height: 50vh; margin: 0;">
+    <div class="hero-zoom-img" style="background-image: url('https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&q=80&w=2000'); background-position: center bottom;"></div>
+    <div class="konark-hero-title scroll-fade" style="margin-top: 0;">
+      <h2 class="cinzel" style="font-size: 3.5rem;">The Sacrifice</h2>
+    </div>
+  </header>
+
+  <section class="manuscript-section" style="padding-top: 4rem;">
+    <div class="scroll-fade">
+      <span class="chapter-num">CHAPTER II</span>
+      <h2 class="cinzel" style="font-size: 3rem; margin-bottom: 2rem; text-align: left; color: var(--gold);">The 52-Tonne Pinnacle</h2>
+      <div class="manuscript-text">
+        <span class="drop-cap">A</span>t the core of the temple's mystery lies the 12-year-old Dharmapada. Legend speaks of a massive magnetic stone pinnacle (the <em>Kalasha</em>) that refused to be set by the 1,200 masters. It was the child's intuition that finally secured the crown. To protect his father's honor and the craftsmen's lives from the King's wrath, the boy threw himself from the pinnacle into the sea, becoming the eternal martyr of Odia heritage. 
+      </div>
+      <div class="manuscript-text" style="margin-top: 2rem;">
+        This pinnacle was rumored to be a massive <strong>Lodestone</strong>. The magnetic field was reportedly so powerful that it kept the main iron-cored deity <strong>levitating in mid-air</strong> within the sanctum. However, the force was so immense that it pulled passing ships toward the shore, leading to its eventual removal by sailors—an act many believe triggered the temple's structural decline.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Chapter 3: Technical Secrets ── -->
+  <section class="manuscript-section" style="background: rgba(200, 134, 10, 0.02); padding: 4rem 2rem;">
+    <div class="scroll-fade">
+      <span class="chapter-num">CHAPTER III</span>
+      <h2 class="cinzel" style="font-size: 3rem; margin-bottom: 2rem; text-align: left; color: var(--gold);">The Iron Skeleton</h2>
+      <div class="manuscript-text">
+        The structural integrity of Konark's massive 227-foot tower relied heavily on <strong>iron beams and interlocking cramps</strong>. These heavy iron structures acted as the "structural skeleton" of the temple, holding the colossal sandstone blocks together without mortar and showing remarkable corrosion resistance. The precision of the 24 wheels is equally stunning; each wheel is a functional sundial, accurate within a single minute. The wheels also represent the 24 fortnights (Pakshas) of the Hindu calendar, bridging the gap between time and divinity.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Chapter 4: The Black Pagoda (New Section) ── -->
+  <section class="manuscript-section">
+    <div class="scroll-fade">
+      <span class="chapter-num">CHAPTER IV</span>
+      <h2 class="cinzel" style="font-size: 3rem; margin-bottom: 2rem; text-align: left; color: var(--gold);">The Black Pagoda</h2>
+      <div class="manuscript-text">
+        <span class="drop-cap">E</span>uropean sailors used to call Konark the <strong>"Black Pagoda"</strong> as a contrast to the "White Pagoda" (Jagannath Temple at Puri). Its dark sandstone silhouette against the horizon served as a crucial navigation landmark for centuries. Legend also whispers of the <strong>Lotus of Vishnu</strong>; it is said that after defeating the demon Gyasur, Lord Vishnu left his symbols across Odisha—his conch in Puri, his disc in Bhubaneswar, and his sacred mace in Jajapur, leaving his sacred <strong>lotus</strong> here in Konark.
+      </div>
+      
+      <div class="legend-box scroll-fade" style="margin-top: 4rem;">
+        <h4 class="cinzel">Whispers of the Devadasis</h4>
+        <p class="cormorant" style="font-size: 1.25rem; line-height: 1.7; opacity: 0.9; text-align: left;">
+          Local lore suggests that on quiet nights, the faint sound of <em>ghungroos</em> (ankle bells) can still be heard echoing through the Natyamandapa (Dancing Hall), where the temple dancers once performed to please the Sun God before the temple fell into silence.
+        </p>
+      </div>
+
+      <div class="legend-box scroll-fade" style="margin-top: 2rem;">
+        <h4 class="cinzel">Engineering Fast Facts</h4>
+        <div class="manuscript-text fast-facts-grid">
+          <p><strong>Total Stone</strong>: Over 12 million cubic feet of Chlorite, Laterite, and Khondalite.</p>
+          <p><strong>Labor</strong>: 1,200 master craftsmen worked for 12 years (1243-1255 CE).</p>
+          <p><strong>Tower Height</strong>: Originally 70m (227ft), now only the Jagamohana (38m) stands.</p>
+          <p><strong>The Wheels</strong>: 24 wheels representing the Pakshas (fortnights) of the year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Chapter 5: Cultural Legacy ── -->
+  <section class="manuscript-section">
+    <div class="scroll-fade">
+      <span class="chapter-num">CHAPTER V</span>
+      <h2 class="cinzel" style="font-size: 3rem; margin-bottom: 2rem; text-align: left; color: var(--gold);">The Eternal Dance</h2>
+      <div class="manuscript-text">
+        The <em>Natyamandapa</em> (Dancing Hall) is a masterpiece of relief sculpture. Every inch of its pillars is covered with carvings of musicians and dancers in various <strong>Mudras</strong> and <strong>Karanas</strong>. Today, the temple remains a globally recognized UNESCO World Heritage site and continues to inspire millions through the annual Konark Dance Festival, where the ancient rhythms of Odissi dance come alive against the backdrop of the stone sun chariot.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── High Fidelity Footer ── -->
+  <footer class="footer" style="border-top: 1px solid rgba(200,134,10,0.1); padding-top: 4rem;">
+    <div class="footer-logo cinzel">&#x950; MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="../index.html">Home</a>
+      <a href="../elements.html">Elements</a>
+      <a href="../styles.html">Styles</a>
+      <a href="konark.html">Konark</a>
+      <a href="../about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Sun Temple</span>
+      <span>UNESCO Heritage</span>
+      <span>Kalinga Style</span>
+      <span>Astronomy</span>
+      <span>Iron Metallurgy</span>
+      <span>Black Pagoda</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      // Reveal on Scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+
+      // Navbar scroll effect
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 80) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+      });
+    });
+  </script>
+</body>
+</html>

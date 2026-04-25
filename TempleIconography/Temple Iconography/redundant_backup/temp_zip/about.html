@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — MandirVastu: Temple Iconography of India</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Navbar Sync ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background-color: rgba(14,7,0,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+    .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.55rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+    .logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .logo-tagline { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--font-dm); font-weight: 400; margin-left: 0.2rem; opacity: 0.8; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; padding: 0; margin: 0; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 1px; color: var(--ivory); position: relative; text-transform: uppercase; text-decoration: none; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+
+    /* ── Hero ── */
+    .about-hero {
+      height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(circle at center, rgba(42,21,0,0.85) 0%, var(--bg-deep) 100%);
+      position: relative; margin-top: 70px;
+    }
+    .about-hero-content { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .about-hero h1 { font-family: var(--font-cinzel); font-size: 3.5rem; color: var(--ivory); margin-bottom: 1rem; letter-spacing: 2px; }
+    .about-hero p { font-size: 1.25rem; color: var(--gold-light); font-family: var(--font-cormorant); font-style: italic; opacity: 0.9; }
+
+    /* ── Mission Section ── */
+    .mission-section { padding: 8rem 2rem; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 6rem; align-items: center; }
+    /* ── Mission Section ── */
+    .mission-section { padding: 8rem 2rem; max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 6rem; align-items: center; }
+    .mission-left { text-align: center; }
+    .om-symbol { font-size: 10rem; color: rgba(200,134,10,0.25); opacity: 1; font-family: var(--font-cinzel); filter: drop-shadow(0 0 20px rgba(200,134,10,0.4)); z-index: -1; }
+    .mission-right h2 { font-family: var(--font-cinzel); font-size: 2.2rem; color: var(--gold); margin-bottom: 2rem; }
+    .mission-right p { font-family: var(--font-cormorant); font-size: 1.2rem; color: var(--ivory-muted); line-height: 1.8; margin-bottom: 1.5rem; }
+
+    /* ── Coverage Grid ── */
+    .coverage-section { padding: 8rem 2rem; background: rgba(0,0,0,0.2); }
+    .coverage-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center; }
+    .coverage-item h3 { font-family: var(--font-cinzel); font-size: 1.5rem; color: var(--ivory); margin-bottom: 1rem; }
+    .coverage-item p { font-family: var(--font-cormorant); font-size: 1.1rem; color: var(--ivory-muted); line-height: 1.6; }
+
+    /* ── Sources ── */
+    .sources-section { padding: 10rem 2rem; background: rgba(0,0,0,0.2); }
+    .sources-inner { max-width: 1300px; margin: 0 auto; }
+    .sources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .source-item { border-left: 2px solid var(--gold); padding-left: 1.5rem; }
+    .source-item .title { font-style: italic; color: var(--gold-light); font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .source-item .author { font-family: var(--font-dm); font-size: 0.85rem; color: var(--ivory-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── Final CTA ── */
+    .final-cta { padding: 10rem 2rem; text-align: center; background: radial-gradient(circle at center, rgba(14,7,0,0.4) 0%, var(--bg-deep) 100%); position: relative; border-top: 1px solid var(--gold); }
+    .final-cta h2 { font-family: var(--font-cinzel); font-size: 3rem; color: var(--ivory); margin-bottom: 2.5rem; }
+    .cta-btns { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.9rem 2.2rem; border-radius: 100px; font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; transition: 0.3s; display: inline-block; cursor: pointer; text-decoration: none; font-family: var(--font-dm); }
+    .btn-gold { background: var(--gold); color: var(--bg-deep); border: 2px solid var(--gold); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(200,134,10,0.4); }
+    .btn-ghost { border: 2px solid var(--gold); color: var(--ivory); background: transparent; }
+    .btn-ghost:hover { background: rgba(200,134,10,0.1); transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    .footer { border-top: 1px solid rgba(200,134,10,0.3); background: var(--bg-card); padding: 5rem 2rem 3rem; text-align: center; }
+    .footer-logo { font-size: 2rem; color: var(--gold); margin-bottom: 2.5rem; display: inline-block; font-family: var(--font-cinzel); }
+    .footer-nav { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2.5rem; font-weight: 600; font-size: 1.05rem; }
+    .footer-nav a { text-transform: uppercase; letter-spacing: 2px; text-decoration: none; color: var(--ivory); }
+    .footer-nav a:hover { color: var(--gold); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .mission-section { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+      .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .coverage-grid, .sources-grid { grid-template-columns: 1fr; }
+      .about-hero h1 { font-size: 2.5rem; }
+      .mission-om { font-size: 6rem; }
+      .final-cta h2 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="elements.html">Elements</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="about-hero">
+    <div class="about-hero-content">
+      <h1 class="cinzel">About MandirVastu</h1>
+      <p>A study of temple architecture, symbolism, and sacred design</p>
+    </div>
+  </header>
+
+  <!-- Mission -->
+  <section class="mission-section">
+    <div class="mission-left">
+      <div class="om-symbol">ॐ</div>
+    </div>
+    <div class="mission-right">
+      <h2 class="cinzel">Our Mission</h2>
+      <p>MandirVastu is a digital encyclopedia dedicated to bridging the gap between ancient sacred geometry and modern understanding. We believe that an Indian temple is not merely a place of worship, but a three-dimensional icon of the cosmos itself.</p>
+      <p>Our mission is to provide a scholarly, accessible reference for the 48 core elements of temple iconography. By decoding the symbolic language of the Garbhagriha, the Shikhara, and the Mithuna, we help devotees and travellers see the profound philosophy embedded in every stone.</p>
+      <p>Whether you are an architect, a historian, or a spiritual seeker, MandirVastu serves as your guide to the Vastu Purusha Mandala and the rhythmic beauty of Nagara, Dravidian, and Vesara traditions.</p>
+    </div>
+  </section>
+
+  <!-- Site Coverage -->
+  <section class="coverage-section">
+    <div class="coverage-grid">
+      <div class="coverage-item">
+        <h3>Architecture</h3>
+        <p>From foundations to finials, we explore the structural anatomy of the temple as a cosmic mountain (Mount Meru).</p>
+      </div>
+      <div class="coverage-item">
+        <h3>Sculpture</h3>
+        <p>Decoding the symbolic meaning of guardian figures, celestial dancers, and mythical creatures that protect the sanctum.</p>
+      </div>
+      <div class="coverage-item">
+        <h3>Sacred Geometry</h3>
+        <p>Understanding the mathematical grids and proportions (Ayadi) that align the temple with the universal order.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="sources-section">
+    <div class="sources-inner">
+      <h2 class="cinzel" style="text-align:center; color:var(--gold); margin-bottom: 3rem;">Scholarly Sources</h2>
+      <div class="sources-grid">
+        <div class="source-item">
+          <div class="title">The Hindu Temple (2 Vols)</div>
+          <div class="author">Stella Kramrisch</div>
+        </div>
+        <div class="source-item">
+          <div class="title">Indian Temple Architecture: Form and Transformation</div>
+          <div class="author">Adam Hardy</div>
+        </div>
+        <div class="source-item">
+          <div class="title">The Penguin Guide to the Monuments of India</div>
+          <div class="author">George Michell</div>
+        </div>
+        <div class="source-item">
+          <div class="title">Manasara Shilpa Shastra</div>
+          <div class="author">Ancient Sanskrit Text</div>
+        </div>
+        <div class="source-item">
+          <div class="title">Mayamata</div>
+          <div class="author">Mayamuni</div>
+        </div>
+        <div class="source-item">
+          <div class="title">Elements of Hindu Iconography</div>
+          <div class="author">T.A. Gopinatha Rao</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="cta-inner">
+      <h2 class="cinzel">Begin Your Journey</h2>
+      <div class="cta-btns">
+        <a href="elements.html" class="btn btn-gold">Explore the Elements →</a>
+        <a href="styles.html" class="btn btn-ghost">Explore Styles →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">MandirVastu</div>
+    <div class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span><span>Sculpture</span><span>Sacred Geometry</span><span>Case Study</span>
+    </div>
+    <div class="footer-credit dm-sans">MandirVastu · Encyclopedia of Indian Temple Iconography</div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // FAQ Accordion
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const body = item.querySelector('.faq-body');
+        
+        trigger.onclick = () => {
+          const isOpen = item.classList.contains('active');
+          
+          // Close others
+          faqItems.forEach(i => {
+            i.classList.remove('active');
+            i.querySelector('.faq-body').style.maxHeight = null;
+          });
+
+          if (!isOpen) {
+            item.classList.add('active');
+            body.style.maxHeight = body.scrollHeight + "px";
+          }
+        };
+      });
+    });
+  </script>
+</body>
+</html>

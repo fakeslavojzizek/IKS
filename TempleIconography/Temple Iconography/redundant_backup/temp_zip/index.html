@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MandirVastu — Decoding the sacred architecture of India. Explore the iconographic language of Hindu temples: Garbhagriha, Shikhara, Gopuram, Vastu Purusha Mandala, and more.">
+  <title>MandirVastu — The Iconography of Indian Temples</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background-color: rgba(14,7,0,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transform: translateY(-100%); animation: slideDownNav 0.8s forwards;
+      transition: background-color 0.3s ease;
+    }
+    #navbar.scrolled { background-color: rgba(6,3,0,0.98); }
+    @keyframes slideDownNav { to { transform: translateY(0); } }
+    .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.55rem; font-weight: 700; color: var(--gold); }
+    .logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .logo-tagline { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--font-dm); font-weight: 400; margin-left: 0.2rem; opacity: 0.8; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; padding: 0; margin: 0; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 1px; color: var(--ivory); position: relative; text-transform: uppercase; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+    .hamburger span { width: 28px; height: 2px; background: var(--ivory); transition: 0.3s; }
+
+    /* ── Hero ── */
+    #hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 1;
+      background: radial-gradient(circle at center bottom, rgba(200,134,10,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse at center, rgba(14,7,0,0.4) 0%, var(--bg-deep) 100%);
+    }
+    .mandala-bg {
+      position: absolute; top: 50%; left: 50%; width: 140vh; height: 140vh;
+      transform: translate(-50%,-50%); opacity: 0.08; z-index: 1;
+      animation: rotateMandala 60s linear infinite;
+      stroke: var(--gold); fill: none; stroke-width: 0.5;
+    }
+    @keyframes rotateMandala { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+    .hero-content { position: relative; z-index: 2; max-width: 950px; padding: 2rem; margin-top: 2rem; }
+    .hero-content h1 { font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 1.5rem; line-height: 1.1; letter-spacing: 3px; color: var(--ivory); }
+    .hero-content p { font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--gold-light); line-height: 1.7; margin-bottom: 3rem; max-width: 780px; margin-left: auto; margin-right: auto; font-family: var(--font-cormorant); }
+    .hero-ctas { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.9rem 2.2rem; border-radius: 100px; font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; transition: var(--transition); display: inline-block; cursor: pointer; }
+    .btn-gold { background: var(--gold); color: var(--bg-deep); border: 2px solid var(--gold); }
+    .btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); box-shadow: 0 0 20px rgba(200,134,10,0.5); transform: translateY(-2px); }
+    .btn-ghost { border: 2px solid var(--gold); color: var(--ivory); background: transparent; }
+    .btn-ghost:hover { background: rgba(200,134,10,0.1); border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-2px); }
+    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; animation: bounce 2s infinite; cursor: pointer; opacity: 0.8; }
+    .scroll-indicator svg { color: var(--gold); width: 28px; height: 28px; }
+    @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-15px) translateX(-50%); } 60% { transform: translateY(-7px) translateX(-50%); } }
+    .fade-up-seq { opacity: 0; transform: translateY(40px); }
+    .fade-up-seq.animate { animation: fadeUpAnim 0.8s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.5s; }
+    .delay-3 { animation-delay: 0.8s; }
+    .delay-4 { animation-delay: 1.2s; }
+    @keyframes fadeUpAnim { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Section Global ── */
+    .section-padding { padding: 8rem 2rem; max-width: 1300px; margin: 0 auto; }
+    section h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; color: var(--ivory); letter-spacing: 1px; }
+    .heading-underline { width: 80px; height: 2px; background: var(--gold); margin: 0 auto 3rem; }
+    .scroll-fade { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .scroll-fade.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Elements / Card Grid ── */
+    #elements { background-color: var(--bg-deep); }
+    .filter-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 4rem; }
+    .filter-btn {
+      padding: 0.6rem 1.6rem; border-radius: 100px; background: var(--bg-card);
+      border: 1px solid var(--gold); color: var(--ivory); font-size: 0.95rem; font-weight: 500;
+      letter-spacing: 0.5px; transition: var(--transition); cursor: pointer;
+    }
+    .filter-btn:hover { background: rgba(200,134,10,0.15); }
+    .filter-btn.active { background: var(--gold); color: var(--bg-deep); border-color: var(--gold); font-weight: 700; box-shadow: 0 0 15px rgba(200,134,10,0.2); }
+    .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .card {
+      background: var(--bg-card); border-radius: 8px; border: 1px solid rgba(200,134,10,0.15);
+      overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; cursor: pointer;
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 0 25px rgba(200,134,10,0.15); border-color: var(--gold); }
+    .card.hidden { display: none; }
+    .card.fade-in { animation: cardFadeIn 0.4s forwards; }
+    @keyframes cardFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .card-symbol-area {
+      width: 100%; height: 220px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .card-devanagari {
+      font-size: 6rem; color: rgba(255,255,255,0.12); font-family: var(--font-cinzel);
+      transition: transform 0.5s ease, color 0.5s ease; line-height: 1; user-select: none;
+    }
+    .card:hover .card-devanagari { transform: scale(1.1); color: rgba(255,255,255,0.25); }
+    .card-symbol-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--bg-card) 100%);
+    }
+    .category-badge {
+      position: absolute; top: 1rem; right: 1rem; padding: 0.35rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--ivory); z-index: 2; border: 1px solid rgba(255,255,255,0.15);
+    }
+    .badge-arch { background: rgba(139,26,26,0.8); }
+    .badge-sculpt { background: rgba(45,90,61,0.8); }
+    .badge-geo { background: rgba(123,63,0,0.8); }
+    .card-content { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; border-top: 1px solid rgba(200,134,10,0.1); }
+    .card-content h3 { font-size: 1.5rem; margin-bottom: 0.4rem; color: var(--ivory); }
+    .style-tag { font-size: 0.78rem; color: rgba(200,134,10,0.7); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-dm); margin-bottom: 0.6rem; }
+    .sanskrit { color: var(--gold-light); font-size: 1.1rem; margin-bottom: 1rem; font-style: italic; opacity: 0.9; }
+    .meaning { font-size: 0.97rem; color: var(--ivory-muted); line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; font-family: var(--font-dm); }
+    .view-link { font-size: 0.9rem; font-weight: 600; color: var(--gold); letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; align-self: flex-start; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: var(--transition); }
+    .card:hover .view-link { border-bottom-color: var(--gold); color: var(--gold-light); }
+
+    /* ── Stats Banner ── */
+    #stats {
+      background: linear-gradient(rgba(14,7,0,0.93), rgba(14,7,0,0.93)), url('https://images.unsplash.com/photo-1568454537842-d933259bb258?w=1600&q=80') center/cover fixed;
+      border-top: 1px solid rgba(200,134,10,0.3); border-bottom: 1px solid rgba(200,134,10,0.3);
+      padding: 6rem 2rem; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 3rem; text-align: center;
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; }
+    .stat-num-wrapper { font-size: 4rem; font-weight: 700; color: var(--gold); display: flex; align-items: baseline; justify-content: center; margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(200,134,10,0.2); font-family: var(--font-cinzel); }
+    .stat-label { font-size: 1rem; color: var(--gold-light); text-transform: uppercase; letter-spacing: 3px; font-weight: 500; font-family: var(--font-dm); }
+
+    /* ── About / Temple Map Section ── */
+    #about { padding: 9rem 2rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .about-grid h2 { font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 2rem; text-align: left; }
+    .about-grid p { font-size: 1.18rem; line-height: 1.85; color: var(--ivory-muted); margin-bottom: 1.5rem; font-family: var(--font-cormorant); }
+    .about-grid p:last-of-type { margin-bottom: 2.5rem; }
+    .temple-diagram-wrap { position: relative; width: 100%; display: flex; justify-content: center; }
+    .temple-svg { width: 100%; max-width: 440px; filter: drop-shadow(0 0 30px rgba(200,134,10,0.12)); }
+
+    /* ── Footer ── */
+    .footer { border-top: 1px solid rgba(200,134,10,0.3); background: var(--bg-card); padding: 5rem 2rem 3rem; text-align: center; }
+    .footer-logo { font-size: 2rem; color: var(--gold); margin-bottom: 2.5rem; display: inline-block; font-family: var(--font-cinzel); }
+    .footer-nav { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2.5rem; font-weight: 600; font-size: 1.05rem; }
+    .footer-nav a { text-transform: uppercase; letter-spacing: 2px; }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-tags { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .footer-tags span { font-size: 0.85rem; padding: 0.4rem 1.2rem; border: 1px solid rgba(200,134,10,0.4); border-radius: 100px; color: var(--gold-light); background: rgba(14,7,0,0.5); text-transform: uppercase; letter-spacing: 1px; }
+    .footer-credit { font-size: 0.95rem; color: rgba(184,169,138,0.6); letter-spacing: 1px; }
+
+    /* ── How to Use ── */
+    .howto-section { max-width: 1400px; margin: 6rem auto; padding: 0 2rem; }
+    .steps-row { display: flex; align-items: flex-start; gap: 0; position: relative; margin-top: 3rem; }
+    .steps-row::before {
+      content: ''; position: absolute; top: 28px; left: calc(16.66% + 20px); right: calc(16.66% + 20px);
+      height: 1px; background: linear-gradient(90deg, var(--gold), rgba(200,134,10,0.3), var(--gold));
+    }
+    .step-item { flex: 1; text-align: center; padding: 0 1.5rem; position: relative; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;
+      font-size: 16px; font-weight: 700; color: var(--gold); font-family: var(--font-dm);
+      background: var(--bg-deep); letter-spacing: 1px;
+    }
+    .step-title { font-size: 20px; color: var(--ivory); font-family: var(--font-cinzel); margin-bottom: 0.8rem; }
+    .step-desc { font-size: 16px; color: var(--ivory-muted); line-height: 1.7; font-family: var(--font-cormorant); }
+
+    /* ── FAQ ── */
+    .faq-section { max-width: 860px; margin: 6rem auto; padding: 0 2rem; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden;
+      border-left: 0px solid var(--gold); transition: border-left-width 0.3s, background 0.3s;
+    }
+    .faq-item.open { border-left-width: 4px; background: rgba(200,134,10,0.05); }
+    .faq-trigger {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 1.3rem 1.5rem; cursor: pointer; background: none; border: none; text-align: left;
+    }
+    .faq-q { font-size: 16px; color: var(--ivory); font-family: var(--font-dm); font-weight: 500; }
+    .faq-arrow {
+      width: 20px; height: 20px; color: var(--gold); flex-shrink: 0; margin-left: 1rem;
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(90deg); }
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1); }
+    .faq-body p { font-size: 17px; color: var(--ivory-muted); line-height: 1.85; font-family: var(--font-cormorant); padding: 0 1.5rem 1.5rem; }
+
+    /* ── Responsive ── */
+
+    @media (max-width: 1024px) { .grid-container { grid-template-columns: repeat(2, 1fr); } .about-grid { gap: 3rem; } }
+    @media (max-width: 768px) {
+      .nav-links { position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,5,0,0.98); flex-direction: column; padding: 2.5rem; text-align: center; transform: translateY(-150%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); border-bottom: 1px solid var(--gold); }
+      .nav-links.nav-active { transform: translateY(0); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+      .hamburger { display: flex; }
+      .hero-content h1 { font-size: 2.8rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .temple-diagram-wrap { order: -1; }
+      .grid-container { grid-template-columns: 1fr; }
+      .stat-num-wrapper { font-size: 3rem; }
+      .logo-tagline { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel" style="text-decoration:none;">
+        <!-- Temple silhouette icon -->
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="elements.html">Elements</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── Hero Section ── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Rotating Mandala SVG -->
+    <svg class="mandala-bg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="400" cy="400" r="390"/><circle cx="400" cy="400" r="340"/><circle cx="400" cy="400" r="290"/><circle cx="400" cy="400" r="240"/><circle cx="400" cy="400" r="190"/><circle cx="400" cy="400" r="140"/><circle cx="400" cy="400" r="90"/><circle cx="400" cy="400" r="40"/>
+      <line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/><line x1="124" y1="124" x2="676" y2="676"/><line x1="676" y1="124" x2="124" y2="676"/><line x1="28" y1="256" x2="772" y2="544"/><line x1="28" y1="544" x2="772" y2="256"/><line x1="256" y1="28" x2="544" y2="772"/><line x1="544" y1="28" x2="256" y2="772"/>
+      <polygon points="400,30 750,620 50,620"/><polygon points="400,770 750,180 50,180"/>
+      <polygon points="400,120 670,555 130,555"/><polygon points="400,680 670,245 130,245"/>
+      <g>
+        <circle cx="400" cy="10" r="8"/><circle cx="400" cy="790" r="8"/><circle cx="10" cy="400" r="8"/><circle cx="790" cy="400" r="8"/>
+        <circle cx="124" cy="124" r="6"/><circle cx="676" cy="124" r="6"/><circle cx="676" cy="676" r="6"/><circle cx="124" cy="676" r="6"/>
+      </g>
+    </svg>
+
+    <div class="hero-content">
+      <p class="dm-sans fade-up-seq delay-1" style="font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-family:var(--font-dm);">MandirVastu · Decoding the Sacred Architecture of India</p>
+      <h1 class="cinzel fade-up-seq delay-2">Every Stone Speaks</h1>
+      <p class="cormorant fade-up-seq delay-3">Decode 3,000 years of sacred architecture — from the womb-chamber of the Garbhagriha to the sky-piercing Shikhara, every element of an Indian temple is a cosmic statement encoded in stone, proportion, and sacred geometry.</p>
+      <div class="hero-ctas fade-up-seq delay-4">
+        <a href="elements.html" class="btn btn-gold dm-sans">Explore the Elements →</a>
+        <a href="styles.html" class="btn btn-ghost dm-sans">The Three Great Styles</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" onclick="document.getElementById('how-to-use').scrollIntoView({behavior:'smooth'})">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- ── How to Use ── -->
+  <section class="howto-section scroll-fade" id="how-to-use">
+    <h2 class="cinzel" style="text-align:center;">How to Use</h2>
+    <div class="heading-underline"></div>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num dm-sans">01</div>
+        <div>
+          <div class="step-title cinzel">Browse the Elements</div>
+          <p class="step-desc">Explore 48 elements of temple iconography, filtered by type: architecture, sculpture, sacred geometry, or architectural style.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num dm-sans">02</div>
+        <div>
+          <div class="step-title cinzel">Read the Detail</div>
+          <p class="step-desc">Every element has a full scholarly entry: history, symbolism, where it appears, what ancient texts say about it, and specific temple examples.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num dm-sans">03</div>
+        <div>
+          <div class="step-title cinzel">Visit a Temple</div>
+          <p class="step-desc">Use the Case Study entries to understand real temples before or after you visit them. Every stone will mean something different.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Elements Grid ── -->
+  <section id="elements">
+    <div class="section-padding">
+      <div class="scroll-fade" style="text-align:center;">
+        <h2 class="cinzel">The Language of Sacred Stone</h2>
+        <div class="heading-underline"></div>
+        <p class="cormorant" style="font-size:1.2rem;color:var(--ivory-muted);max-width:700px;margin:0 auto 3rem;line-height:1.7;">From the underground foundation matrix to the crowning Kalasha, every tier of an Indian temple encodes a layer of cosmological meaning.</p>
+      </div>
+
+      <div class="filter-pills dm-sans scroll-fade">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Architecture">Architecture</button>
+        <button class="filter-btn" data-filter="Sculpture">Sculpture</button>
+        <button class="filter-btn" data-filter="Sacred Geometry">Sacred Geometry</button>
+      </div>
+
+      <div class="grid-container" id="elements-grid">
+
+        <!-- 1. Garbhagriha -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=1'">
+          <div class="card-symbol-area" style="background-color:#2a1000;">
+            <div class="card-devanagari cinzel">गर्भ</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Garbhagriha</h3>
+            <div class="sanskrit cormorant">गर्भगृह · Garbhagṛha</div>
+            <p class="meaning">The womb-chamber — innermost sanctum where the deity resides in darkness</p>
+            <a href="detail.html?icon=1" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 2. Shikhara -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=2'">
+          <div class="card-symbol-area" style="background-color:#1a0a00;">
+            <div class="card-devanagari cinzel">शिखर</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">Nagara Style</div>
+            <h3 class="cinzel">Shikhara</h3>
+            <div class="sanskrit cormorant">शिखर · Śikhara</div>
+            <p class="meaning">Curvilinear mountain-peak tower of North Indian temples; represents Mount Meru</p>
+            <a href="detail.html?icon=2" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 3. Gopuram -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=4'">
+          <div class="card-symbol-area" style="background-color:#3a1500;">
+            <div class="card-devanagari cinzel">गोपु</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">Dravidian Style</div>
+            <h3 class="cinzel">Gopuram</h3>
+            <div class="sanskrit cormorant">गोपुरम् · Gopuram</div>
+            <p class="meaning">Towering gateway of South Indian temples; covered in painted stucco deities</p>
+            <a href="detail.html?icon=4" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 4. Mandapa -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=5'">
+          <div class="card-symbol-area" style="background-color:#2a1500;">
+            <div class="card-devanagari cinzel">मण्डप</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Mandapa</h3>
+            <div class="sanskrit cormorant">मण्डप · Maṇḍapa</div>
+            <p class="meaning">Pillared congregation hall; represents the material world of the devotee</p>
+            <a href="detail.html?icon=5" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 5. Vastu Purusha Mandala -->
+        <div class="card" data-category="Sacred Geometry" onclick="window.location='detail.html?icon=27'">
+          <div class="card-symbol-area" style="background-color:#1a1000;">
+            <div class="card-devanagari cinzel" style="font-size:3.5rem;">वास्तु</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-geo dm-sans">Sacred Geometry</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Vastu Purusha Mandala</h3>
+            <div class="sanskrit cormorant">वास्तु पुरुष मण्डल</div>
+            <p class="meaning">The cosmic grid of 64 or 81 squares on which every temple is laid out</p>
+            <a href="detail.html?icon=27" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 6. Dvarapala -->
+        <div class="card" data-category="Sculpture" onclick="window.location='detail.html?icon=15'">
+          <div class="card-symbol-area" style="background-color:#2a0a00;">
+            <div class="card-devanagari cinzel">द्वार</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-sculpt dm-sans">Sculpture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Dvarapala</h3>
+            <div class="sanskrit cormorant">द्वारपाल · Dvārapāla</div>
+            <p class="meaning">Fierce guardian figures flanking temple entrances and inner sanctum doorways</p>
+            <a href="detail.html?icon=15" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 7. Mithuna -->
+        <div class="card" data-category="Sculpture" onclick="window.location='detail.html?icon=16'">
+          <div class="card-symbol-area" style="background-color:#1a0a0a;">
+            <div class="card-devanagari cinzel">मिथुन</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-sculpt dm-sans">Sculpture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">Nagara Style</div>
+            <h3 class="cinzel">Mithuna</h3>
+            <div class="sanskrit cormorant">मिथुन · Mithuna</div>
+            <p class="meaning">Auspicious erotic couples carved at temple thresholds — Khajuraho's defining motif</p>
+            <a href="detail.html?icon=16" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 8. Vimana -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=3'">
+          <div class="card-symbol-area" style="background-color:#2a1000;">
+            <div class="card-devanagari cinzel">विमान</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">Dravidian Style</div>
+            <h3 class="cinzel">Vimana</h3>
+            <div class="sanskrit cormorant">विमान · Vimāna</div>
+            <p class="meaning">Stepped pyramidal tower over the sanctum in South Indian temples</p>
+            <a href="detail.html?icon=3" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 9. Ashtadikpala -->
+        <div class="card" data-category="Sculpture" onclick="window.location='detail.html?icon=23'">
+          <div class="card-symbol-area" style="background-color:#0a1a2a;">
+            <div class="card-devanagari cinzel" style="font-size:3.5rem;">अष्ट</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-sculpt dm-sans">Sculpture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Ashtadikpala</h3>
+            <div class="sanskrit cormorant">अष्टदिक्पाल · Aṣṭadikpāla</div>
+            <p class="meaning">The eight directional guardians placed on outer walls to protect the cosmic order</p>
+            <a href="detail.html?icon=23" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 10. Kalasha -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=8'">
+          <div class="card-symbol-area" style="background-color:#2a2000;">
+            <div class="card-devanagari cinzel">कलश</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Kalasha</h3>
+            <div class="sanskrit cormorant">कलश · Kalaśa</div>
+            <p class="meaning">Sacred pot finial at the temple's crown — where heaven and earth meet</p>
+            <a href="detail.html?icon=8" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 11. Natya Mandapa -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=13'">
+          <div class="card-symbol-area" style="background-color:#1a1500;">
+            <div class="card-devanagari cinzel" style="font-size:3.5rem;">नाट्य</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">Dravidian Style</div>
+            <h3 class="cinzel">Natya Mandapa</h3>
+            <div class="sanskrit cormorant">नाट्य मण्डप · Nāṭya Maṇḍapa</div>
+            <p class="meaning">Dance hall for ritual performance — present at Konark, Chidambaram</p>
+            <a href="detail.html?icon=13" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+        <!-- 12. Pradakshina Patha -->
+        <div class="card" data-category="Architecture" onclick="window.location='detail.html?icon=7'">
+          <div class="card-symbol-area" style="background-color:#0a1a0a;">
+            <div class="card-devanagari cinzel" style="font-size:3rem;">प्रद</div>
+            <div class="card-symbol-overlay"></div>
+            <span class="category-badge badge-arch dm-sans">Architecture</span>
+          </div>
+          <div class="card-content">
+            <div class="style-tag dm-sans">All Traditions</div>
+            <h3 class="cinzel">Pradakshina Patha</h3>
+            <div class="sanskrit cormorant">प्रदक्षिण पथ · Pradakṣiṇa Patha</div>
+            <p class="meaning">Circumambulatory path around the sanctum — the devotee orbits the divine</p>
+            <a href="detail.html?icon=7" class="view-link dm-sans" style="text-decoration:none;">Explore →</a>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+    </div>
+  </section>
+
+  <!-- ── Stats Banner ── -->
+  <section id="stats">
+    <div class="stat-item scroll-fade">
+      <div class="stat-num-wrapper cinzel"><span class="counter" data-target="48">0</span></div>
+      <div class="stat-label dm-sans">Sacred Elements</div>
+    </div>
+    <div class="stat-item scroll-fade" style="transition-delay:0.15s;">
+      <div class="stat-num-wrapper cinzel"><span class="counter" data-target="3">0</span></div>
+      <div class="stat-label dm-sans">Great Styles</div>
+    </div>
+    <div class="stat-item scroll-fade" style="transition-delay:0.3s;">
+      <div class="stat-num-wrapper cinzel"><span class="counter" data-target="3000">0</span></div>
+      <div class="stat-label dm-sans">Years of Architecture</div>
+    </div>
+  </section>
+
+  <!-- ── About / Temple as Cosmic Map ── -->
+  <section id="about">
+    <div class="about-grid scroll-fade">
+
+      <!-- Left: Temple cross-section SVG -->
+      <div class="temple-diagram-wrap">
+        <svg class="temple-svg" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Base platform -->
+          <rect x="20" y="390" width="260" height="15" rx="2" stroke="#C8860A" stroke-width="1" fill="rgba(200,134,10,0.05)"/>
+          <!-- Adhishthana (plinth tiers) -->
+          <rect x="30" y="370" width="240" height="20" rx="1" stroke="#C8860A" stroke-width="0.8" fill="rgba(200,134,10,0.06)"/>
+          <rect x="40" y="355" width="220" height="16" rx="1" stroke="#C8860A" stroke-width="0.8" fill="rgba(200,134,10,0.07)"/>
+          <!-- Mandapa columns -->
+          <rect x="40" y="270" width="8" height="85" rx="1" stroke="#C8860A" stroke-width="0.8" fill="rgba(200,134,10,0.08)"/>
+          <rect x="252" y="270" width="8" height="85" rx="1" stroke="#C8860A" stroke-width="0.8" fill="rgba(200,134,10,0.08)"/>
+          <rect x="70" y="290" width="6" height="65" rx="1" stroke="#C8860A" stroke-width="0.6" fill="rgba(200,134,10,0.06)"/>
+          <rect x="224" y="290" width="6" height="65" rx="1" stroke="#C8860A" stroke-width="0.6" fill="rgba(200,134,10,0.06)"/>
+          <!-- Mandapa roof -->
+          <rect x="38" y="255" width="224" height="18" rx="2" stroke="#C8860A" stroke-width="1" fill="rgba(200,134,10,0.08)"/>
+          <!-- Label: Mandapa -->
+          <text x="150" y="300" text-anchor="middle" fill="#C8860A99" font-size="10" font-family="serif" font-style="italic">Maṇḍapa</text>
+          <!-- Antarala walls -->
+          <rect x="90" y="200" width="120" height="55" rx="1" stroke="#C8860A" stroke-width="0.8" fill="rgba(200,134,10,0.08)"/>
+          <text x="150" y="232" text-anchor="middle" fill="#C8860A99" font-size="9" font-family="serif" font-style="italic">Antarāla</text>
+          <!-- Garbhagriha walls -->
+          <rect x="100" y="130" width="100" height="72" stroke="#C8860A" stroke-width="1.2" fill="rgba(200,134,10,0.12)"/>
+          <text x="150" y="173" text-anchor="middle" fill="#C8860Acc" font-size="10" font-family="serif" font-style="italic">Garbhagṛha</text>
+          <!-- deity dot -->
+          <circle cx="150" cy="158" r="5" fill="#C8860A" opacity="0.8"/>
+          <!-- Shikhara tiers -->
+          <polygon points="150,30 200,130 100,130" stroke="#C8860A" stroke-width="1" fill="rgba(200,134,10,0.1)"/>
+          <polygon points="150,55 192,120 108,120" stroke="#C8860A" stroke-width="0.7" fill="rgba(200,134,10,0.06)"/>
+          <polygon points="150,78 185,112 115,112" stroke="#C8860A" stroke-width="0.7" fill="rgba(200,134,10,0.06)"/>
+          <!-- Kalasha at top -->
+          <circle cx="150" cy="25" r="6" stroke="#C8860A" stroke-width="1.2" fill="rgba(200,134,10,0.3)"/>
+          <line x1="150" y1="19" x2="150" y2="10" stroke="#C8860A" stroke-width="1.2"/>
+          <circle cx="150" cy="9" r="3" fill="#C8860A" opacity="0.9"/>
+          <!-- Labels: Shikhara, Kalasha -->
+          <text x="210" y="80" fill="#C8860A88" font-size="9" font-family="serif" font-style="italic">Śikhara</text>
+          <line x1="205" y1="78" x2="175" y2="65" stroke="#C8860A55" stroke-width="0.6"/>
+          <text x="210" y="26" fill="#C8860A88" font-size="9" font-family="serif" font-style="italic">Kalaśa</text>
+          <line x1="208" y1="24" x2="157" y2="17" stroke="#C8860A55" stroke-width="0.6"/>
+          <!-- Pradakshina Patha indicator -->
+          <path d="M 80 380 Q 30 320 30 250 Q 30 160 80 120" stroke="#C8860A44" stroke-width="0.8" stroke-dasharray="4 3" fill="none"/>
+          <path d="M 220 380 Q 270 320 270 250 Q 270 160 220 120" stroke="#C8860A44" stroke-width="0.8" stroke-dasharray="4 3" fill="none"/>
+          <text x="14" y="255" fill="#C8860A66" font-size="8" font-family="serif" font-style="italic" transform="rotate(-90,14,255)">Pradakṣiṇā</text>
+        </svg>
+      </div>
+
+      <!-- Right: Text -->
+      <div>
+        <h2 class="cinzel text-ivory">The Temple as a Cosmic Map</h2>
+        <p class="cormorant">Every Indian temple is a three-dimensional model of the cosmos. The garbhagriha at its heart is the primordial cave — dark, windowless, charged with divine presence. Above it rises the shikhara or vimana, representing Mount Meru, the cosmic axis around which the universe rotates. The devotee's journey from the outer gopuram through successive halls into the dark sanctum re-enacts the soul's movement from the material world toward the divine.</p>
+        <p class="cormorant">This spatial theology is not accidental. It is encoded in ancient texts called the Shilpa Shastras and Vastu Shastras, which prescribed every proportion, every placement of image, every orientation of doorway. The temple floor plan is always based on the Vastu Purusha Mandala — a sacred geometric grid that maps the cosmic being onto the earth. The garbhagriha sits at the Brahmasthana, the navel of this grid.</p>
+        <p class="cormorant">Every surface of the temple is also an iconographic text. Where a sculpture is placed is as important as what it depicts. Ganga and Yamuna guard the Nagara garbhagriha entrance. Fierce Dvarapalas stand at Dravidian gopuram thresholds. Mithuna couples at doorways signal the auspicious threshold between the outer and inner worlds. The Ashtadikpalas face the eight directions on outer walls, holding the cosmos in place.</p>
+        <a href="elements.html" class="btn btn-gold dm-sans">Explore All Elements →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FAQ Section ── -->
+  <section class="faq-section scroll-fade" id="faq">
+    <h2 class="cinzel" style="text-align:center;">Frequently Asked Questions</h2>
+    <div class="heading-underline"></div>
+    <div class="faq-list" id="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">What does "temple iconography" actually mean?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">Temple iconography is the study of the symbolic visual language encoded in the design, structure, and sculpture of sacred buildings. In the Indian context, it means understanding why every part of a temple looks the way it does — why the tower curves that way, why that sculpture appears at that threshold, why the inner sanctum is kept in darkness. The temple is not merely a container for worship; it is itself the primary sacred image, a three-dimensional model of the cosmos built from stone according to precise canonical rules laid down in texts called the Shilpa Shastras and Vastu Shastras.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">What is the Vastu Purusha Mandala?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">The Vastu Purusha Mandala is the sacred geometric grid on which every Indian temple is designed. It is a square divided into either 64 (8×8) or 81 (9×9) smaller squares, each assigned to a specific deity or cosmic force. The central square — the Brahmasthana — is where the garbhagriha is always placed, because it represents the navel of the cosmic being (Purusha) whose body the temple literally embodies. The outer squares determine where specific guardian deities, planetary figures, and directional gods are placed on the temple's exterior walls. Every proportion and every placement of image is derived from this grid.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">What is the difference between a Shikhara and a Vimana?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">Both terms refer to the tower that rises above the innermost sanctum of a temple, but they belong to different architectural traditions. The Shikhara is the North Indian term — it describes the curvilinear, mountain-peak shaped tower of Nagara temples, which curves inward as it rises to a point. The Vimana is the South Indian term — it describes the stepped pyramidal tower of Dravidian temples, which rises in progressively smaller storeys to a flat top crowned with a barrel-vaulted capstone. Confusingly, in South India the word "shikhara" refers only to the very top finial element of the vimana, not the whole tower. Both represent Mount Meru, the cosmic axis at the centre of the Hindu universe.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">Why are there erotic sculptures on Hindu temples?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">The mithuna figures — auspicious erotic couples — found at temple thresholds, most famously at Khajuraho, are not decorative or titillating in intent. They serve as threshold guardians encoding a specific theological idea: that the union of opposites (masculine and feminine, purusha and prakriti) is the generative principle of the cosmos. Placed at doorways, they mark the transition from the outer world of duality into the inner sanctum of undifferentiated divine unity. Some scholars also connect them to tantric traditions that saw the erotic as a vehicle of spiritual liberation. The sculptures disappear entirely as one moves deeper into the temple — they belong to the outermost, most worldly zone.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">How were the Shilpa Shastras used?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">The Shilpa Shastras are a body of ancient Sanskrit texts prescribing the rules for temple construction — proportions, orientation, iconographic placement, materials, and ritual procedures for consecration. Texts like the Manasara, Mayamata, and Vishvakarma Prakasha were consulted by the Sthapati (master architect-priest) who oversaw temple construction. They prescribed everything from the ideal site (near water, elevated ground) to the precise ratio of every architectural element. Interestingly, the craftsmen who actually carved the stone often could not read Sanskrit, creating a fascinating gap between the theoreticians and the practitioners that scholars like Adam Hardy have studied in detail.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger dm-sans">
+          <span class="faq-q">Why does the Brihadeeswarar Temple cast no shadow at noon?</span>
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="faq-body"><p class="cormorant">The 216-foot vimana tower of the Brihadeeswarar Temple at Thanjavur, built by Raja Raja Chola I in 1010 CE, is so precisely proportioned and oriented that at solar noon its shadow falls entirely within its own base — appearing to cast no shadow on the ground around it. This was not accidental: the temple is oriented on a precise north-south axis, and its proportional system was calculated to achieve this astronomical effect as a demonstration of divine perfection. The entire building, including its 80-tonne monolithic capstone lifted into place via a kilometres-long earthen ramp, represents the absolute pinnacle of Chola engineering and sacred geometry.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+
+  <footer class="footer">
+    <div class="footer-logo cinzel">MandirVastu</div>
+    <div class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span><span>Sculpture</span><span>Sacred Geometry</span><span>Case Study</span>
+    </div>
+    <div class="footer-credit dm-sans">
+      MandirVastu · Encyclopedia of Indian Temple Iconography
+    </div>
+  </footer>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    // Nav animations on load
+    document.querySelectorAll('.fade-up-seq').forEach(el => {
+      setTimeout(() => el.classList.add('animate'), 100);
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-active'));
+
+    // Scroll-fade IntersectionObserver
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); scrollObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.scroll-fade').forEach(el => scrollObserver.observe(el));
+
+    // Filter pills
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#elements-grid .card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          if (match) {
+            card.classList.remove('hidden');
+            card.classList.add('fade-in');
+            setTimeout(() => card.classList.remove('fade-in'), 400);
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Counter animation
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const step = target / (duration / 16);
+        let current = 0;
+        const update = () => {
+          current = Math.min(current + step, target);
+          el.textContent = Math.floor(current).toLocaleString();
+          if (current < target) requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // FAQ Accordion
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.faq-trigger');
+      if (!trigger) return;
+      
+      const item = trigger.closest('.faq-item');
+      const body = item.querySelector('.faq-body');
+      const isOpen = item.classList.contains('open');
+
+      // Close other accordions
+      const container = item.parentElement;
+      container.querySelectorAll('.faq-item').forEach(it => {
+        if (it !== item) {
+          it.classList.remove('open');
+          const otherBody = it.querySelector('.faq-body');
+          if (otherBody) otherBody.style.maxHeight = '0px';
+        }
+      });
+
+      // Toggle current
+      if (isOpen) {
+        item.classList.remove('open');
+        body.style.maxHeight = '0px';
+      } else {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  </script>
+
+
+</body>
+</html>

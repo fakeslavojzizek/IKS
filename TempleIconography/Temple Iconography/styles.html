@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectural Styles — MandirVastu</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ── Navbar Sync ── */
+    /* ── Local Styles Page Styling ── */
+
+    /* ── Hero ── */
+    .styles-hero {
+      height: 55vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      background: 
+        linear-gradient(to bottom, rgba(14,7,0,0.4) 0%, rgba(14,7,0,0.9) 100%),
+        url('assets/temples/styles_hero.png');
+      background-size: cover;
+      background-position: center 30%;
+      position: relative; overflow: hidden; padding-top: 50px;
+    }
+    .styles-hero h1 { font-family: var(--font-cinzel); font-size: 3.5rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: 2px; text-shadow: 0 4px 30px rgba(0,0,0,0.8); }
+    .styles-hero p { font-size: 1.4rem; color: var(--gold-light); font-family: var(--font-cormorant); font-style: italic; opacity: 0.9; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+    .styles-hero-content { position: relative; z-index: 5; max-width: 900px; padding: 2rem; }
+
+    .mandala-bg {
+      position: absolute; top: 50%; left: 50%; width: 140vh; height: 140vh;
+      transform: translate(-50%,-50%); opacity: 0.08; z-index: 1;
+      animation: rotateMandala 60s linear infinite;
+      stroke: var(--gold); fill: none; stroke-width: 0.5;
+    }
+    @keyframes rotateMandala { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* ── Styles Grid ── */
+    .styles-section { padding: 0 2rem 6rem; max-width: 1400px; margin: -35px auto 0; position: relative; z-index: 10; }
+    .styles-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
+    }
+    .style-card {
+      height: 480px; background: var(--bg-card); border-radius: 8px; border: 1px solid rgba(200,134,10,0.15);
+      overflow: hidden; transition: 0.4s; cursor: pointer; display: flex; flex-direction: column; text-decoration: none;
+      position: relative;
+    }
+    .style-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+    
+    .card-img { height: 300px; width: 100%; overflow: hidden; position: relative; background: linear-gradient(135deg, #1a1000, #0e0700); }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; z-index: 0; position: absolute; inset: 0; }
+    .style-card:hover .card-img img { transform: scale(1.1); }
+    
+    .card-devanagari {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-cinzel); font-size: 3.5rem; color: rgba(255,255,255,0.04);
+      z-index: 1; pointer-events: none; transition: 0.5s ease; user-select: none;
+    }
+    .style-card:hover .card-devanagari { transform: scale(1.1); color: rgba(255,255,255,0.1); }
+    
+    .card-symbol-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--bg-card) 100%);
+      z-index: 2;
+    }
+
+    .card-body { padding: 1.8rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; position: relative; z-index: 3; margin-top: 0; }
+    .card-badge { font-size: 0.75rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; font-family: var(--font-dm); opacity: 0.8; margin-bottom: 0.4rem; }
+    .card-body h2 { font-family: var(--font-cinzel); font-size: 1.4rem; color: var(--ivory); line-height: 1.2; margin: 0; }
+    .card-body .desc { font-family: var(--font-cormorant); font-size: 1.1rem; color: var(--ivory-muted); line-height: 1.7; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; margin: 0.5rem 0; }
+    .card-footer { margin-top: auto; padding-top: 0.8rem; border-top: 1px solid rgba(200,134,10,0.1); font-size: 0.85rem; font-family: var(--font-dm); color: var(--gold-light); font-weight: 600; }
+
+
+
+    /* ── End Section ── */
+    .styles-end { text-align: center; padding: 8rem 2rem; border-top: 1px solid rgba(200,134,10,0.1); }
+    .styles-end p { font-family: var(--font-cinzel); font-size: 1.5rem; color: var(--gold-light); margin-bottom: 2.5rem; letter-spacing: 1px; }
+
+    /* Button Styles */
+    .btn { padding: 0.9rem 2.2rem; border-radius: 100px; font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; transition: 0.3s; display: inline-block; cursor: pointer; text-decoration: none; font-family: var(--font-dm); }
+    .btn-gold { background: var(--gold); color: var(--bg-deep); border: 2px solid var(--gold); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(200,134,10,0.4); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .styles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .styles-grid { grid-template-columns: 1fr; }
+      .styles-hero h1 { font-size: 2.5rem; }
+      .nav-links { position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,5,0,0.98); flex-direction: column; padding: 2.5rem; text-align: center; transform: translateY(-150%); transition: 0.4s; border-bottom: 1px solid var(--gold); }
+      .nav-links.nav-active { transform: translateY(0); }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel" style="text-decoration:none;">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pages/konark.html">Konark</a></li>
+          <li><a href="styles.html" class="active">Styles</a></li>
+          <li><a href="elements.html">Elements</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="styles-hero">
+    <!-- Rotating Mandala SVG -->
+    <svg class="mandala-bg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="400" cy="400" r="390"/><circle cx="400" cy="400" r="340"/><circle cx="400" cy="400" r="290"/><circle cx="400" cy="400" r="240"/><circle cx="400" cy="400" r="190"/><circle cx="400" cy="400" r="140"/><circle cx="400" cy="400" r="90"/><circle cx="400" cy="400" r="40"/>
+      <line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/><line x1="124" y1="124" x2="676" y2="676"/><line x1="676" y1="124" x2="124" y2="676"/><line x1="28" y1="256" x2="772" y2="544"/><line x1="28" y1="544" x2="772" y2="256"/><line x1="256" y1="28" x2="544" y2="772"/><line x1="544" y1="28" x2="256" y2="772"/>
+      <polygon points="400,30 750,620 50,620"/><polygon points="400,770 750,180 50,180"/>
+      <polygon points="400,120 670,555 130,555"/><polygon points="400,680 670,245 130,245"/>
+      <g>
+        <circle cx="400" cy="10" r="8"/><circle cx="400" cy="790" r="8"/><circle cx="10" cy="400" r="8"/><circle cx="790" cy="400" r="8"/>
+        <circle cx="124" cy="124" r="6"/><circle cx="676" cy="124" r="6"/><circle cx="676" cy="676" r="6"/><circle cx="124" cy="676" r="6"/>
+      </g>
+    </svg>
+
+    <div class="styles-hero-content reveal stagger-1">
+      <h1 class="cinzel">The Three Great Styles</h1>
+      <p class="cormorant">The architectural traditions that define Indian temples</p>
+    </div>
+
+  </header>
+
+
+
+  <!-- Styles Grid -->
+  <main class="styles-section reveal stagger-2">
+    <div class="styles-grid" id="styles-grid">
+      <!-- Injected via JS -->
+    </div>
+  </main>
+
+  <!-- End Section -->
+  <section class="styles-end">
+    <p class="cinzel">Every temple you see is shaped by these traditions.</p>
+    <a href="elements.html" class="btn btn-gold dm-sans" style="text-decoration:none;">Explore the Elements →</a>
+  </section>
+
+  <!-- Footer -->
+  <!-- ── Unified Global Footer (High Fidelity) ── -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">ॐ MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span>
+      <span>Sculpture</span>
+      <span>Sacred Geometry</span>
+      <span>Case Study</span>
+      <span>Vastu Shastra</span>
+      <span>Iconography</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      const grid = document.getElementById('styles-grid');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      hamburger.onclick = () => navLinks.classList.toggle('nav-active');
+
+      const styles = window.styleData;
+      if (!styles) return;
+
+      const styleKeys = Object.keys(styles);
+      const devanagari = { "Nagara": "नगर", "Dravidian": "द्राविड़", "Vesara": "वेसर" };
+
+      styleKeys.forEach((key, index) => {
+        const item = styles[key];
+        const card = document.createElement('a');
+        card.href = `pages/style-detail.html?style=${key}`;
+        card.className = `style-card reveal stagger-${(index % 3) + 1}`;
+        
+        card.innerHTML = `
+          <div class="card-img">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="card-devanagari cinzel">${devanagari[key] || "ज्ञान"}</div>
+            <div class="card-symbol-overlay"></div>
+          </div>
+          <div class="card-body">
+            <div class="card-badge">${item.origin} Tradition</div>
+            <h2 class="cinzel">${item.name}</h2>
+            <p class="desc">${item.description}</p>
+            <div class="card-footer">Key Examples: ${item.examples.map(ex => ex.name).join(' · ')}</div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Universal Reveal Observer
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Element Detail — MandirVastu</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    /* ── Navbar Sync ── */
+    /* ── Navbar Sync moved to style.css ── */
+
+    /* Mobile Hamburger Nav */
+    @media (max-width: 768px) {
+      .nav-links { position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,5,0,0.98); flex-direction: column; padding: 2.5rem; text-align: center; transform: translateY(-150%); transition: 0.4s; border-bottom: 1px solid var(--gold); z-index: 999; }
+      .nav-links.nav-active { transform: translateY(0); }
+      .hamburger { display: flex; }
+    }
+
+    /* ── Detail Hero ── */
+    .detail-hero {
+      min-height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(circle at center, rgba(42,21,0,0.85) 0%, var(--bg-deep) 100%);
+      position: relative; margin-top: 70px; padding: 0 2rem 120px;
+    }
+    .detail-hero h1 { font-family: var(--font-cinzel); font-size: 2.8rem; color: var(--ivory); margin-bottom: 0.5rem; z-index: 2; position: relative; letter-spacing: 2px; }
+    .sanskrit-title { font-size: 1.6rem; color: var(--gold); margin-bottom: 1.5rem; opacity: 0.9; z-index: 2; position: relative; }
+    .short-desc { font-family: var(--font-cormorant); font-size: 1.3rem; color: var(--gold-light); font-style: italic; max-width: 800px; line-height: 1.4; z-index: 2; position: relative; }
+
+    /* ── Cinematic Image ── */
+    .image-container {
+      width: 100%; max-width: 1200px; margin: -80px auto 0; padding: 0 2rem;
+      position: relative; z-index: 10;
+    }
+    .temple-svg { width: 100%; max-width: 700px; height: auto; max-height: 680px; opacity: 1; transform: scale(1.05); }
+
+    @media (max-width: 768px) {
+      .temple-svg { transform: scale(1); max-width: 100%; }
+    }
+
+    .detail-image-box {
+      width: 100%; height: 500px; border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(200, 134, 10, 0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .detail-image-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Layout ── */
+    .detail-main { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+    
+    .content-section { margin-bottom: 5rem; }
+    
+    .section-head { font-family: var(--font-cinzel); font-size: 1.5rem; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; letter-spacing: 1px; }
+    .section-head::after { content: ''; height: 1px; background: rgba(200,134,10,0.2); flex: 1; }
+    
+    .body-text { font-family: var(--font-cormorant); font-size: 1.25rem; color: var(--ivory-muted); line-height: 1.8; }
+    .body-text p { margin-bottom: 1.5rem; }
+
+    /* Specific Grid for Placement/Symbolism */
+    .feature-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(200,134,10,0.1); padding: 2.5rem; border-radius: 8px; }
+
+    @media (max-width: 768px) {
+      .detail-hero h1 { font-size: 2.8rem; }
+      .detail-main { padding: 4rem 1.5rem; }
+    }
+
+    /* ── Animations ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="../index.html" class="logo cinzel">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="konark.html">Konark</a></li>
+          <li><a href="../styles.html">Styles</a></li>
+          <li><a href="../elements.html">Elements</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Content -->
+  <header class="detail-hero reveal stagger-1" id="detail-hero">
+    <h1 id="el-name">...</h1>
+    <div class="sanskrit-title" id="el-sanskrit">...</div>
+    <div class="short-desc" id="el-short-desc">...</div>
+  </header>
+
+  <div class="image-container reveal stagger-2">
+    <div class="detail-image-box">
+      <img id="el-image" src="" alt="Element Image">
+    </div>
+  </div>
+
+  <main class="detail-main">
+    
+    <!-- 3. Main Explanation -->
+    <section class="content-section reveal">
+      <h2 class="section-head">Architectural Analysis</h2>
+      <div class="body-text" id="el-detail">
+        <!-- Paragraphs injected here -->
+      </div>
+    </section>
+
+    <!-- 4. Symbolism -->
+    <section class="content-section reveal">
+      <div class="feature-box">
+        <h2 class="section-head">Symbolic Meaning</h2>
+        <div class="body-text" id="el-symbolism">
+          <!-- Text injected here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Sacred Placement -->
+    <section class="content-section reveal">
+      <h2 class="section-head">Sacred Placement</h2>
+      <div class="body-text" id="el-placement">
+        <!-- Text injected here -->
+      </div>
+    </section>
+
+    <!-- Elements Navigation -->
+    <section class="content-section element-nav-section reveal" id="element-nav-section" style="display: none;">
+      <div class="element-nav">
+        <a href="#" id="prev-element" class="nav-btn">
+          <span class="nav-label">Previous Element</span>
+          <span class="nav-title" id="prev-title">...</span>
+        </a>
+        <a href="#" id="next-element" class="nav-btn right">
+          <span class="nav-label">Next Element</span>
+          <span class="nav-title" id="next-title">...</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Unified Global Footer (High Fidelity) ── -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">ॐ MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="../index.html">Home</a>
+      <a href="../elements.html">Elements</a>
+      <a href="../styles.html">Styles</a>
+      <a href="../about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span>
+      <span>Sculpture</span>
+      <span>Sacred Geometry</span>
+      <span>Case Study</span>
+      <span>Vastu Shastra</span>
+      <span>Iconography</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('icon');
+      
+      // Support both numeric ID and name-based lookup for stability
+      let data = window.iconData[id];
+      let currentKey = id;
+
+      if (!data) {
+        const foundEntry = Object.entries(window.iconData).find(([k, item]) => 
+          item.name.toLowerCase() === (id || '').toLowerCase()
+        );
+        if (foundEntry) {
+          currentKey = foundEntry[0];
+          data = foundEntry[1];
+        }
+      }
+
+      if (!data) {
+        console.warn('Icon data not found for ID:', id);
+        setTimeout(() => {
+          if (!window.iconData[id]) window.location.href = '../elements.html';
+        }, 500);
+        return;
+      }
+
+      // Populate Template
+      const fixPath = (path) => (path && path.startsWith('assets/')) ? '../' + path : path;
+
+      document.title = `${data.name} — MandirVastu`;
+      document.getElementById('el-name').innerText = data.name;
+      document.getElementById('el-sanskrit').innerText = data.sanskrit || '';
+      document.getElementById('el-short-desc').innerText = data.description || '';
+      document.getElementById('el-image').src = fixPath(data.image) || '';
+      document.getElementById('el-image').alt = data.name;
+      
+      // Detail Paragraphs
+      const detailContainer = document.getElementById('el-detail');
+      const detailText = data.detail || '';
+      detailContainer.innerHTML = detailText.split('\n\n').map(p => `<p>${p}</p>`).join('');
+
+      document.getElementById('el-symbolism').innerHTML = `<p>${data.symbolism || ''}</p>`;
+      document.getElementById('el-placement').innerHTML = `<p>${data.placement || ''}</p>`;
+
+      // Populate Navigation
+      const keys = Object.keys(window.iconData);
+      const currentIndex = keys.indexOf(currentKey);
+      
+      if (currentIndex !== -1 && keys.length > 1) {
+        document.getElementById('element-nav-section').style.display = 'block';
+        
+        let prevIndex = currentIndex - 1;
+        if (prevIndex < 0) prevIndex = keys.length - 1;
+        
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= keys.length) nextIndex = 0;
+        
+        const prevData = window.iconData[keys[prevIndex]];
+        const nextData = window.iconData[keys[nextIndex]];
+        
+        document.getElementById('prev-title').innerText = prevData.name;
+        document.getElementById('prev-element').href = `detail.html?icon=${keys[prevIndex]}`;
+        
+        document.getElementById('next-title').innerText = nextData.name;
+        document.getElementById('next-element').href = `detail.html?icon=${keys[nextIndex]}`;
+      }
+
+      // Universal Reveal Observer
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // Mobile hamburger
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      hamburger.addEventListener('click', () => navLinks.classList.toggle('nav-active'));
+    });
+  </script>
+</body>
+</html>

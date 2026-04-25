@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Elements — MandirVastu Encyclopedia</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Elements Page specific styling */
+    .elements-hero {
+      height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(circle at center, rgba(42,21,0,0.85) 0%, var(--bg-deep) 100%);
+      position: relative; margin-top: 70px;
+      opacity: 0; animation: fadeInHero 0.8s forwards;
+    }
+    @keyframes fadeInHero { to { opacity: 1; } }
+    .elements-hero h1 { font-family: var(--font-cinzel); font-size: 3.5rem; color: var(--gold); margin-bottom: 0.8rem; }
+    .elements-hero p { font-family: var(--font-cormorant); font-size: 1.2rem; color: var(--ivory-muted); font-style: italic; max-width: 600px; margin: 0 auto; }
+
+    .filter-bar {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 3rem auto 0; max-width: 1200px; padding: 0 2rem;
+    }
+    .filter-pill {
+      background: none; border: 1px solid rgba(200, 134, 10, 0.3); color: var(--ivory-muted);
+      padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer; transition: 0.3s;
+      font-family: var(--font-dm); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .filter-pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,134,10,0.05); }
+    .filter-pill.active { border-color: var(--gold); color: var(--bg-deep); background: var(--gold); font-weight: 700; box-shadow: 0 4px 15px rgba(200, 134, 10, 0.3); }
+
+    /* Search Bar */
+    .search-container {
+      max-width: 800px; margin: 2rem auto 0; padding: 0 5%;
+      opacity: 0; animation: fadeIn 0.8s forwards 0.3s;
+    }
+    .search-wrapper {
+      position: relative; display: flex; align-items: center;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(200, 134, 10, 0.2);
+      border-radius: 100px; padding: 5px 20px; transition: 0.3s;
+    }
+    .search-wrapper:focus-within { border-color: var(--gold); box-shadow: 0 0 20px rgba(200, 134, 10, 0.2); background: rgba(255,255,255,0.05); }
+    .search-icon { color: var(--gold); margin-right: 15px; font-size: 1.2rem; }
+    #element-search {
+      width: 100%; background: transparent; border: none; outline: none;
+      color: var(--ivory); padding: 12px 0; font-family: var(--font-dm); font-size: 1rem;
+    }
+    #element-search::placeholder { color: var(--ivory-muted); opacity: 0.5; }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeInUpStagger { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Grid */
+    .elements-grid {
+      padding: 4rem 5%; max-width: 1600px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+    }
+
+    /* Fixed Height Card (360px) */
+    .element-card {
+      height: 360px; background: var(--bg-card); border: 1px solid rgba(200, 134, 10, 0.15);
+      border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
+      transition: 0.4s; cursor: pointer; text-decoration: none;
+    }
+    .element-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+    .element-img { height: 180px; position: relative; overflow: hidden; background: linear-gradient(135deg, #1a1000, #0e0700); }
+    .element-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; z-index: 2; position: relative; }
+    .element-card:hover .element-img img { transform: scale(1.1); }
+    .element-img::before { content: '◈'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--font-cinzel); font-size: 2rem; color: var(--gold); opacity: 0.2; z-index: 1; }
+
+    .element-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+    .element-badge { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+    .element-title { font-family: var(--font-cinzel); font-size: 1.3rem; color: var(--ivory); }
+    .element-desc { font-size: 0.85rem; color: var(--ivory-muted); line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .element-footer { margin-top: auto; font-size: 0.7rem; color: var(--gold-light); font-weight: 700; opacity: 0.7; }
+
+    /* Empty State */
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--ivory-muted); display: none; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background-color: rgba(14,7,0,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+    .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.55rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+    .logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .logo-tagline { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--font-dm); font-weight: 400; margin-left: 0.2rem; opacity: 0.8; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; padding: 0; margin: 0; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 1px; color: var(--ivory); position: relative; text-transform: uppercase; text-decoration: none; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+    .hamburger span { width: 28px; height: 2px; background: var(--ivory); transition: 0.3s; }
+
+    /* End Section */
+    .page-end { text-align: center; padding: 6rem 2rem; background: var(--bg-deep); border-top: 1px solid rgba(200,134,10,0.1); }
+    .end-divider { width: 80px; height: 2px; background: var(--gold); margin: 0 auto 2.5rem; opacity: 0.5; }
+    .end-text { font-family: var(--font-cinzel); font-size: 1.4rem; color: var(--gold-light); margin-bottom: 2rem; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="elements.html" class="active">Elements</a></li>
+        <li><a href="styles.html">Styles</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="elements-hero">
+    <div class="fade-up-seq" style="animation: fadeInUp 0.8s forwards;">
+      <h1 class="cinzel">Temple Elements</h1>
+      <p class="cormorant">Each component of a temple encodes meaning — from structure to symbolism.</p>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <div class="search-wrapper">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="element-search" placeholder="Search elements (e.g. Shikhara, Mandapa...)" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="filter-bar" style="animation: slideDown 0.6s forwards 0.2s; opacity: 0;">
+    <button class="filter-pill active" data-cat="all">All Elements</button>
+    <button class="filter-pill" data-cat="Architecture">Architecture</button>
+    <button class="filter-pill" data-cat="Sculpture">Sculpture</button>
+    <button class="filter-pill" data-cat="Sacred Geometry">Sacred Geometry</button>
+    <button class="filter-pill" data-cat="Case Study">Case Studies</button>
+  </div>
+
+  <main class="elements-grid" id="grid">
+    <!-- 48 elements will be injected here -->
+    <div id="empty-state" class="empty-state">No elements found for this criteria.</div>
+  </main>
+
+  <section class="page-end">
+    <div class="end-divider"></div>
+    <p class="end-text cinzel">Understanding temples begins with observing their parts.</p>
+    <a href="styles.html" class="btn btn-ghost">Explore Styles →</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo cinzel">MandirVastu</div>
+    <div class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span><span>Sculpture</span><span>Sacred Geometry</span><span>Case Study</span>
+    </div>
+    <div class="footer-credit dm-sans">MandirVastu · Scholarly Architectural Encyclopedia</div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    const grid = document.getElementById('grid');
+    const searchInput = document.getElementById('element-search');
+    const emptyState = document.getElementById('empty-state');
+    const pageTitle = document.getElementById('page-title');
+    const pills = document.querySelectorAll('.filter-pill');
+
+    console.log("Exploring elements with data:", window.iconData);
+
+    // Get URL Parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const styleFilter = urlParams.get('style');
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    function renderGrid() {
+      if (!window.iconData) {
+        console.error("Critical: iconData not loaded");
+        grid.innerHTML = '<div class="empty-state" style="display:block">Service unavailable: Data not loaded.</div>';
+        return;
+      }
+      
+      const filteredElements = Object.values(window.iconData).filter(item => {
+        const catMatch = currentCategory === 'all' || item.category === currentCategory;
+        const styleMatch = !styleFilter || item.style === styleFilter || item.style === 'All';
+        
+        const searchTarget = `${item.name} ${item.description} ${item.sanskrit || ''}`.toLowerCase();
+        const searchMatch = !searchQuery || searchTarget.includes(searchQuery.toLowerCase());
+
+        if (styleFilter) {
+          return (item.style === styleFilter || item.style === 'All') && searchMatch;
+        }
+        return catMatch && searchMatch;
+      });
+
+      if (styleFilter) {
+        pageTitle.textContent = `${styleFilter} Elements`;
+      } else if (searchQuery) {
+        pageTitle.textContent = `Search: ${searchQuery}`;
+      } else {
+        pageTitle.textContent = `Temple Elements`;
+      }
+
+      grid.innerHTML = '';
+      if (filteredElements.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+
+      filteredElements.forEach((item, index) => {
+        const card = document.createElement('a');
+        card.href = `detail.html?icon=${item.id}`;
+        card.className = 'element-card';
+        card.style.animation = `fadeInUpStagger 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards`;
+        card.style.animationDelay = `${index * 0.04}s`;
+        card.style.opacity = '0';
+
+        card.innerHTML = `
+          <div class="element-img">
+            <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.style.display='none';">
+          </div>
+          <div class="element-body">
+            <span class="element-badge">${item.category}</span>
+            <h3 class="element-title">${item.name}</h3>
+            <p class="element-desc">${item.description}</p>
+            <div class="element-footer">${item.style} Tradition</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderGrid();
+    });
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        // Reset style filter if user clicks a category pill
+        if (window.location.search) {
+          window.history.pushState({}, '', 'elements.html');
+          location.reload(); // Simple reload to clear logic
+        }
+        
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.getAttribute('data-cat');
+        renderGrid();
+      });
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>

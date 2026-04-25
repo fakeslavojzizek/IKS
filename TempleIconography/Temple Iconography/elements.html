@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temple Elements — MandirVastu Encyclopedia</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ── Elements Hero: Cinematic Grandeur ── */
+    .elements-hero {
+      position: relative;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 0;
+      background-color: var(--bg-deep);
+      overflow: hidden;
+    }
+
+    .elements-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to bottom, rgba(5, 10, 20, 0.5) 0%, rgba(5, 10, 20, 0.95) 100%),
+        url("assets/temples/elements_hero_indigo.png");
+      background-size: cover;
+      background-position: center center;
+      opacity: 0.9;
+      z-index: 1;
+    }
+
+    /* Subtle Sparkle/Particle Effect for Richness */
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(200, 134, 10, 0.3) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: particleMove 60s linear infinite;
+      opacity: 0.2;
+    }
+    @keyframes particleMove {
+      from { background-position: 0 0; }
+      to { background-position: 800px 1600px; }
+    }
+
+    .hero-content-wrapper {
+      position: relative;
+      z-index: 5;
+      max-width: 900px;
+      padding: 2rem;
+      margin-top: -60px;
+    }
+
+    .elements-hero h1 { 
+      font-family: var(--font-cinzel); font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--gold); 
+      margin-bottom: 0.8rem; letter-spacing: 5px; 
+      text-shadow: 0 4px 30px rgba(0,0,0,0.95); 
+      animation: titleFadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    .elements-hero p { 
+      font-family: var(--font-cormorant); font-size: 1.35rem; color: var(--ivory); 
+      font-style: italic; max-width: 600px; margin: 0 auto; line-height: 1.6; 
+      text-shadow: 0 2px 15px rgba(0,0,0,0.85); 
+      opacity: 0; animation: titleFadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+    }
+    @keyframes titleFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mandala-bg {
+      position: absolute; top: 50%; left: 50%; width: 140vh; height: 140vh;
+      transform: translate(-50%,-50%); opacity: 0.08; z-index: 2;
+      animation: rotateMandala 150s linear infinite;
+      stroke: var(--gold); fill: none; stroke-width: 0.5;
+      pointer-events: none;
+    }
+    @keyframes rotateMandala { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* ── Controls Section ── */
+    .controls-overlay {
+      position: relative;
+      margin-top: -180px;
+      z-index: 20;
+      padding: 0 2rem;
+    }
+
+    .search-wrapper { 
+      position: relative; display: flex; align-items: center; max-width: 680px; margin: 0 auto 2rem;
+      background: rgba(26, 16, 0, 0.98); border: 2px solid rgba(200, 134, 10, 0.3);
+      border-radius: 100px; padding: 8px 30px; transition: 0.4s;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+    }
+    .search-wrapper:focus-within { border-color: var(--gold); box-shadow: 0 0 40px rgba(200, 134, 10, 0.25); }
+    .search-icon { color: var(--gold); margin-right: 18px; font-size: 1.5rem; opacity: 0.8; }
+    #element-search { 
+      font-family: var(--font-dm); font-size: 1.15rem; width: 100%; 
+      background: transparent; border: none; outline: none; color: var(--ivory); padding: 12px 0; 
+    }
+    #element-search::placeholder { color: var(--ivory-muted); opacity: 0.4; }
+
+    .filter-groups {
+      display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: nowrap;
+      overflow-x: auto; padding-bottom: 10px; -ms-overflow-style: none; scrollbar-width: none;
+    }
+    .filter-groups::-webkit-scrollbar { display: none; }
+    .filter-group { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
+    .filter-label { font-family: var(--font-dm); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); opacity: 0.5; margin-bottom: 0; white-space: nowrap; }
+    .filter-row { display: flex; justify-content: center; gap: 0.5rem; }
+    
+    .pill { 
+      padding: 0.4rem 1.1rem; border: 1px solid rgba(200, 134, 10, 0.2); background: rgba(255,255,255,0.02);
+      color: var(--ivory-muted); font-family: var(--font-dm); font-size: 0.72rem; border-radius: 100px;
+      cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap;
+    }
+    .pill:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 134, 10, 0.05); }
+    .pill.active { background: var(--gold); color: var(--bg-deep); font-weight: 700; border-color: var(--gold); box-shadow: 0 4px 15px rgba(200, 134, 10, 0.3); }
+
+    /* ── Encyclopedia Grid ── */
+    .elements-grid { 
+      max-width: 1500px; margin: 0 auto 10rem; display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 40px; padding: 0 2rem; 
+      min-height: 400px;
+    }
+    
+    .card {
+      height: 520px; background: var(--bg-card); border: 1px solid rgba(200,134,10,0.15);
+      border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+      transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); position: relative; cursor: pointer; text-decoration: none;
+      opacity: 0; transform: translateY(30px);
+    }
+    .card.visible { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-12px) scale(1.02); border-color: var(--gold); box-shadow: 0 20px 50px rgba(0,0,0,0.7); }
+
+    .card-img-area { height: 320px; position: relative; overflow: hidden; background: #0e0700; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); position: absolute; inset: 0; filter: grayscale(20%); }
+    .card:hover .card-img { transform: scale(1.15); filter: grayscale(0%); }
+    .card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,7,0,0.8), transparent 40%); z-index: 2; }
+
+    .card-content { padding: 2.2rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; position: relative; z-index: 3; }
+    .cat-badge { font-family: var(--font-dm); font-size: 0.7rem; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; opacity: 0.8; margin-bottom: 0.3rem; }
+    .card h3 { font-family: var(--font-cinzel); font-size: 1.6rem; color: var(--ivory); margin: 0; letter-spacing: 1px; }
+    .sanskrit { font-family: var(--font-cormorant); font-size: 1.2rem; color: var(--gold-light); font-style: italic; opacity: 0.85; margin-bottom: 0.5rem; }
+    .desc { font-family: var(--font-cormorant); font-size: 1.15rem; color: var(--ivory-muted); line-height: 1.7; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .card-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid rgba(200,134,10,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .tradition { font-family: var(--font-dm); font-size: 0.75rem; color: var(--ivory-muted); opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
+    .explore-link { font-family: var(--font-dm); font-weight: 700; font-size: 0.8rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+
+    .empty-state { grid-column: 1/-1; padding: 120px 2rem; text-align: center; }
+    .empty-state h3 { font-family: var(--font-cinzel); font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
+    .empty-state p { font-family: var(--font-cormorant); font-size: 1.3rem; color: var(--ivory-muted); }
+
+    @media (max-width: 768px) {
+      .elements-hero h1 { font-size: 2.8rem; }
+      .elements-hero { height: 50vh; }
+      .elements-grid { grid-template-columns: 1fr; }
+      .controls-overlay { margin-top: -40px; }
+    }
+    @media (max-width: 480px) {
+      .elements-hero h1 { font-size: 2.2rem; letter-spacing: 2px; }
+      .hero-content-wrapper { padding: 1.5rem; margin-top: -30px; }
+      .controls-overlay { margin-top: -50px; padding: 1.5rem 1rem; }
+      .filter-group { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; justify-content: flex-start; }
+      .filter-group::-webkit-scrollbar { display: none; }
+      .filter-btn { white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+        </svg>
+        MandirVastu
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pages/konark.html">Konark</a></li>
+          <li><a href="styles.html">Styles</a></li>
+          <li><a href="elements.html" class="active">Elements</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="elements-hero">
+    <div class="hero-particles"></div>
+    <svg class="mandala-bg" viewBox="0 0 800 800">
+      <circle cx="400" cy="400" r="390"/><circle cx="400" cy="400" r="340"/><circle cx="400" cy="400" r="290"/>
+      <line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/>
+      <path d="M400 100 L450 400 L400 700 L350 400 Z" opacity="0.5"/>
+      <path d="M100 400 L400 450 L700 400 L400 350 Z" opacity="0.5"/>
+    </svg>
+    <div class="hero-content-wrapper">
+      <h1>Temple Elements</h1>
+    </div>
+  </section>
+
+  <!-- Search & Filters Overlay -->
+  <div class="controls-overlay">
+    <div class="search-wrapper">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="element-search" placeholder="Search for Garbhagriha, Mandala, Shikhara..." autocomplete="off">
+    </div>
+
+    <div class="filter-groups">
+      <div class="filter-group">
+        <label class="filter-label">Perspective</label>
+        <div class="filter-row" id="cat-filters">
+          <button class="pill active" data-cat="all">All</button>
+          <button class="pill" data-cat="Architecture">Architecture</button>
+          <button class="pill" data-cat="Sculpture">Sculpture</button>
+          <button class="pill" data-cat="Sacred Geometry">Sacred Geometry</button>
+          <button class="pill" data-cat="Case Study">Case Studies</button>
+        </div>
+      </div>
+
+      <div style="width: 1px; height: 18px; background: rgba(200, 134, 10, 0.2); margin: 0 0.5rem; flex-shrink: 0;"></div>
+
+      <div class="filter-group">
+        <label class="filter-label">Tradition</label>
+        <div class="filter-row" id="style-filters">
+          <button class="pill active" data-style="all">All Styles</button>
+          <button class="pill" data-style="Nagara">Nagara</button>
+          <button class="pill" data-style="Dravidian">Dravidian</button>
+          <button class="pill" data-style="Vesara">Vesara</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Encyclopedia Grid -->
+  <main class="elements-grid" id="grid">
+    <!-- Items dynamically injected here -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <h3 class="cinzel">No Knowledge Found</h3>
+      <p>The archives do not contain elements matching this criteria.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo cinzel">&#x950; MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span>
+      <span>Sculpture</span>
+      <span>Sacred Geometry</span>
+      <span>Case Study</span>
+      <span>Vastu Shastra</span>
+      <span>Iconography</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      const grid = document.getElementById('grid');
+      const searchInput = document.getElementById('element-search');
+      const emptyState = document.getElementById('empty-state');
+      const catButtons = document.querySelectorAll('#cat-filters .pill');
+      const styleButtons = document.querySelectorAll('#style-filters .pill');
+
+      let activeCat = 'all';
+      let activeStyle = 'all';
+      let searchQuery = '';
+
+      // Sync with URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlStyle = urlParams.get('style');
+      if (urlStyle) {
+        activeStyle = urlStyle;
+        styleButtons.forEach(b => {
+          b.classList.toggle('active', b.dataset.style === urlStyle);
+        });
+      }
+
+      function render() {
+        if (!window.iconData) {
+          console.error("iconData is missing.");
+          grid.innerHTML = `<div class="empty-state"><h3>Critical Error</h3><p>Data library could not be reached.</p></div>`;
+          return;
+        }
+
+        const items = Object.values(window.iconData);
+        const filtered = items.filter(item => {
+          const catMatch = activeCat === 'all' || item.category === activeCat;
+          const styleMatch = activeStyle === 'all' || item.style === activeStyle || item.style === 'All';
+          const text = `${item.name} ${item.description} ${item.sanskrit || ''}`.toLowerCase();
+          const searchMatch = !searchQuery || text.includes(searchQuery.toLowerCase());
+          return catMatch && styleMatch && searchMatch;
+        });
+
+        // Clear grid but keep empty state
+        const itemsToRemove = grid.querySelectorAll('.card');
+        itemsToRemove.forEach(el => el.remove());
+
+        if (filtered.length === 0) {
+          emptyState.style.display = 'block';
+        } else {
+          emptyState.style.display = 'none';
+          filtered.forEach((item, index) => {
+            const card = document.createElement('a');
+            card.href = `pages/detail.html?icon=${item.id}`;
+            card.className = 'card';
+            
+            card.innerHTML = `
+              <div class="card-img-area">
+                <img src="${item.image}" alt="${item.name}" class="card-img" loading="lazy">
+                <div class="card-img-overlay"></div>
+              </div>
+              <div class="card-content">
+                <span class="cat-badge">${item.category}</span>
+                <h3>${item.name}</h3>
+                <div class="sanskrit">${item.sanskrit || ''}</div>
+                <p class="desc">${item.description}</p>
+                <div class="card-footer">
+                  <span class="tradition">${item.style} Tradition</span>
+                  <span class="explore-link">Explore →</span>
+                </div>
+              </div>
+            `;
+            grid.appendChild(card);
+
+            // Staggered reveal
+            setTimeout(() => {
+              card.classList.add('visible');
+            }, index * 50);
+          });
+        }
+      }
+
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        render();
+      });
+
+      catButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          catButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCat = btn.dataset.cat;
+          render();
+        });
+      });
+
+      styleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          styleButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeStyle = btn.dataset.style;
+          render();
+        });
+      });
+
+      // Mobile Menu
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          navLinks.classList.toggle('nav-active');
+        });
+      }
+
+      render();
+    });
+  </script>
+</body>
+</html>

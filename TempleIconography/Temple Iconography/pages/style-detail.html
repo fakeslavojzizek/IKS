@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Detail — MandirVastu</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    :root {
+      --font-cinzel: 'Cinzel', serif;
+      --font-dm: 'DM Sans', sans-serif;
+    }
+
+    /* ── Local Style Detail Page Styling ── */
+
+    /* ── Cinematic Hero ── */
+    .hero {
+      height: 55vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      object-position: 50% 10%;
+      filter: brightness(0.4) contrast(1.1); z-index: 1;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+    }
+    
+    .hero-content { position: relative; z-index: 3; max-width: 900px; padding: 0 2rem; }
+    .hero-title { font-family: var(--font-cinzel); font-size: 5rem; color: var(--gold); margin-bottom: 2rem; letter-spacing: 12px; }
+    .hero-divider { width: 150px; height: 1px; background: var(--gold); margin: 0 auto 2rem; opacity: 0.5; }
+    .hero-meta { font-family: var(--font-dm); font-size: 0.9rem; color: var(--ivory); letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; }
+    .hero-meta span { margin: 0 1.5rem; color: var(--gold); }
+
+    /* ── Minimalist Content ── */
+    .style-description { max-width: 900px; margin: 4rem auto 5rem; text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--ivory); line-height: 1.8; opacity: 0.9; padding: 0 2rem; }
+    .main-detail { background: var(--bg-deep); padding: 0 4rem 4rem; position: relative; z-index: 10; margin-top: -35px; }
+    
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;
+      max-width: 1200px; margin: 0 auto 6rem;
+    }
+    .gallery-item { text-align: center; text-decoration: none; display: block; }
+    .gallery-img-wrap { 
+      width: 100%; aspect-ratio: 1; margin-bottom: 2rem; overflow: hidden; border: 1px solid rgba(200,134,10,0.1); 
+      transition: 0.5s;
+    }
+    .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+    .gallery-item:hover .gallery-img-wrap { border-color: var(--gold); transform: translateY(-10px); }
+    .gallery-item:hover img { opacity: 1; transform: scale(1.05); }
+    
+    .gallery-name { font-family: var(--font-cinzel); font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; letter-spacing: 2px; }
+    .gallery-loc { font-family: var(--font-dm); font-size: 0.7rem; color: var(--ivory); text-transform: uppercase; opacity: 0.4; letter-spacing: 2px; }
+
+    /* ── Precise Hallmarks ── */
+    .hallmarks-list { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+    .hallmark-item { 
+      display: flex; align-items: center; justify-content: center; gap: 2rem; 
+      margin-bottom: 2.5rem; text-align: center;
+    }
+    .hallmark-dot { width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+    .hallmark-text { font-family: var(--font-dm); font-size: 1.15rem; color: var(--ivory); opacity: 0.8; line-height: 1.6; font-style: italic; }
+
+    .cta-minimal { text-align: center; padding: 6rem 0; }
+    .cta-minimal a { 
+      padding: 0.9rem 2.5rem; border-radius: 100px; font-weight: 600; font-size: 1rem; 
+      letter-spacing: 0.5px; transition: 0.3s; display: inline-block; cursor: pointer; 
+      text-decoration: none; font-family: var(--font-dm);
+      background: var(--gold); color: #0e0700; border: 2px solid var(--gold);
+      box-shadow: 0 5px 15px rgba(200,134,10,0.2);
+    }
+    .cta-minimal a:hover { 
+      background: var(--gold-light); transform: translateY(-3px); 
+      box-shadow: 0 10px 25px rgba(200,134,10,0.4); 
+      color: #0e0700;
+    }
+    .cta-minimal a:active { transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .hero-title { font-size: 3rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    
+    /* ── Animations ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="../index.html" class="logo cinzel" style="text-decoration:none;">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="konark.html">Konark</a></li>
+          <li><a href="../styles.html" class="active">Styles</a></li>
+          <li><a href="../elements.html">Elements</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <img id="hero-img" src="" alt="Architecture" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal stagger-1">
+      <h1 class="hero-title" id="style-name">...</h1>
+      <div class="hero-divider"></div>
+      <div class="hero-meta" id="style-meta-line">...</div>
+    </div>
+  </header>
+
+  <main class="main-detail">
+    <!-- Gallery -->
+    <div class="gallery-grid" id="examples-list"></div>
+
+    <!-- Style Description -->
+    <div class="style-description reveal" id="style-description"></div>
+
+    <!-- Hallmarks -->
+    <div class="hallmarks-list" id="hallmarks-list"></div>
+
+    <div class="cta-minimal reveal stagger-1">
+      <a href="" id="cta-btn">View Architectural Elements →</a>
+    </div>
+
+    <!-- Style Navigation -->
+    <section class="content-section element-nav-section reveal" id="style-nav-section" style="display: none;">
+      <div class="element-nav">
+        <a href="#" id="prev-style" class="nav-btn">
+          <span class="nav-label">Previous Tradition</span>
+          <span class="nav-title" id="prev-style-title">...</span>
+        </a>
+        <a href="#" id="next-style" class="nav-btn right">
+          <span class="nav-label">Next Tradition</span>
+          <span class="nav-title" id="next-style-title">...</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Unified Global Footer (High Fidelity) ── -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">ॐ MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="../index.html">Home</a>
+      <a href="../elements.html">Elements</a>
+      <a href="../styles.html">Styles</a>
+      <a href="../about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span>
+      <span>Sculpture</span>
+      <span>Sacred Geometry</span>
+      <span>Case Study</span>
+      <span>Vastu Shastra</span>
+      <span>Iconography</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const styleKey = urlParams.get('style');
+      const data = window.styleData[styleKey];
+      if (!data) { window.location.href = '../styles.html'; return; }
+
+      const fixPath = (path) => (path && path.startsWith('assets/')) ? '../' + path : path;
+
+      document.title = `${data.name} — MandirVastu`;
+      document.getElementById('style-name').innerText = data.name;
+      document.getElementById('hero-img').src = fixPath(data.image);
+
+      // Meta line: North India ◈ 7th Century ◈ Gupta Patronage
+      const metaText = `${data.origin} <span>◈</span> ${data.period} <span>◈</span> ${data.patronage.split(',')[0]} Heritage`;
+      document.getElementById('style-meta-line').innerHTML = metaText;
+
+      // Description text
+      document.getElementById('style-description').innerText = data.description;
+
+      const exampleGrid = document.getElementById('examples-list');
+      (data.examples || []).forEach(ex => {
+        exampleGrid.innerHTML += `
+          <div class="gallery-item reveal">
+            <div class="gallery-img-wrap"><img src="${fixPath(ex.img)}" alt="${ex.name}"></div>
+            <div class="gallery-name">${ex.name}</div>
+            <div class="gallery-loc">${ex.loc}</div>
+          </div>`;
+      });
+
+      const hallmarkGrid = document.getElementById('hallmarks-list');
+      (data.facts || []).forEach(fact => {
+        hallmarkGrid.innerHTML += `
+          <div class="hallmark-item reveal">
+            <div class="hallmark-dot"></div>
+            <div class="hallmark-text">${fact}</div>
+          </div>`;
+      });
+
+      document.getElementById('cta-btn').href = `../elements.html?style=${styleKey}`;
+
+      // Populate Navigation
+      const keys = Object.keys(window.styleData);
+      const currentIndex = keys.indexOf(styleKey);
+      
+      if (currentIndex !== -1 && keys.length > 1) {
+        document.getElementById('style-nav-section').style.display = 'block';
+        
+        let prevIndex = currentIndex - 1;
+        if (prevIndex < 0) prevIndex = keys.length - 1;
+        
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= keys.length) nextIndex = 0;
+        
+        const prevData = window.styleData[keys[prevIndex]];
+        const nextData = window.styleData[keys[nextIndex]];
+        
+        document.getElementById('prev-style-title').innerText = prevData.name;
+        document.getElementById('prev-style').href = `style-detail.html?style=${keys[prevIndex]}`;
+        
+        document.getElementById('next-style-title').innerText = nextData.name;
+        document.getElementById('next-style').href = `style-detail.html?style=${keys[nextIndex]}`;
+      }
+
+      window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+      });
+
+      // Universal Reveal Observer
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    });
+  </script>
+</body>
+</html>

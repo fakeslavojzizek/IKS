@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectural Styles — MandirVastu</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Navbar Sync ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background-color: rgba(14,7,0,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+    .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; }
+    .logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.55rem; font-weight: 700; color: var(--gold); text-decoration: none; }
+    .logo-icon { width: 28px; height: 28px; flex-shrink: 0; }
+    .logo-tagline { font-size: 0.7rem; color: var(--gold-light); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--font-dm); font-weight: 400; margin-left: 0.2rem; opacity: 0.8; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; padding: 0; margin: 0; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 1px; color: var(--ivory); position: relative; text-transform: uppercase; text-decoration: none; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+    .hamburger span { width: 28px; height: 2px; background: var(--ivory); transition: 0.3s; }
+
+    /* ── Hero ── */
+    .styles-hero {
+      height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      background: radial-gradient(circle at center, rgba(42,21,0,0.85) 0%, var(--bg-deep) 100%);
+      position: relative; margin-top: 70px;
+    }
+    .styles-hero-content { opacity: 0; transform: translateY(20px); animation: fadeUpHero 0.8s forwards; }
+    @keyframes fadeUpHero { to { opacity: 1; transform: translateY(0); } }
+    .styles-hero h1 { font-family: var(--font-cinzel); font-size: 3.5rem; color: var(--ivory); margin-bottom: 1rem; letter-spacing: 2px; }
+    .styles-hero p { font-size: 1.25rem; color: var(--gold-light); font-family: var(--font-cormorant); font-style: italic; opacity: 0.9; }
+
+    /* ── Styles Grid ── */
+    .styles-section { padding: 6rem 2rem; max-width: 1400px; margin: 0 auto; }
+    .styles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    
+    .style-card {
+      background: var(--bg-card); border-radius: 8px; border: 1px solid rgba(200,134,10,0.15);
+      overflow: hidden; transition: 0.3s; cursor: pointer; display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(30px);
+    }
+    .style-card.visible { animation: fadeUpCard 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    @keyframes fadeUpCard { to { opacity: 1; transform: translateY(0); } }
+    .style-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    
+    .card-img { height: 180px; width: 100%; overflow: hidden; position: relative; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .style-card:hover .card-img img { transform: scale(1.05); }
+
+    .card-body { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-body h2 { font-family: var(--font-cinzel); font-size: 1.6rem; color: var(--ivory); margin-bottom: 0.8rem; }
+    .card-body .desc { font-size: 1rem; color: var(--ivory-muted); line-height: 1.6; margin-bottom: 1.5rem; font-family: var(--font-cormorant); }
+
+    /* Accordion */
+    .style-accordion { border-top: 1px solid rgba(200,134,10,0.15); margin-top: auto; }
+    .accordion-header {
+      padding: 1rem 0; display: flex; justify-content: space-between; align-items: center;
+      color: var(--gold); text-transform: uppercase; font-size: 0.8rem; font-family: var(--font-dm); font-weight: 700; letter-spacing: 1px;
+    }
+    .accordion-icon { width: 14px; height: 14px; transition: 0.3s; }
+    .style-card.expanded .accordion-icon { transform: rotate(180deg); }
+    .accordion-content {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .style-card.expanded .accordion-content { max-height: 250px; }
+    
+    .fact-list { list-style: none; padding: 0 0 1.5rem 0; margin: 0; }
+    .fact-list li {
+      font-size: 0.9rem; color: var(--ivory); line-height: 1.5; margin-bottom: 0.8rem;
+      position: relative; padding-left: 1.2rem; font-family: var(--font-dm);
+    }
+    .fact-list li::before { content: '◈'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; top: 1px; }
+
+    .explore-btn {
+      display: inline-block; padding: 0.8rem 1.8rem; background: transparent; border: 1px solid var(--gold);
+      color: var(--gold); font-family: var(--font-dm); text-transform: uppercase; font-weight: 700;
+      font-size: 0.85rem; border-radius: 4px; transition: 0.3s; text-decoration: none; text-align: center;
+      margin-top: 0.5rem;
+    }
+    .explore-btn:hover { background: var(--gold); color: var(--bg-deep); }
+
+    /* ── End Section ── */
+    .styles-end { text-align: center; padding: 8rem 2rem; border-top: 1px solid rgba(200,134,10,0.1); }
+    .styles-end p { font-family: var(--font-cinzel); font-size: 1.5rem; color: var(--gold-light); margin-bottom: 2.5rem; letter-spacing: 1px; }
+
+    /* ── Static Footer ── */
+    .footer { border-top: 1px solid rgba(200,134,10,0.3); background: var(--bg-card); padding: 5rem 2rem 3rem; text-align: center; }
+    .footer-logo { font-size: 2rem; color: var(--gold); margin-bottom: 2.5rem; display: inline-block; font-family: var(--font-cinzel); }
+    .footer-nav { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2.5rem; font-weight: 600; font-size: 1.05rem; }
+    .footer-nav a { text-transform: uppercase; letter-spacing: 2px; text-decoration: none; color: var(--ivory); }
+    .footer-nav a:hover { color: var(--gold); }
+    .footer-credit { font-size: 0.95rem; color: rgba(184,169,138,0.6); letter-spacing: 1px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .styles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .styles-grid { grid-template-columns: 1fr; }
+      .styles-hero h1 { font-size: 2.5rem; }
+      .nav-links { position: fixed; top: 70px; left: 0; right: 0; background: rgba(10,5,0,0.98); flex-direction: column; padding: 2.5rem; text-align: center; transform: translateY(-150%); transition: 0.4s; border-bottom: 1px solid var(--gold); }
+      .nav-links.nav-active { transform: translateY(0); }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="elements.html">Elements</a></li>
+        <li><a href="styles.html" class="active">Styles</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="styles-hero">
+    <div class="styles-hero-content">
+      <h1 class="cinzel">The Three Great Styles</h1>
+      <p class="cormorant">The architectural traditions that define Indian temples</p>
+    </div>
+  </header>
+
+  <!-- Styles Grid -->
+  <main class="styles-section">
+    <div class="styles-grid" id="styles-grid">
+      <!-- Injected via JS -->
+    </div>
+  </main>
+
+  <!-- End Section -->
+  <section class="styles-end">
+    <p class="cinzel">Every temple you see is shaped by these traditions.</p>
+    <a href="elements.html" class="btn btn-gold dm-sans" style="text-decoration:none;">Explore the Elements →</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">MandirVastu</div>
+    <div class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span><span>Sculpture</span><span>Sacred Geometry</span><span>Case Study</span>
+    </div>
+    <div class="footer-credit dm-sans">MandirVastu · Encyclopedia of Indian Temple Iconography</div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('styles-grid');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      hamburger.onclick = () => navLinks.classList.toggle('nav-active');
+
+      const styles = window.styleData;
+      if (!styles) return;
+
+      const styleKeys = Object.keys(styles);
+      styleKeys.forEach((key, index) => {
+        const item = styles[key];
+        const card = document.createElement('div');
+        card.className = 'style-card visible';
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        card.innerHTML = `
+          <div class="card-img">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="card-body">
+            <h2 class="cinzel">${item.name}</h2>
+            <p class="desc">${item.description}</p>
+            
+            <div class="style-accordion">
+              <div class="accordion-header">
+                <span>Style Essentials</span>
+                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="accordion-content">
+                <ul class="fact-list">
+                  ${item.facts.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+            
+            <a href="elements.html?style=${key}" class="explore-btn" onclick="event.stopPropagation()">Explore ${key} Elements →</a>
+          </div>
+        `;
+
+        card.onclick = (e) => {
+          // If clicked the button, ignore
+          if (e.target.closest('.explore-btn')) return;
+          card.classList.toggle('expanded');
+        };
+
+        grid.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

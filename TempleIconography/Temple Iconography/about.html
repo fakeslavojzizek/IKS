@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — MandirVastu: Temple Iconography of India</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ── Local About Page Styling ── */
+    body {
+      background-image: url('assets/temples/about_body_texture.png');
+      background-size: 200px;
+      background-repeat: repeat;
+      background-attachment: fixed;
+    }
+    /* ── New About Header (Mission) ── */
+    .mission-section-wrapper {
+      position: relative;
+      background: 
+        linear-gradient(to bottom, rgba(12,6,2,0.6) 0%, rgba(6,3,0,0.95) 100%),
+        url('assets/temples/about_new_hero.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      width: 100%;
+      border-bottom: 1px solid rgba(200,134,10,0.1);
+      margin-top: 70px;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+    }
+    .mission-section {
+      padding: 4rem 4rem 6rem 4rem; position: relative; z-index: 10; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 8rem; align-items: center; max-width: 1440px; margin: 0 auto;
+    }
+    .mission-visual { display: flex; justify-content: center; align-items: center; position: relative; }
+    .om-glow {
+      position: relative; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(200,134,10,0.2); border-radius: 50%;
+      font-size: 140px; color: var(--gold); font-family: var(--font-cinzel);
+      filter: drop-shadow(0 0 30px rgba(200,134,10,0.3));
+    }
+    .om-glow::before { content: ''; position: absolute; inset: -20px; border: 1px dashed rgba(200,134,10,0.15); border-radius: 50%; animation: spin 40s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .mission-text h2 { font-family: var(--font-cinzel); font-size: 3.5rem; color: var(--gold); margin-bottom: 3rem; position: relative; display: inline-block; }
+    .mission-text h2::after { content: ''; position: absolute; left: 0; bottom: -15px; width: 60px; height: 3px; background: var(--gold); }
+    .mission-text p { font-family: var(--font-cormorant); font-size: 1.5rem; color: var(--ivory-muted); line-height: 2.1; margin-bottom: 2.5rem; }
+    .mission-text strong { color: var(--gold-light); font-weight: 600; }
+
+    /* ── Coverage Grid ── */
+    .coverage-section { padding: 8rem 2rem; background: rgba(10,5,0,0.85); backdrop-filter: blur(5px); }
+    .coverage-container { max-width: 1300px; margin: 0 auto; }
+    .section-title-wrap { text-align: center; margin-bottom: 4.5rem; }
+    .section-title-wrap h2 { font-family: var(--font-cinzel); font-size: 2.5rem; color: var(--gold); }
+    .underline-gold { width: 100px; height: 2px; background: var(--gold); margin: 1.5rem auto; }
+    .coverage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+    .coverage-card {
+      background: linear-gradient(145deg, #1a1000 0%, #0d0702 100%); 
+      padding: 3.5rem; border: 1px solid rgba(200,134,10,0.15);
+      border-top: 3px solid var(--gold);
+      border-radius: 8px; transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+    }
+    .coverage-card:hover { 
+      transform: translateY(-10px); 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+      border-color: rgba(200,134,10,0.4);
+    }
+    .card-num { font-family: var(--font-cinzel); font-size: 3rem; color: var(--gold); margin-bottom: 0.8rem; display: block; opacity: 0.9; }
+    .card-head { font-family: var(--font-cinzel); font-size: 1.8rem; color: var(--ivory); margin-bottom: 1.5rem; }
+    .card-body { font-family: var(--font-cormorant); font-size: 1.25rem; color: var(--ivory-muted); line-height: 1.8; }
+
+    /* ── Sources ── */
+    .sources-section { padding: 8rem 2rem; background: rgba(6,3,0,0.9); border-top: 1px solid rgba(200,134,10,0.1); }
+    .sources-container { max-width: 1300px; margin: 0 auto; }
+    .sources-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-top: 5rem; }
+    .source-card { 
+      border-left: 3px solid var(--gold); padding: 2rem 2.5rem; 
+      background: linear-gradient(90deg, rgba(200,134,10,0.05) 0%, transparent 100%);
+      transition: background 0.3s ease;
+    }
+    .source-card:hover { background: rgba(200,134,10,0.08); }
+    .source-title { font-family: var(--font-cormorant); font-style: italic; font-size: 1.3rem; color: var(--gold-light); margin-bottom: 0.5rem; display: block; }
+    .source-author { font-family: var(--font-dm); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--ivory-muted); opacity: 0.7; }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      padding: 8rem 2rem; text-align: center; position: relative; overflow: hidden;
+      border-top: 1px solid rgba(200,134,10,0.25);
+      background-image: 
+        linear-gradient(to bottom, rgba(14,7,0,0.92) 0%, rgba(14,7,0,0.75) 50%, rgba(14,7,0,0.92) 100%),
+        url('assets/temples/hero_masterpiece.png');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+    }
+    .cta-mandala {
+      display: none;
+      transform: translate(-50%,-50%); opacity: 0.04; z-index: 1; pointer-events: none;
+      animation: rotateMandala 80s linear infinite reverse;
+      stroke: var(--gold); fill: none; stroke-width: 0.5;
+    }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-inner h2 { font-family: var(--font-cinzel); font-size: 2.8rem; color: var(--ivory); margin-bottom: 1rem; }
+    .cta-inner p { font-family: var(--font-cormorant); font-size: 1.35rem; font-style: italic; color: var(--gold-light); margin-bottom: 3.5rem; }
+    .cta-btns { display: flex; gap: 1.8rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.95rem 2.4rem; border-radius: 100px; font-family: var(--font-dm); font-weight: 600; letter-spacing: 0.5px; transition: 0.3s; text-decoration: none; cursor: pointer; display: inline-block; }
+    .btn-gold { background: var(--gold); border: 2px solid var(--gold); color: var(--bg-deep); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(200,134,10,0.25); }
+    .btn-ghost { background: transparent; border: 2px solid var(--gold); color: var(--ivory); }
+    .btn-ghost:hover { background: rgba(200,134,10,0.1); transform: translateY(-3px); }
+
+    /* ── Feedback Section ── */
+    .feedback-section { padding: 5rem 2rem; background: var(--bg-deep); border-top: 1px solid rgba(200,134,10,0.1); position: relative; z-index: 5; }
+    .feedback-container { max-width: 800px; margin: 0 auto; background: #130a00; padding: 4rem; border: 1px solid rgba(200,134,10,0.15); border-radius: 8px; position: relative; overflow: hidden; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.8rem; text-align: left; }
+    .form-group label { font-family: var(--font-dm); font-size: 0.85rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; }
+    .form-control { background: #0E0700; border: 1px solid rgba(200,134,10,0.2); padding: 1rem 1.2rem; color: var(--ivory); font-family: var(--font-dm); font-size: 1rem; border-radius: 4px; transition: 0.3s; }
+    .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 15px rgba(200,134,10,0.1); }
+    textarea.form-control { resize: vertical; min-height: 120px; }
+    
+    .feedback-footer { display: flex; align-items: center; justify-content: center; position: relative; margin-top: 1rem; }
+    .feedback-footer .char-count { position: absolute; left: 0; font-size: 0.85rem; color: var(--ivory-muted); opacity: 0.6; font-family: var(--font-dm); }
+    
+    .rating-group { display: flex; gap: 1rem; margin-bottom: 2.5rem; align-items: center; justify-content: flex-start; }
+    .star-btn { background: none; border: none; font-size: 2rem; color: rgba(200,134,10,0.3); cursor: pointer; transition: 0.3s; padding: 0; }
+    .star-btn.active, .star-btn:hover { color: var(--gold); transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(200,134,10,0.4)); }
+
+    .success-overlay { position: absolute; inset: 0; background: var(--bg-deep); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; pointer-events: none; transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 10; padding: 4rem; }
+    .success-overlay.active { opacity: 1; pointer-events: all; }
+    .success-icon { font-size: 4rem; color: var(--gold); margin-bottom: 2rem; font-family: var(--font-cinzel); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .mission-section { grid-template-columns: 1fr; text-align: center; gap: 4rem; padding: 6rem 2rem; }
+      .coverage-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .mission-section-wrapper { min-height: auto; padding-top: 50px; }
+    }
+    @media (max-width: 768px) {
+      .om-glow { width: 220px; height: 220px; font-size: 80px; }
+      .sources-grid { grid-template-columns: 1fr; }
+      .cta-inner h2 { font-size: 2.2rem; }
+      .mission-text h2 { font-size: 2.8rem; }
+    }
+    @media (max-width: 480px) {
+      .feedback-container { padding: 1.5rem 1.2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-content { padding: 1.5rem; }
+      .om-glow { width: 140px; height: 140px; font-size: 45px; }
+      .cta-inner h2 { font-size: 1.8rem; }
+      .cta-btns { flex-direction: column; width: 100%; gap: 1rem; }
+      .cta-btns .btn { width: 100%; box-sizing: border-box; }
+      .feedback-section { padding: 3rem 1rem; }
+    }
+    .mandala-bg {
+      position: absolute; top: 50%; left: 50%; width: 140vh; height: 140vh;
+      transform: translate(-50%,-50%); opacity: 0.08; z-index: 1;
+      animation: rotateMandala 60s linear infinite;
+      stroke: var(--gold); fill: none; stroke-width: 0.5;
+    }
+    @keyframes rotateMandala { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav id="navbar" class="dm-sans">
+    <div class="nav-container">
+      <a href="index.html" class="logo cinzel" style="text-decoration:none;">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="2" width="4" height="4" rx="1" fill="#C8860A"/>
+          <rect x="10" y="5" width="8" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="7" y="7" width="14" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="4" y="9" width="20" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="2" y="11" width="24" height="3" rx="0.5" fill="#C8860A"/>
+          <rect x="3" y="13" width="22" height="12" rx="1" fill="none" stroke="#C8860A" stroke-width="1"/>
+          <rect x="11" y="17" width="6" height="8" rx="0.5" fill="#C8860A" opacity="0.6"/>
+          <rect x="5" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+          <rect x="19" y="17" width="4" height="5" rx="0.5" fill="#C8860A" opacity="0.4"/>
+        </svg>
+        MandirVastu
+        <span class="logo-tagline">Decoding the Sacred Architecture of India</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pages/konark.html">Konark</a></li>
+          <li><a href="styles.html">Styles</a></li>
+          <li><a href="elements.html">Elements</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Section 1: About Mission Header -->
+  <div class="mission-section-wrapper">
+    <section class="mission-section reveal">
+      <div class="mission-visual">
+        <div class="om-glow reveal floating">ॐ</div>
+      </div>
+      <div class="mission-text reveal stagger-2">
+        <h2 class="cinzel">Our Manifesto</h2>
+        <p>MandirVastu is dedicated to decoding the symbolic language of Indian temple architecture. It hosts a meticulously curated archive of <strong>48 verified iconographic elements</strong> organized into Architecture, Sculpture, and Sacred Geometry.</p>
+        <p>Every monument we document is a three-dimensional model of the cosmos—where the <strong>Garbhagriha</strong> (sanctum) sits as a primordial cave and the <strong>Shikhara</strong> represents Mount Meru, the cosmic axis around which the universe rotates.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Section 3: What We Cover -->
+  <section class="coverage-section">
+    <div class="coverage-container">
+      <div class="section-title-wrap reveal">
+        <h2 class="cinzel">What We Cover</h2>
+        <div class="underline-gold"></div>
+      </div>
+      <div class="coverage-grid">
+        <!-- Architecture -->
+        <div class="coverage-card reveal stagger-1">
+          <span class="card-num">20</span>
+          <h3 class="card-head">Architecture</h3>
+          <p class="card-body">From the Garbhagriha womb-chamber to the Kalasha finial — the structural vocabulary of the temple as cosmic mountain.</p>
+        </div>
+        <!-- Sculpture -->
+        <div class="coverage-card reveal stagger-2">
+          <span class="card-num">15</span>
+          <h3 class="card-head">Sculpture</h3>
+          <p class="card-body">Guardian Dvarapalas, auspicious Mithuna couples, celestial Apsaras — the iconographic program carved into every temple surface.</p>
+        </div>
+        <!-- Geometry -->
+        <div class="coverage-card reveal stagger-3">
+          <span class="card-num">07</span>
+          <h3 class="card-head">Sacred Geometry</h3>
+          <p class="card-body">The Vastu Purusha Mandala, Ayadi proportional systems, and fractal shikhara mathematics that align the temple with the cosmos.</p>
+        </div>
+        <!-- Case Studies -->
+        <div class="coverage-card reveal stagger-4">
+          <span class="card-num">06</span>
+          <h3 class="card-head">Case Studies</h3>
+          <p class="card-body">Deep dives into masterpieces: Brihadeeswarar, Konark, Khajuraho, Hoysaleswara — temples that exemplify each tradition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Sources -->
+  <section class="sources-section">
+    <div class="sources-container">
+      <div class="section-title-wrap reveal">
+        <h2 class="cinzel">Scholarly Sources</h2>
+        <p class="cormorant" style="margin-top: 1rem; italic; opacity: 0.7;">MandirVastu draws on the following foundational academic works</p>
+      </div>
+      <div class="sources-grid">
+        <div class="source-card reveal stagger-1"><span class="source-title">The Hindu Temple (2 Vols)</span><span class="source-author">Stella Kramrisch</span></div>
+        <div class="source-card reveal stagger-1"><span class="source-title">Indian Temple Architecture: Form and Transformation</span><span class="source-author">Adam Hardy</span></div>
+        <div class="source-card reveal stagger-2"><span class="source-title">The Penguin Guide to the Monuments of India</span><span class="source-author">George Michell</span></div>
+        <div class="source-card reveal stagger-2"><span class="source-title">Manasara Shilpa Shastra</span><span class="source-author">Ancient Sanskrit Text</span></div>
+        <div class="source-card reveal stagger-3"><span class="source-title">Mayamata</span><span class="source-author">Mayamuni</span></div>
+        <div class="source-card reveal stagger-3"><span class="source-title">Elements of Hindu Iconography</span><span class="source-author">T.A. Gopinatha Rao</span></div>
+        <div class="source-card reveal stagger-4"><span class="source-title">Vishnudharmottara Purana</span><span class="source-author">Ancient Sanskrit Text</span></div>
+        <div class="source-card reveal stagger-4"><span class="source-title">The Dance of Shiva</span><span class="source-author">Ananda Coomaraswamy</span></div>
+        <div class="source-card reveal stagger-5"><span class="source-title">Architecture of Manasara</span><span class="source-author">P.K. Acharya (trans.)</span></div>
+        <div class="source-card reveal stagger-5"><span class="source-title">Temple Architecture and Sculpture</span><span class="source-author">Archaeological Survey of India</span></div>
+        <div class="source-card reveal stagger-6"><span class="source-title">The Square and the Circle of Indian Arts</span><span class="source-author">Kapila Vatsyayan</span></div>
+        <div class="source-card reveal stagger-6"><span class="source-title">Nagara, Vesara and Dravida</span><span class="source-author">R.D. Trivedi</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Final CTA -->
+  <section class="final-cta">
+    <svg class="cta-mandala" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="400" cy="400" r="390"/><circle cx="400" cy="400" r="340"/><circle cx="400" cy="400" r="290"/><circle cx="400" cy="400" r="240"/><circle cx="400" cy="400" r="190"/><circle cx="400" cy="400" r="140"/><circle cx="400" cy="400" r="90"/><circle cx="400" cy="400" r="40"/>
+      <line x1="400" y1="10" x2="400" y2="790"/><line x1="10" y1="400" x2="790" y2="400"/><line x1="124" y1="124" x2="676" y2="676"/><line x1="676" y1="124" x2="124" y2="676"/><line x1="28" y1="256" x2="772" y2="544"/><line x1="28" y1="544" x2="772" y2="256"/><line x1="256" y1="28" x2="544" y2="772"/><line x1="544" y1="28" x2="256" y2="772"/>
+      <polygon points="400,30 750,620 50,620"/><polygon points="400,770 750,180 50,180"/>
+      <polygon points="400,120 670,555 130,555"/><polygon points="400,680 670,245 130,245"/>
+    </svg>
+    <div class="cta-inner reveal">
+      <h2 class="cinzel">Begin Your Journey</h2>
+      <p class="cormorant">3,000 years of sacred architecture await your understanding</p>
+      <div class="cta-btns">
+        <a href="elements.html" class="btn btn-gold reveal stagger-1">Explore the Elements →</a>
+        <a href="styles.html" class="btn btn-ghost reveal stagger-2">Explore the Styles →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 8: Feedback -->
+  <section class="feedback-section reveal">
+    <div class="container">
+      <div class="feedback-container">
+        <!-- Success Overlay -->
+        <div class="success-overlay" id="success-overlay">
+          <div class="success-icon cinzel">✧</div>
+          <h2 class="cinzel" style="color:var(--gold); margin-bottom:1rem;">Inscribed in Stone</h2>
+          <p class="cormorant" style="font-size:1.2rem;">Your contribution and scholarly feedback have been received. We value your insight.</p>
+          <button class="btn btn-ghost" style="margin-top: 2.5rem;" onclick="resetForm()">Send Another</button>
+        </div>
+
+        <div class="section-title-wrap" style="text-align:left; margin-bottom:1.5rem;">
+          <h2 class="cinzel" style="font-size:2rem;">Contribute Your Insights</h2>
+          <div class="underline-gold" style="margin: 1rem 0;"></div>
+          <p class="cormorant" style="font-size:1.2rem; opacity:0.7;">Help us refine this digital encyclopedia for future generations of scholars and enthusiasts.</p>
+        </div>
+
+        <form class="feedback-form" id="feedback-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" class="form-control" placeholder="E.g. Peter Parker" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" placeholder="peter.parkar.it.25@vpkbiet.org" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Rate Your Experience</label>
+            <div class="rating-group" id="rating-group">
+              <div class="rating-item" data-rating="1" title="Poor">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div class="rating-item" data-rating="2" title="Fair">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div class="rating-item" data-rating="3" title="Good">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div class="rating-item" data-rating="4" title="Excellent">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div class="rating-item" data-rating="5" title="Exceptional">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Suggestion or Inquiry</label>
+            <textarea id="message" class="form-control" placeholder="Share your thoughts on iconography, corrections, or general feedback..." required maxlength="1000"></textarea>
+            <div class="feedback-footer">
+              <span class="char-count" id="char-count">0 / 1000 characters</span>
+              <button type="submit" class="btn btn-gold">Transmit Feedback</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo cinzel">ॐ MandirVastu</div>
+    <nav class="footer-nav dm-sans">
+      <a href="index.html">Home</a>
+      <a href="elements.html">Elements</a>
+      <a href="styles.html">Styles</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="footer-tags dm-sans">
+      <span>Architecture</span>
+      <span>Sculpture</span>
+      <span>Sacred Geometry</span>
+      <span>Case Study</span>
+      <span>Vastu Shastra</span>
+      <span>Iconography</span>
+    </div>
+  </footer>
+
+  <div class="sub-footer">
+    <div class="copyright dm-sans">MandirVastu &copy; 2026</div>
+    <div class="team-credit-col">
+      <div class="credit-divider"></div>
+      <div class="team-credit" id="team-credit">
+        <span class="reveal-text">Made with</span>
+        <span class="heart-icon gold reveal-heart">❤</span>
+        <span class="reveal-text">by <a href="https://github.com/icono-graphers" class="team-link" target="_blank">Team Icono-graphers</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Intersection Observer for team credit reveal
+      const creditObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            creditObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.9 });
+      const teamCredit = document.getElementById('team-credit');
+      if (teamCredit) creditObserver.observe(teamCredit);
+
+      // Intersection Observer for scroll animations
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      // Feedback Form Logic
+      const feedbackForm = document.getElementById('feedback-form');
+      const successOverlay = document.getElementById('success-overlay');
+      const ratingItems = document.querySelectorAll('.rating-item');
+      const messageArea = document.getElementById('message');
+      const charCount = document.getElementById('char-count');
+      let currentRating = 0;
+
+      ratingItems.forEach(item => {
+        item.addEventListener('click', () => {
+          currentRating = item.dataset.rating;
+          ratingItems.forEach(i => {
+            i.classList.remove('active');
+            if (i.dataset.rating <= currentRating) i.classList.add('active');
+          });
+        });
+      });
+
+      messageArea.addEventListener('input', (e) => {
+        const target = e.target;
+        charCount.innerText = `${target.value.length} / 1000 characters`;
+      });
+
+      feedbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = feedbackForm.querySelector('button[type="submit"]');
+        btn.innerText = 'Transmitting...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+          successOverlay.classList.add('active');
+          feedbackForm.reset();
+          ratingItems.forEach(i => i.classList.remove('active'));
+          btn.innerText = 'Transmit Feedback';
+          btn.disabled = false;
+        }, 1500);
+      });
+
+      window.resetForm = () => {
+        successOverlay.classList.remove('active');
+        charCount.innerText = '0 / 1000 characters';
+      };
+
+      // Mobile Nav Toggle
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.querySelector('.nav-links');
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+          navLinks.classList.toggle('nav-active');
+          if (navLinks.classList.contains('nav-active')) {
+            navLinks.style.display = 'flex';
+          } else {
+            setTimeout(() => { if (!navLinks.classList.contains('nav-active')) navLinks.style.display = 'none'; }, 400);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
