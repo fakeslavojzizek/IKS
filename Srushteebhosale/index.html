@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Knowledge Systems (IKS) Quiz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Heritage Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        heritage: {
+                            red: '#7f1d1d', /* Deep Maroon */
+                            light: '#991b1b',
+                            dark: '#450a0a',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        parchment: '#fdfbf7'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heritage: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #fdfbf7;
+            /* Subtle mandala pattern background */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d97706' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        input[type="radio"] { accent-color: #7f1d1d; }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .sticky-timer { position: sticky; top: 1rem; z-index: 50; backdrop-filter: blur(8px); background-color: rgba(253, 251, 247, 0.9); }
+        .manuscript-card { border: 1px solid #fbbf24; position: relative; }
+        .manuscript-card::after { content: ''; position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px; border: 1px solid rgba(217, 119, 6, 0.2); pointer-events: none; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 font-sans pb-12">
+
+    <div class="max-w-4xl mx-auto px-4 py-10">
+        <!-- Header -->
+        <header class="text-center mb-10 fade-in">
+            <div class="inline-flex justify-center items-center w-20 h-20 bg-white rounded-full mb-4 shadow-md border-2 border-gold-400 text-heritage-red">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                    <path d="M12 22s-4-2.5-6-7c-1.5-3.5-.5-7 1-9 1.5-2 5-4 5-4s3.5 2 5 4c1.5 2 2.5 5.5 1 9-2 4.5-6 7-6 7z" opacity="0.3"/>
+                    <path d="M12 22s-2.5-3-3.5-7c-.8-3.5.5-6 2-7.5 1.5-1.5 1.5-1.5 1.5-1.5s0 0 1.5 1.5c1.5 1.5 2.8 4 2 7.5-1 4-3.5 7-3.5 7z"/>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-heritage-red mb-3 font-heritage tracking-tight">IKS Prashnavali</h1>
+            <p class="text-heritage-dark md:text-lg font-medium">Explore Ancient Indian Science, Math & Culture</p>
+            <div class="w-24 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+        </header>
+
+        <main class="bg-white rounded-2xl shadow-2xl p-6 md:p-10 border-t-8 border-heritage-red relative">
+            
+            <!-- START SCREEN -->
+            <div id="intro-container" class="text-center py-10 fade-in">
+                <h2 class="text-3xl font-heritage text-heritage-red mb-6">Begin Your Journey</h2>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-10">
+                    <div class="bg-orange-50 px-6 py-3 rounded-xl border border-gold-200">
+                        <span class="block text-xs uppercase text-gold-700 font-bold">Total Questions</span>
+                        <span class="text-xl font-bold">10 Tasks</span>
+                    </div>
+                    <div class="bg-orange-50 px-6 py-3 rounded-xl border border-gold-200">
+                        <span class="block text-xs uppercase text-gold-700 font-bold">Time Limit</span>
+                        <span class="text-xl font-bold">05:00 Mins</span>
+                    </div>
+                </div>
+                <button id="start-btn" class="bg-heritage-red hover:bg-heritage-light text-white font-bold py-4 px-12 rounded-full transition-all shadow-lg hover:scale-105 uppercase tracking-widest text-sm border-b-4 border-heritage-dark">
+                    Start Assessment
+                </button>
+            </div>
+
+            <!-- QUIZ SCREEN -->
+            <div id="quiz-container" class="hidden">
+                <div class="sticky-timer flex justify-between items-center border-b border-gold-200 pb-4 mb-8 pt-2">
+                    <h2 class="text-xl font-heritage font-bold text-heritage-red">Evaluation in Progress</h2>
+                    <div id="timer-box" class="flex items-center bg-white text-heritage-red px-5 py-2 rounded-full font-bold border-2 border-gold-400">
+                        <span id="timer-display" class="font-mono text-xl">05:00</span>
+                    </div>
+                </div>
+
+                <form id="quiz-form">
+                    <div id="questions-wrapper" class="space-y-8"></div>
+                    <div class="mt-12 text-center">
+                        <button type="submit" class="bg-heritage-red hover:bg-heritage-light text-white font-bold py-4 px-16 rounded-full transition-all shadow-xl uppercase tracking-widest border-b-4 border-heritage-dark">
+                            Submit Final Answers
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- RESULTS SCREEN -->
+            <div id="results-container" class="hidden text-center py-6">
+                <div id="timeout-msg" class="hidden text-red-600 font-bold mb-4">⏳ Time Expired! Auto-submitted.</div>
+                <h2 class="text-4xl font-heritage font-bold text-heritage-red mb-6">Results</h2>
+                
+                <div class="bg-orange-50 border-2 border-gold-400 rounded-3xl p-10 mb-10 inline-block w-full max-w-sm shadow-inner">
+                    <p class="text-sm uppercase tracking-widest text-gold-700 font-bold mb-2">Knowledge Score</p>
+                    <div class="text-7xl font-bold text-heritage-red font-heritage">
+                        <span id="score-display">0</span><span class="text-3xl text-gold-600">/10</span>
+                    </div>
+                    <p id="feedback-message" class="mt-6 text-gray-800 font-medium italic"></p>
+                </div>
+
+                <div class="block">
+                    <button onclick="location.reload()" class="bg-gray-800 hover:bg-black text-white py-3 px-10 rounded-full transition-all uppercase tracking-widest text-xs">
+                        Restart Quiz
+                    </button>
+                </div>
+                
+                <div id="answers-breakdown" class="mt-16 text-left space-y-6 hidden border-t-2 border-gold-100 pt-10">
+                    <h3 class="text-2xl font-heritage font-bold text-heritage-red mb-8 text-center">Review Manuscript</h3>
+                    <div id="breakdown-wrapper" class="space-y-4"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "Who is known as the 'Father of Surgery' in ancient India?", o: ["Charaka", "Patanjali", "Sushruta", "Vagbhata"], a: 2 },
+            { q: "Which text is a foundational treatise on statecraft and economic policy?", o: ["Rig Veda", "Arthashastra", "Manusmriti", "Upanishads"], a: 1 },
+            { q: "The concept of 'Zero' was formally defined by which mathematician?", o: ["Brahmagupta", "Aryabhata", "Bhaskara II", "Varahamihira"], a: 0 },
+            { q: "Who authored the 'Ashtadhyayi' (Sanskrit grammar)?", o: ["Kalidasa", "Panini", "Valmiki", "Vyasa"], a: 1 },
+            { q: "The rust-resistant Iron Pillar is located in which city?", o: ["Varanasi", "Patna", "Delhi", "Ujjain"], a: 2 },
+            { q: "Which scholar conceptualized binary numbers in 'Chandahsastra'?", o: ["Pingala", "Mahavira", "Baudhayana", "Bhaskara I"], a: 0 },
+            { q: "Who founded the Kerala School of Astronomy and Mathematics?", o: ["Ramanujan", "Madhava", "Somayaji", "Jyesthadeva"], a: 1 },
+            { q: "Which text contains early forms of the Pythagorean theorem?", o: ["Surya Siddhanta", "Sulba Sutras", "Nyaya Sutras", "Charaka Samhita"], a: 1 },
+            { q: "The Jantar Mantar observatories were built by:", o: ["Raja Chola", "Emperor Ashoka", "Maharaja Jai Singh II", "Krishnadevaraya"], a: 2 },
+            { q: "What does 'Ayurveda' literally translate to?", o: ["Science of Plants", "Knowledge of Life", "Study of Disease", "Path to Health"], a: 1 }
+        ];
+
+        let timeRemaining = 300;
+        let timerInterval;
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                const mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+                const secs = (timeRemaining % 60).toString().padStart(2, '0');
+                document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz(true);
+                }
+            }, 1000);
+        }
+
+        function loadQuiz() {
+            const wrapper = document.getElementById('questions-wrapper');
+            quizData.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = 'manuscript-card bg-orange-50/30 rounded-xl p-6 border-l-8 border-heritage-red fade-in';
+                div.innerHTML = `
+                    <p class="text-lg font-bold mb-4"><span class="text-heritage-red">Q${i+1}.</span> ${item.q}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${item.o.map((opt, oi) => `
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gold-100 hover:bg-gold-50 cursor-pointer transition-all">
+                                <input type="radio" name="q${i}" value="${oi}" required>
+                                <span class="text-gray-700">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                wrapper.appendChild(div);
+            });
+        }
+
+        function submitQuiz(isTimeout) {
+            clearInterval(timerInterval);
+            let score = 0;
+            const userAnswers = [];
+            quizData.forEach((item, i) => {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const val = selected ? parseInt(selected.value) : null;
+                userAnswers.push(val);
+                if (val === item.a) score++;
+            });
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            if (isTimeout) document.getElementById('timeout-msg').classList.remove('hidden');
+            
+            document.getElementById('score-display').textContent = score;
+            const msgs = ["Exceptional Mastery!", "Great Knowledge!", "Good Effort!", "Keep Learning!"];
+            document.getElementById('feedback-message').textContent = score > 8 ? msgs[0] : score > 5 ? msgs[1] : score > 3 ? msgs[2] : msgs[3];
+
+            document.getElementById('answers-breakdown').classList.remove('hidden');
+            const bWrapper = document.getElementById('breakdown-wrapper');
+            quizData.forEach((item, i) => {
+                const correct = userAnswers[i] === item.a;
+                const d = document.createElement('div');
+                d.className = `p-4 rounded-lg text-sm border-l-4 ${correct ? 'border-green-500 bg-green-50' : 'border-red-400 bg-red-50'}`;
+                d.innerHTML = `<strong>${i+1}. ${item.q}</strong><br>Answer: ${item.o[item.a]}`;
+                bWrapper.appendChild(d);
+            });
+            window.scrollTo(0, 0);
+        }
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('intro-container').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            startTimer();
+        });
+
+        document.getElementById('quiz-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitQuiz(false);
+        });
+
+        loadQuiz();
+    </script>
+</body>
+</html>
+
